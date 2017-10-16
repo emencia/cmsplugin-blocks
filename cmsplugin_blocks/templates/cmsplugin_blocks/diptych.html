@@ -1,0 +1,17 @@
+{% load i18n fb_versions %}{% spaceless %}
+<div class="block unpadded white">
+    <div class="diptych-object">
+        <div class="content">
+            <div class="wrap">
+                {{ instance.content|safe }}
+            </div>
+        </div>
+        <div class="media">
+            <img src="{{ instance.background.url }}" class="background" alt=""
+                    data-imgbg-position="50% 50%"
+                    data-imgbg-repeat="no-repeat"
+                    data-imgbg-size="cover">
+        </div>
+    </div>
+</div>
+{% endspaceless %}

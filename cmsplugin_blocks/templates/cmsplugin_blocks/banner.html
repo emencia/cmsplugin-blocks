@@ -1,0 +1,13 @@
+{% load i18n fb_versions %}{% spaceless %}
+<div class="block unpadded flex-banner">
+    <div class="content"{% if instance.background %} style="background-image: url({{ instance.background.url }})"{% endif %}>
+        <div class="inner">
+            <div class="column row text-center v-space-short">
+                {% if instance.content %}
+                    {{ instance.content|safe }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endspaceless %}

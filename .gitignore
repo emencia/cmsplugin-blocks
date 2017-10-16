@@ -1,0 +1,20 @@
+# virtualenv
+/venv
+
+#egg's specific
+*.egg-info
+
+#defaults
+/dist
+*.pyc
+*.pyo
+
+#tests
+.tox
+.cache
+__pycache__
+
+#django
+project_test/db.sqlite3
+project_test/project/settings/local.py
+project_test/project/static

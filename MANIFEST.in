@@ -1,0 +1,7 @@
+include MANIFEST.in
+include LICENCE.txt
+include README.rst
+
+recursive-include cmsplugin_blocks/templates *
+recursive-include cmsplugin_blocks/static *
+recursive-include cmsplugin_blocks/locale *
