@@ -14,7 +14,7 @@ class DiptychForm(forms.ModelForm):
         }
         fields = [
             'alignment',
-            'background',
+            'image',
             'content',
         ]
         exclude = []

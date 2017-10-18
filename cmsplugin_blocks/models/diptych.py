@@ -25,8 +25,8 @@ class Diptych(CMSPlugin):
         blank=False,
         default='left',
     )
-    background = models.ImageField(
-        _('Background image'),
+    image = models.ImageField(
+        _('Image'),
         upload_to='blocks/diptych/%y/%m',
         max_length=255,
         null=True,

@@ -52,7 +52,7 @@ class DiptychPlugin(CMSPluginBase):
         (None, {
             'fields': (
                 'alignment',
-                'background',
+                'image',
                 'content',
             ),
         }),
