@@ -1,6 +1,7 @@
 include MANIFEST.in
 include LICENCE.txt
 include README.rst
+include HISTORY.rst
 
 recursive-include cmsplugin_blocks/templates *
 recursive-include cmsplugin_blocks/static *

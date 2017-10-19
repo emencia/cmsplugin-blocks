@@ -1,13 +1,11 @@
 {% load i18n fb_versions %}{% spaceless %}
-<div class="block unpadded">
-    <div class="slick-container intro">
+<div class="block slider">
+    <div class="slick-container">
         {% for slide in slides %}
         <div class="item" style="background-image: url({{ slide.background.url }})">
-            <div class="inner">
-                <div class="caption">
-                    <div class="row column">
-                        {{ slide.content|safe }}
-                    </div>
+            <div class="caption">
+                <div class="row column">
+                    {{ slide.content|safe }}
                 </div>
             </div>
         </div>

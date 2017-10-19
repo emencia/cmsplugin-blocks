@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Version 0.2.0 - 2017/10/19
+--------------------------
+
+* Added ``establishment_opening`` model/form/plugin/template;
+* Cleaned template from private integration to basic HTML;
+
 Version 0.1.2 - 2017/10/18
 --------------------------
 

@@ -65,6 +65,9 @@ class Slider(CMSPlugin):
             slide_item.slider = self
             slide_item.save()
 
+    class Meta:
+        verbose_name = _('Slider')
+        verbose_name_plural = _('Sliders')
 
 
 @python_2_unicode_compatible
@@ -112,5 +115,6 @@ class SlideItem(models.Model):
     def __str__(self):
         return Truncator(strip_tags(self.content)).words(4, truncate="...")
 
-    def save(self, *args, **kwargs):
-        super(SlideItem, self).save(*args, **kwargs)
+    class Meta:
+        verbose_name = _('Slide item')
+        verbose_name_plural = _('Slide items')

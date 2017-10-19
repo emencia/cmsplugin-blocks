@@ -1,2 +1,2 @@
-"""A set of DjangoCMS plugins for common content blocks"""
-__version__ = '0.1.2'
+"""A set of DjangoCMS plugins to collect common content blocks"""
+__version__ = '0.2.0'

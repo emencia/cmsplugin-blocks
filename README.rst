@@ -4,9 +4,7 @@
 Emencia DjangoCMS blocks
 ========================
 
-A serie of `DjangoCMS`_ plugin to collect common content blocks to use in CMS pages.
-
-**This is Alpha stage, it may break in future, things can disappear, etc..**. You are advised.
+**This is Beta stage, it may break in future, things can disappear, etc..**. You are advised.
 
 Requires
 ********
@@ -35,4 +33,4 @@ Then load its settings from your settings file: ::
 
     from cmsplugin_blocks import *
 
-And finally apply its migrations.
+And finally apply database migrations.

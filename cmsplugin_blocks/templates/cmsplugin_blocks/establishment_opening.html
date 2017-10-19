@@ -1,0 +1,20 @@
+{% load i18n fb_versions %}{% spaceless %}
+<div class="block">
+    <div class="column row">
+        <h1>{{ instance.title }}</h1>
+
+        <div class="grid">
+            {% for day in days %}
+            <div class="item">
+                <h2>{{ day.name }}</h2>
+                <p>{{ day.hours|safe }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if instance.comment %}
+            {{ instance.comment|safe }}
+        {% endif %}
+    </div>
+</div>
+{% endspaceless %}
