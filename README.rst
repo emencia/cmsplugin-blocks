@@ -10,7 +10,7 @@ Requires
 ********
 
 * Python >= 3.4;
-* `DjangoCMS`_ >= 3.3;
+* `DjangoCMS`_ >= 3.4,<3.5;
 * `djangocms-text-ckeditor`_;
 
 Install

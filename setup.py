@@ -25,7 +25,8 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
-        'django-cms>=3.3',
+        'Django>=1.9,<1.12',
+        'django-cms>=3.4,<3.5',
         'djangocms-text-ckeditor',
     ],
     include_package_data=True,
