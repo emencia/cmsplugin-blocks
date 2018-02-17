@@ -18,13 +18,6 @@ from cmsplugin_blocks.models.slider import Slider, SlideItem
 from cmsplugin_blocks.models.slider import get_template_default
 from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
 
-from cmsplugin_blocks.models.establishment_opening import (
-    EstablishmentOpening, DayItem
-)
-from cmsplugin_blocks.forms.establishment_opening import (
-    EstablishmentOpeningForm, DayItemForm
-)
-
 
 class BannerPlugin(CMSPluginBase):
     module = _('Blocks')
@@ -130,56 +123,6 @@ class SliderPlugin(CMSPluginBase):
         return context
 
 
-class DayItemAdmin(admin.StackedInline):
-    """
-    Admin interface to enable inline mode for items inside OpeningHours plugin
-    """
-    model = DayItem
-    form = DayItemForm
-    extra = 0
-    fieldsets = (
-        (None, {
-            'fields': (
-                'opening',
-                'name',
-                'hours',
-            ),
-        }),
-    )
-
-
-class EstablishmentOpeningPlugin(CMSPluginBase):
-    """
-    EstablishmentOpeningForm interface is able to add/edit/remove day items
-    as inline forms.
-    """
-    module = _('Blocks')
-    name = _("Establishment opening")
-    model = EstablishmentOpening
-    form = EstablishmentOpeningForm
-    inlines = (DayItemAdmin,)
-    render_template = 'cmsplugin_blocks/establishment_opening.html'
-    cache = True
-    fieldsets = (
-        (None, {
-            'fields': (
-                'title',
-                'comment',
-            ),
-        }),
-    )
-
-    def render(self, context, instance, placeholder):
-        context = super(EstablishmentOpeningPlugin, self).render(context, instance, placeholder)
-        days = instance.day_item.all()
-        context.update({
-            'instance': instance,
-            'days': days,
-        })
-        return context
-
-
 plugin_pool.register_plugin(BannerPlugin)
 plugin_pool.register_plugin(DiptychPlugin)
 plugin_pool.register_plugin(SliderPlugin)
-plugin_pool.register_plugin(EstablishmentOpeningPlugin)
