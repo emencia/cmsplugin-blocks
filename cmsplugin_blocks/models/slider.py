@@ -14,16 +14,14 @@ from django.utils.html import strip_tags
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
 
-from filebrowser.fields import FileBrowseField
-
 from cms.models.pluginmodel import CMSPlugin
 
 
-def get_template_choices():
+def get_slider_template_choices():
     return settings.BLOCKS_SLIDER_TEMPLATES
 
 
-def get_template_default():
+def get_slider_default_template():
     return settings.BLOCKS_SLIDER_TEMPLATES[0][0]
 
 
@@ -33,17 +31,17 @@ class Slider(CMSPlugin):
     Slide container
     """
     title = models.CharField(
-        _('title'),
+        _('Title'),
         blank=False,
         max_length=50,
         default="",
     )
     template = models.CharField(
-        _('model'),
+        _('Template'),
         blank=True,
         max_length=100,
-        choices=get_template_choices(),
-        default=get_template_default(),
+        choices=get_slider_template_choices(),
+        default=get_slider_default_template(),
         help_text=_('Used template for content look.'),
     )
 

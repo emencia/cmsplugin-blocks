@@ -1,0 +1,10 @@
+{% spaceless %}
+<div class="box card {{ instance.alignment }}">
+    <div class="content">
+        {{ instance.content|safe }}
+    </div>
+    <div class="media">
+        <img src="{{ instance.image.url }}" alt="">
+    </div>
+</div>
+{% endspaceless %}

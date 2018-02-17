@@ -1,10 +1,10 @@
-from cmsplugin_blocks.forms.banner import BannerForm
-from cmsplugin_blocks.forms.diptych import DiptychForm
+from cmsplugin_blocks.forms.hero import HeroForm
+from cmsplugin_blocks.forms.card import CardForm
 from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
 
 
 __all__ = [
-    'BannerForm',
-    'DiptychForm',
+    'HeroForm',
+    'CardForm',
     'SliderForm', 'SlideItemForm',
 ]

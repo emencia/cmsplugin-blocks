@@ -3,17 +3,18 @@ from django import forms
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
-from cmsplugin_blocks.models.diptych import Diptych
+from cmsplugin_blocks.models.card import Card
 
 
-class DiptychForm(forms.ModelForm):
+class CardForm(forms.ModelForm):
     class Meta:
-        model = Diptych
+        model = Card
         widgets = {
             'content': TextEditorWidget,
         }
         fields = [
             'alignment',
+            'template',
             'image',
             'content',
         ]

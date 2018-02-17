@@ -3,16 +3,17 @@ from django import forms
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
-from cmsplugin_blocks.models.banner import Banner
+from cmsplugin_blocks.models.hero import Hero
 
 
-class BannerForm(forms.ModelForm):
+class HeroForm(forms.ModelForm):
     class Meta:
-        model = Banner
+        model = Hero
         widgets = {
             'content': TextEditorWidget,
         }
         fields = [
+            'template',
             'background',
             'content',
         ]

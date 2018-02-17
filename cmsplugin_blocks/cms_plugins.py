@@ -8,27 +8,29 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from cmsplugin_blocks.models.banner import Banner
-from cmsplugin_blocks.forms.banner import BannerForm
+from cmsplugin_blocks.models.hero import get_hero_default_template, Hero
+from cmsplugin_blocks.forms.hero import HeroForm
 
-from cmsplugin_blocks.models.diptych import Diptych
-from cmsplugin_blocks.forms.diptych import DiptychForm
+from cmsplugin_blocks.models.card import get_card_default_template, Card
+from cmsplugin_blocks.forms.card import CardForm
 
-from cmsplugin_blocks.models.slider import Slider, SlideItem
-from cmsplugin_blocks.models.slider import get_template_default
+from cmsplugin_blocks.models.slider import (get_slider_default_template,
+                                            Slider, SlideItem)
+from cmsplugin_blocks.models.slider import
 from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
 
 
-class BannerPlugin(CMSPluginBase):
+class HeroPlugin(CMSPluginBase):
     module = _('Blocks')
-    name = _("Banner")
-    model = Banner
-    form = BannerForm
-    render_template = 'cmsplugin_blocks/banner.html'
+    name = _("Hero")
+    model = Hero
+    form = HeroForm
+    render_template = get_hero_default_template()
     cache = True
     fieldsets = (
         (None, {
             'fields': (
+                'template',
                 'background',
                 'content',
             ),
@@ -36,23 +38,29 @@ class BannerPlugin(CMSPluginBase):
     )
 
     def render(self, context, instance, placeholder):
+        context = super(HeroPlugin, self).render(context, instance,
+                                                 placeholder)
+        self.render_template = instance.template
+
         context.update({
             'instance': instance,
         })
+
         return context
 
 
-class DiptychPlugin(CMSPluginBase):
+class CardPlugin(CMSPluginBase):
     module = _('Blocks')
-    name = _("Diptych")
-    model = Diptych
-    form = DiptychForm
-    render_template = 'cmsplugin_blocks/diptych.html'
+    name = _("Card")
+    model = Card
+    form = CardForm
+    render_template = get_card_default_template()
     cache = True
     fieldsets = (
         (None, {
             'fields': (
                 'alignment',
+                'template',
                 'image',
                 'content',
             ),
@@ -60,9 +68,14 @@ class DiptychPlugin(CMSPluginBase):
     )
 
     def render(self, context, instance, placeholder):
+        context = super(CardPlugin, self).render(context, instance,
+                                                 placeholder)
+        self.render_template = instance.template
+
         context.update({
             'instance': instance,
         })
+
         return context
 
 
@@ -100,7 +113,7 @@ class SliderPlugin(CMSPluginBase):
     model = Slider
     form = SliderForm
     inlines = (SlideItemAdmin,)
-    render_template = get_template_default()
+    render_template = get_slider_default_template()
     cache = True
     fieldsets = (
         (None, {
@@ -123,6 +136,6 @@ class SliderPlugin(CMSPluginBase):
         return context
 
 
-plugin_pool.register_plugin(BannerPlugin)
-plugin_pool.register_plugin(DiptychPlugin)
+plugin_pool.register_plugin(HeroPlugin)
+plugin_pool.register_plugin(CardPlugin)
 plugin_pool.register_plugin(SliderPlugin)

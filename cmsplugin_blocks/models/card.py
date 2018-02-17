@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -8,10 +9,18 @@ from django.utils.translation import ugettext_lazy as _
 from cms.models.pluginmodel import CMSPlugin
 
 
+def get_card_template_choices():
+    return settings.BLOCKS_CARD_TEMPLATES
+
+
+def get_card_default_template():
+    return settings.BLOCKS_CARD_TEMPLATES[0][0]
+
+
 @python_2_unicode_compatible
-class Diptych(CMSPlugin):
+class Card(CMSPlugin):
     """
-    A simple diptych block where you can choose alignment for content and image
+    A simple card object
     """
     ALIGNMENT_CHOICES = [
         ('left', _('Content to the left, image to the right')),
@@ -25,12 +34,20 @@ class Diptych(CMSPlugin):
         blank=False,
         default='left',
     )
+    template = models.CharField(
+        _('Template'),
+        blank=True,
+        max_length=100,
+        choices=get_card_template_choices(),
+        default=get_card_default_template(),
+        help_text=_('Used template for content look.'),
+    )
     image = models.ImageField(
         _('Image'),
-        upload_to='blocks/diptych/%y/%m',
+        upload_to='blocks/card/%y/%m',
         max_length=255,
         null=True,
-        blank=False,
+        blank=True,
         default=None,
     )
     content = models.TextField(
@@ -40,15 +57,15 @@ class Diptych(CMSPlugin):
     )
 
     def __init__(self, *args, **kwargs):
-        super(Diptych, self).__init__(*args, **kwargs)
+        super(Card, self).__init__(*args, **kwargs)
         self.content = force_text(self.content)
 
     def __str__(self):
         return Truncator(strip_tags(self.content)).words(4, truncate="...")
 
     def save(self, *args, **kwargs):
-        super(Diptych, self).save(*args, **kwargs)
+        super(Card, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = _('Diptych')
-        verbose_name_plural = _('Diptychs')
+        verbose_name = _('Card')
+        verbose_name_plural = _('Cards')
