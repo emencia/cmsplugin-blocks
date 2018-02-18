@@ -8,45 +8,18 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from cmsplugin_blocks.models.hero import get_hero_default_template, Hero
-from cmsplugin_blocks.forms.hero import HeroForm
+from cmsplugin_blocks.choices_helpers import (get_card_default_template,
+                                              get_hero_default_template,
+                                              get_slider_default_template)
 
-from cmsplugin_blocks.models.card import get_card_default_template, Card
+from cmsplugin_blocks.models.card import Card
 from cmsplugin_blocks.forms.card import CardForm
 
-from cmsplugin_blocks.models.slider import (get_slider_default_template,
-                                            Slider, SlideItem)
-from cmsplugin_blocks.models.slider import
+from cmsplugin_blocks.models.hero import Hero
+from cmsplugin_blocks.forms.hero import HeroForm
+
+from cmsplugin_blocks.models.slider import Slider, SlideItem
 from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
-
-
-class HeroPlugin(CMSPluginBase):
-    module = _('Blocks')
-    name = _("Hero")
-    model = Hero
-    form = HeroForm
-    render_template = get_hero_default_template()
-    cache = True
-    fieldsets = (
-        (None, {
-            'fields': (
-                'template',
-                'background',
-                'content',
-            ),
-        }),
-    )
-
-    def render(self, context, instance, placeholder):
-        context = super(HeroPlugin, self).render(context, instance,
-                                                 placeholder)
-        self.render_template = instance.template
-
-        context.update({
-            'instance': instance,
-        })
-
-        return context
 
 
 class CardPlugin(CMSPluginBase):
@@ -69,6 +42,35 @@ class CardPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(CardPlugin, self).render(context, instance,
+                                                 placeholder)
+        self.render_template = instance.template
+
+        context.update({
+            'instance': instance,
+        })
+
+        return context
+
+
+class HeroPlugin(CMSPluginBase):
+    module = _('Blocks')
+    name = _("Hero")
+    model = Hero
+    form = HeroForm
+    render_template = get_hero_default_template()
+    cache = True
+    fieldsets = (
+        (None, {
+            'fields': (
+                'template',
+                'background',
+                'content',
+            ),
+        }),
+    )
+
+    def render(self, context, instance, placeholder):
+        context = super(HeroPlugin, self).render(context, instance,
                                                  placeholder)
         self.render_template = instance.template
 

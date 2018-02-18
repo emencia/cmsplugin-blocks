@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -8,14 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 
-
-def get_hero_template_choices():
-    return settings.BLOCKS_HERO_TEMPLATES
-
-
-def get_hero_default_template():
-    return settings.BLOCKS_HERO_TEMPLATES[0][0]
-
+from cmsplugin_blocks.choices_helpers import (get_hero_default_template,
+                                              get_hero_template_choices)
 
 @python_2_unicode_compatible
 class Hero(CMSPlugin):

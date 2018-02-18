@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-WARNING: Every created new migration that describe 'template' field must be
-         rewrited to enclose 'choices' and 'default' options inside a
-         function instead of hardcoded values. Else new migration could be
-         triggered on any change from settings.
-
-         See initial 'Slider' object migration for a sample.
-"""
-from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -16,14 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 
-
-def get_slider_template_choices():
-    return settings.BLOCKS_SLIDER_TEMPLATES
-
-
-def get_slider_default_template():
-    return settings.BLOCKS_SLIDER_TEMPLATES[0][0]
-
+from cmsplugin_blocks.choices_helpers import (get_slider_default_template,
+                                              get_slider_template_choices)
 
 @python_2_unicode_compatible
 class Slider(CMSPlugin):

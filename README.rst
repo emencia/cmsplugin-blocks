@@ -4,12 +4,13 @@
 Emencia DjangoCMS blocks
 ========================
 
-**This is Beta stage, it may break in future, things can disappear, etc..**. You are advised.
+Some basic component plugins to make content with less involved HTML than directly using CKeditor for everything.
 
 Requires
 ********
 
 * Python >= 3.4;
+* Django>=1.9,<1.12;
 * `DjangoCMS`_ >= 3.4,<3.5;
 * `djangocms-text-ckeditor`_;
 
