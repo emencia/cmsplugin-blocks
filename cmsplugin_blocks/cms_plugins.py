@@ -8,9 +8,13 @@ from django.utils.translation import ugettext_lazy as _
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from cmsplugin_blocks.choices_helpers import (get_card_default_template,
+from cmsplugin_blocks.choices_helpers import (get_album_default_template,
+                                              get_card_default_template,
                                               get_hero_default_template,
                                               get_slider_default_template)
+
+from cmsplugin_blocks.models.album import Album, AlbumItem
+from cmsplugin_blocks.forms.album import AlbumForm, AlbumItemForm
 
 from cmsplugin_blocks.models.card import Card
 from cmsplugin_blocks.forms.card import CardForm
@@ -81,9 +85,62 @@ class HeroPlugin(CMSPluginBase):
         return context
 
 
+class AlbumItemAdmin(admin.StackedInline):
+    """
+    Plugin admin form to enable inline mode inside AlbumPlugin
+    """
+    model = AlbumItem
+    form = AlbumItemForm
+    extra = 0
+    fieldsets = (
+        (None, {
+            'fields': (
+                'album',
+                'image',
+                'content',
+            ),
+        }),
+    )
+
+
+class AlbumPlugin(CMSPluginBase):
+    """
+    Album interface is able to add/edit/remove items within inline forms.
+
+    Also used template is dynamically retrieved from 'template' value.
+    """
+    module = _('Blocks')
+    name = _("Album")
+    model = Album
+    form = AlbumForm
+    inlines = (AlbumItemAdmin,)
+    render_template = get_album_default_template()
+    cache = True
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
+                'brief',
+                'template',
+            ),
+        }),
+    )
+
+    def render(self, context, instance, placeholder):
+        context = super(AlbumPlugin, self).render(context, instance,
+                                                  placeholder)
+        self.render_template = instance.template
+        ressources = instance.album_item.all()
+        context.update({
+            'instance': instance,
+            'ressources': ressources,
+        })
+        return context
+
+
 class SlideItemAdmin(admin.StackedInline):
     """
-    Admin interface to enable inline mode for items inside Slider plugin
+    Plugin admin form to enable inline mode inside SliderPlugin
     """
     model = SlideItem
     form = SlideItemForm
@@ -138,6 +195,7 @@ class SliderPlugin(CMSPluginBase):
         return context
 
 
+plugin_pool.register_plugin(AlbumPlugin)
 plugin_pool.register_plugin(HeroPlugin)
 plugin_pool.register_plugin(CardPlugin)
 plugin_pool.register_plugin(SliderPlugin)

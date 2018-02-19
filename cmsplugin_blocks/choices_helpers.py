@@ -2,6 +2,14 @@
 from django.conf import settings
 
 
+def get_album_template_choices():
+    return settings.BLOCKS_ALBUM_TEMPLATES
+
+
+def get_album_default_template():
+    return settings.BLOCKS_ALBUM_TEMPLATES[0][0]
+
+
 def get_card_template_choices():
     return settings.BLOCKS_CARD_TEMPLATES
 
