@@ -5,6 +5,8 @@ Changelog
 Version 0.4.1 - 2018/02/20
 --------------------------
 
+* Remove long text 'brief' and 'content' field from Album and AlbumItem, replace with a simple 'title' field;
+* Added 'order' field to AlbumItem to be able to order ressources list;
 * Added mass upload field to AlbumForm;
 
 Version 0.4.0 - 2018/02/19

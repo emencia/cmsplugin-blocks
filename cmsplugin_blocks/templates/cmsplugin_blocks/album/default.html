@@ -8,10 +8,10 @@
     <div class="flex-grid">
         {% for item in ressources %}
         <div class="cell large-25">
-            <img src="{{ item.background.url }}" alt="">
-            <div class="content">
-                {{ item.content|safe }}
-            </div>
+            <img src="{{ item.image.url }}" alt="">
+            <p>
+                {{ item.title }}
+            </p>
         </div>
         {% endfor %}
     </div>
