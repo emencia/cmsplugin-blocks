@@ -122,6 +122,7 @@ class AlbumPlugin(CMSPluginBase):
                 'title',
                 'brief',
                 'template',
+                'mass_upload',
             ),
         }),
     )
