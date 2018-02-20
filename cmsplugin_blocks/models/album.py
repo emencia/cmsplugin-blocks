@@ -21,18 +21,13 @@ class Album(CMSPlugin):
         max_length=50,
         default="",
     )
-    brief = models.TextField(
-        _(u"Brief"),
-        blank=True,
-        default="",
-    )
     template = models.CharField(
         _('Template'),
         blank=True,
         max_length=100,
         choices=get_album_template_choices(),
         default=get_album_default_template(),
-        help_text=_('Used template for content look.'),
+        help_text=_('Used template for content formatting.'),
     )
 
     def __str__(self):
@@ -67,7 +62,16 @@ class AlbumItem(models.Model):
         Album,
         related_name="album_item"
     )
-
+    title = models.CharField(
+        _('Title'),
+        blank=False,
+        max_length=50,
+        default="",
+    )
+    order = models.IntegerField(
+        _('Order'),
+        default=0
+    )
     image = models.ImageField(
         _('Image'),
         upload_to='blocks/album/%y/%m',
@@ -76,17 +80,9 @@ class AlbumItem(models.Model):
         blank=False,
         default=None,
     )
-    content = models.TextField(
-        _(u"Content"),
-        default="",
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(AlbumItem, self).__init__(*args, **kwargs)
-        self.content = force_text(self.content)
 
     def __str__(self):
-        return Truncator(strip_tags(self.content)).words(4, truncate="...")
+        return self.title
 
     class Meta:
         verbose_name = _('Album item')

@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Version 0.4.1 - 2018/02/20
+--------------------------
+
+* Added mass upload field to AlbumForm;
+
 Version 0.4.0 - 2018/02/19
 --------------------------
 

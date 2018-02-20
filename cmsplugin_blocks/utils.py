@@ -13,7 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 def store_images_from_zip(instance, zip_fileobject, item_model,
-                          link_attrname, image_attrname):
+                          link_attrname, image_attrname,
+                          label_attrname=None):
     """
     Collect every image from a ZIP as an item object linked to given
     saved instance.
@@ -29,9 +30,19 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
             for images.
         item_model (model): Model object used to create items objects.
         link_attrname (string): Attribute name used for linking instance to
-            item object.
+            item object. This must relate to a Foreign key field.
         image_attrname (string): Attribute name used to store image file in
-            item object.
+            item object. This must relate to a FileField or an ImageField
+            field.
+
+    Keyword Arguments:
+        label_attrname (string): Optional attribute name to fill with image
+            filename. If given it must relate to a CharField or a TextField
+            field. If CharField, it should have enough character limit to
+            accept long paths.
+
+        Returns:
+            list: List of saved objects from image items.
     """
     stored_items = []
 
@@ -64,7 +75,11 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
 
                 try:
                     item = item_model(**{link_attrname:instance})
+                    # Save image
                     getattr(item, image_attrname).save(filename, ContentFile(data))
+                    # Optional string field to fill from filename
+                    if label_attrname:
+                        setattr(item, image_attrname, filename)
                     item.save()
                 except Exception as e:
                     print('Error creating item from file: {}'.format(str(e)))

@@ -96,8 +96,9 @@ class AlbumItemAdmin(admin.StackedInline):
         (None, {
             'fields': (
                 'album',
+                'title',
+                'order',
                 'image',
-                'content',
             ),
         }),
     )
@@ -113,6 +114,7 @@ class AlbumPlugin(CMSPluginBase):
     name = _("Album")
     model = Album
     form = AlbumForm
+    # TODO: Try with tabular inline
     inlines = (AlbumItemAdmin,)
     render_template = get_album_default_template()
     cache = True
@@ -120,7 +122,6 @@ class AlbumPlugin(CMSPluginBase):
         (None, {
             'fields': (
                 'title',
-                'brief',
                 'template',
                 'mass_upload',
             ),
@@ -131,6 +132,7 @@ class AlbumPlugin(CMSPluginBase):
         context = super(AlbumPlugin, self).render(context, instance,
                                                   placeholder)
         self.render_template = instance.template
+        # TODO: Order ressources by 'order' field
         ressources = instance.album_item.all()
         context.update({
             'instance': instance,
