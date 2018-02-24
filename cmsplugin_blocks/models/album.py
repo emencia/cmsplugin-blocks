@@ -18,13 +18,13 @@ class Album(CMSPlugin):
     title = models.CharField(
         _('Title'),
         blank=False,
-        max_length=50,
+        max_length=150,
         default="",
     )
     template = models.CharField(
         _('Template'),
-        blank=True,
-        max_length=100,
+        blank=False,
+        max_length=150,
         choices=get_album_template_choices(),
         default=get_album_default_template(),
         help_text=_('Used template for content formatting.'),
@@ -64,12 +64,13 @@ class AlbumItem(models.Model):
     )
     title = models.CharField(
         _('Title'),
-        blank=False,
-        max_length=50,
+        blank=True,
+        max_length=150,
         default="",
     )
     order = models.IntegerField(
         _('Order'),
+        blank=False,
         default=0
     )
     image = models.ImageField(

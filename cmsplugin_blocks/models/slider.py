@@ -18,13 +18,13 @@ class Slider(CMSPlugin):
     title = models.CharField(
         _('Title'),
         blank=False,
-        max_length=50,
+        max_length=150,
         default="",
     )
     template = models.CharField(
         _('Template'),
-        blank=True,
-        max_length=100,
+        blank=False,
+        max_length=150,
         choices=get_slider_template_choices(),
         default=get_slider_default_template(),
         help_text=_('Used template for content look.'),
@@ -73,6 +73,7 @@ class SlideItem(models.Model):
     )
     content = models.TextField(
         _(u"Content"),
+        blank=True,
         default="",
     )
     link_name = models.CharField(

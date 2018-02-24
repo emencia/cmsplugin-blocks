@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Version 0.4.2 - Unreleased
+--------------------------
+
+* Adjusted 'blank' and 'max_length' field attribute for every models (migrations have been rebooted again);
+
+
 Version 0.4.1 - 2018/02/24
 --------------------------
 

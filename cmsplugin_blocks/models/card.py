@@ -29,8 +29,8 @@ class Card(CMSPlugin):
     )
     template = models.CharField(
         _('Template'),
-        blank=True,
-        max_length=100,
+        blank=False,
+        max_length=150,
         choices=get_card_template_choices(),
         default=get_card_default_template(),
         help_text=_('Used template for content look.'),

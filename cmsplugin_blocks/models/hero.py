@@ -17,8 +17,8 @@ class Hero(CMSPlugin):
     """
     template = models.CharField(
         _('Template'),
-        blank=True,
-        max_length=100,
+        blank=False,
+        max_length=150,
         choices=get_hero_template_choices(),
         default=get_hero_default_template(),
         help_text=_('Used template for content look.'),
@@ -27,11 +27,13 @@ class Hero(CMSPlugin):
         _('Image'),
         upload_to='blocks/hero/%y/%m',
         max_length=255,
+        blank=True,
         null=True,
         default=None,
     )
     content = models.TextField(
         _(u"Content"),
+        blank=False,
         default="",
     )
 

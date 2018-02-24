@@ -1,6 +1,8 @@
 .. _DjangoCMS: https://www.django-cms.org/
 .. _djangocms-text-ckeditor: https://github.com/divio/djangocms-text-ckeditor
 
+**This is Beta stage: it may breaks in future, things can disappear, migration may be rebooted, etc..**. You are advised.
+
 Emencia DjangoCMS blocks
 ========================
 
