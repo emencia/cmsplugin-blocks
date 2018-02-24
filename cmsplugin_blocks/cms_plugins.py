@@ -132,13 +132,22 @@ class AlbumPlugin(CMSPluginBase):
         context = super(AlbumPlugin, self).render(context, instance,
                                                   placeholder)
         self.render_template = instance.template
-        # TODO: Order ressources by 'order' field
-        ressources = instance.album_item.all()
+        ressources = instance.album_item.all().order_by('order')
         context.update({
             'instance': instance,
             'ressources': ressources,
         })
         return context
+
+    def save_model(self, request, obj, form, change):
+        result = super(AlbumPlugin, self).save_model(request, obj, form, change)
+
+        # Save awaiting item in memory
+        for item in getattr(obj, '_awaiting_items', []):
+            item.album = obj
+            item.save()
+
+        return result
 
 
 class SlideItemAdmin(admin.StackedInline):

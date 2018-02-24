@@ -66,7 +66,14 @@ class AlbumForm(forms.ModelForm):
         album = super(AlbumForm, self).save(*args, **kwargs)
 
         # Collect item from zip if any
-        items = store_images_from_zip(album, self.uploaded_zip, AlbumItem, 'album', 'image')
+        album._awaiting_items = store_images_from_zip(
+            album,
+            self.uploaded_zip,
+            AlbumItem,
+            'album',
+            'image',
+            label_attrname="title"
+        )
 
         return album
 

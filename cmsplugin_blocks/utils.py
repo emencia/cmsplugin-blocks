@@ -21,8 +21,9 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
 
     Once image searching is finished the zip file object is closed.
 
-    Some code has been taken/inspired from 'models.upload.process_zipfile'
-    from 'imagestore' app.
+    This does not really save any item object to deal with 'creation' state
+    from instance that does not have an id yet. Items are created and stored
+    in a list of item to save further.
 
     Arguments:
         instance (object): Saved instance to link to item objects.
@@ -47,43 +48,46 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
     stored_items = []
 
     if zip_fileobject:
-        print("Got a valid ZIP")
         for filename in sorted(zip_fileobject.namelist()):
             # do not process meta files
             if filename.startswith('__'):
                 continue
 
-            print(filename)
-
             # Get archived file from ZIP
             data = zip_fileobject.read(filename)
             if len(data):
                 try:
-                    # the following is taken from django.forms.fields.ImageField:
-                    # load() could spot a truncated JPEG, but it loads the entire
-                    # image in memory, which is a DoS vector. See #3848 and #18520.
-                    # verify() must be called immediately after the constructor.
+                    # the following is taken from
+                    # django.forms.fields.ImageField: load() could spot a
+                    # truncated JPEG, but it loads the entire image in memory,
+                    # which is a DoS vector. See #3848 and #18520. verify()
+                    # must be called immediately after the constructor.
                     PILImage.open(BytesIO(data)).verify()
                 except Exception as e:
                     # if a "bad" file is found we just skip it.
                     print('Error verifying image: {}'.format(str(e)))
                     continue
 
-                if hasattr(data, 'seek') and isinstance(data.seek, collections.Callable):
+                if hasattr(data, 'seek') and isinstance(data.seek,
+                                                        collections.Callable):
                     print('seeked')
                     data.seek(0)
 
                 try:
                     item = item_model(**{link_attrname:instance})
-                    # Save image
-                    getattr(item, image_attrname).save(filename, ContentFile(data))
+                    # Lazy save since we dont have album id yet when creating
+                    getattr(item, image_attrname).save(filename,
+                                                       ContentFile(data),
+                                                       save=False)
+
                     # Optional string field to fill from filename
                     if label_attrname:
-                        setattr(item, image_attrname, filename)
-                    item.save()
+                        setattr(item, label_attrname, filename)
                 except Exception as e:
                     print('Error creating item from file: {}'.format(str(e)))
                 else:
+                    # Store created item to be saved further in plugin
+                    # 'save_model' method
                     stored_items.append(item)
 
         # Drop ZIP file object from memory/tempdir when finished
