@@ -14,7 +14,7 @@ class SlideItemForm(forms.ModelForm):
         }
         fields = [
             'slider',
-            'background',
+            'image',
             'content',
             'link_name',
             'link_url',

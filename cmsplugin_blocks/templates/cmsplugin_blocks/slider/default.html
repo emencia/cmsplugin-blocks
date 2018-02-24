@@ -2,7 +2,7 @@
 <div class="block slider">
     <div class="slick-container">
         {% for slide in slides %}
-        <div class="item" style="background-image: url({{ slide.background.url }})">
+        <div class="item" style="background-image: url({{ slide.image.url }})">
             <div class="caption">
                 <div class="row column">
                     {{ slide.content|safe }}

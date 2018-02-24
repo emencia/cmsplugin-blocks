@@ -67,7 +67,7 @@ class HeroPlugin(CMSPluginBase):
         (None, {
             'fields': (
                 'template',
-                'background',
+                'image',
                 'content',
             ),
         }),
@@ -161,7 +161,7 @@ class SlideItemAdmin(admin.StackedInline):
         (None, {
             'fields': (
                 'slider',
-                'background',
+                'image',
                 'content',
                 (
                     'link_name',

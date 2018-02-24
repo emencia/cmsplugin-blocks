@@ -74,7 +74,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='cmsplugin_blocks_hero', serialize=False, to='cms.CMSPlugin')),
                 ('template', models.CharField(blank=True, choices=get_hero_template_choices(), default=get_hero_default_template(), help_text='Used template for content look.', max_length=100, verbose_name='Template')),
-                ('background', models.ImageField(default=None, max_length=255, null=True, upload_to='blocks/hero/%y/%m', verbose_name='Background image')),
+                ('image', models.ImageField(default=None, max_length=255, null=True, upload_to='blocks/hero/%y/%m', verbose_name='Image')),
                 ('content', models.TextField(default='', verbose_name='Content')),
             ],
             options={
@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
             name='SlideItem',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('background', models.ImageField(default=None, max_length=255, null=True, upload_to='blocks/slider/%y/%m', verbose_name='Background image')),
+                ('image', models.ImageField(default=None, max_length=255, null=True, upload_to='blocks/slider/%y/%m', verbose_name='Image')),
                 ('content', models.TextField(default='', verbose_name='Content')),
                 ('link_name', models.CharField(blank=True, max_length=45, verbose_name='link name')),
                 ('link_url', models.CharField(blank=True, max_length=255, verbose_name='link url')),

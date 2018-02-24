@@ -14,7 +14,7 @@ class HeroForm(forms.ModelForm):
         }
         fields = [
             'template',
-            'background',
+            'image',
             'content',
         ]
         exclude = []

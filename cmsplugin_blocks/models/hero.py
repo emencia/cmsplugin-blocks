@@ -13,7 +13,7 @@ from cmsplugin_blocks.choices_helpers import (get_hero_default_template,
 @python_2_unicode_compatible
 class Hero(CMSPlugin):
     """
-    A very simple banner with background image and HTML content
+    A simple hero content with image and HTML content
     """
     template = models.CharField(
         _('Template'),
@@ -23,8 +23,8 @@ class Hero(CMSPlugin):
         default=get_hero_default_template(),
         help_text=_('Used template for content look.'),
     )
-    background = models.ImageField(
-        _('Background image'),
+    image = models.ImageField(
+        _('Image'),
         upload_to='blocks/hero/%y/%m',
         max_length=255,
         null=True,

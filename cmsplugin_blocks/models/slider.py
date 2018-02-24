@@ -63,8 +63,8 @@ class SlideItem(models.Model):
         related_name="slide_item"
     )
 
-    background = models.ImageField(
-        _('Background image'),
+    image = models.ImageField(
+        _('Image'),
         upload_to='blocks/slider/%y/%m',
         max_length=255,
         null=True,

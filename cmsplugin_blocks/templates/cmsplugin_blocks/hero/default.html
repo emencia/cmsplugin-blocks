@@ -1,6 +1,6 @@
 {% spaceless %}
 <div class="block hero">
-    <div class="content"{% if instance.background %} style="background-image: url({{ instance.background.url }})"{% endif %}>
+    <div class="content"{% if instance.image %} style="background-image: url({{ instance.image.url }})"{% endif %}>
         <div class="column row">
             {% if instance.content %}
                 {{ instance.content|safe }}
