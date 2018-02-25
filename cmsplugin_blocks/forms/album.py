@@ -4,6 +4,7 @@ import zipfile
 from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.forms.widgets import FileInput, NumberInput
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
@@ -14,6 +15,10 @@ from cmsplugin_blocks.utils import store_images_from_zip
 class AlbumItemForm(forms.ModelForm):
     class Meta:
         model = AlbumItem
+        widgets = {
+            'image': FileInput,
+            'order': NumberInput(attrs={'style': 'width: 80px !important;'}),
+        }
         fields = [
             'album',
             'title',

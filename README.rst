@@ -14,6 +14,7 @@ Requires
 * Python >= 3.4;
 * Django>=1.9,<1.12;
 * Pillow;
+* sorl-thumbnail;
 * `DjangoCMS`_ >= 3.4,<3.5;
 * `djangocms-text-ckeditor`_;
 
@@ -30,6 +31,7 @@ Add it to your installed Django apps in settings like this : ::
         ...
         'cms',
         'djangocms_text_ckeditor',
+        'sorl.thumbnail',
         'cmsplugin_blocks',
     )
 

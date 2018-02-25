@@ -28,6 +28,7 @@ setup(
         'Django>=1.9,<1.12',
         'django-cms>=3.4,<3.5',
         'djangocms-text-ckeditor',
+        'sorl-thumbnail',
     ],
     include_package_data=True,
     zip_safe=False
