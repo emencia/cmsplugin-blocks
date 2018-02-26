@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import collections
+import zipfile
+
 from io import BytesIO
 
 # This is probably for Python 2/3 support although we dont support Py2
@@ -8,8 +10,89 @@ try:
 except ImportError:
     from PIL import Image as PILImage
 
+from django.conf import settings
+from django.forms import ValidationError
+from django.template.defaultfilters import filesizeformat
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext_lazy as _
+
+
+def is_valid_image_filename(filename):
+    """
+    Basic image validation based on its filename.
+
+    Arguments:
+        filename (string): File name.
+
+    Returns:
+        boolean: True if filename is valid else False.
+    """
+    ext = filename.split('.')[-1]
+
+    if ext.lower() in settings.BLOCKS_MASSUPLOAD_IMAGE_TYPES:
+        return True
+
+    return False
+
+
+def validate_file_size(data):
+    """
+    Validate file size does not exceed limit from
+    ``settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT``.
+
+    This returns nothing.
+
+    Raises:
+        ValidationError: If file size is over limit.
+
+    Arguments:
+        data (file object):
+    """
+    msg = _('Please keep filesize under {}. Current filesize {}')
+
+    if data._size > settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT:
+        raise ValidationError(msg.format(
+            filesizeformat(settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT),
+            filesizeformat(data._size)
+        ))
+
+
+def validate_zip(data, obj=None):
+    """
+    Validate uploaded ZIP archive file.
+
+    If 'obj' is given and valid temporary store it as 'uploaded_zip' attribute
+    onto object.
+
+    This returns nothing.
+
+    Raises:
+        ValidationError: If not a valid zip file or has corrupted files
+            (return corrupted filename in exception).
+
+    Arguments:
+        data (file object): ZIP a a file object suitable to zipfile module.
+
+    Keyword Arguments:
+        obj (object): Optional object where to store temporary archive.
+    """
+    # Validate ZIP from file metas first octets
+    if not zipfile.is_zipfile(data):
+        raise ValidationError("Submited file is not a ZIP archive file")
+
+    # Open ZIP
+    archive = zipfile.ZipFile(data)
+
+    # Search for corrupted files
+    corrupted_file = archive.testzip()
+    if corrupted_file:
+        raise ValidationError("File '{}' in ZIP archive is corrupted".format(
+            corrupted_file
+        ))
+
+    # ZIP is totally ok, store it to attribute
+    if obj:
+        obj.uploaded_zip = archive
 
 
 def store_images_from_zip(instance, zip_fileobject, item_model,
@@ -42,15 +125,16 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
             field. If CharField, it should have enough character limit to
             accept long paths.
 
-        Returns:
-            list: List of saved objects from image items.
+    Returns:
+        list: List of saved objects from image items.
     """
     stored_items = []
 
     if zip_fileobject:
         for filename in sorted(zip_fileobject.namelist()):
-            # do not process meta files
-            if filename.startswith('__'):
+            # Don't process invalid filename or directory
+            if filename.endswith('/') or \
+                not is_valid_image_filename(filename):
                 continue
 
             # Get archived file from ZIP

@@ -2,10 +2,18 @@
 Changelog
 =========
 
-Version 0.4.3 - Unreleased
+Version 0.5.0 - Unreleased
 --------------------------
 
-* Todo
+* Moved zip file validation to ``utils.validate_zip`` method;
+* Use sorl thumbnail in default Album template;
+* Added basic image file validation from mass upload, close #4;
+* Added mass upload file size limit, close #3;
+
+Version 0.4.3 - 2018/02/25
+--------------------------
+
+* Better plugin form for Album and Card;
 
 Version 0.4.2 - 2018/02/24
 --------------------------
