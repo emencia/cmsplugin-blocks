@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-08 16:14+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: cms_plugins.py:73 cms_plugins.py:112 cms_plugins.py:141 cms_plugins.py:198
+msgid "Blocks"
+msgstr "Blocs"
+
+#: cms_plugins.py:74 models/album.py:52
+msgid "Album"
+msgstr ""
+
+#: cms_plugins.py:113 models/card.py:63
+msgid "Card"
+msgstr ""
+
+#: cms_plugins.py:142 models/hero.py:51
+msgid "Hero"
+msgstr ""
+
+#: cms_plugins.py:199 models/slider.py:52
+msgid "Slider"
+msgstr ""
+
+#: forms/album.py:32
+msgid "Add items from a ZIP file"
+msgstr "Ajouter des éléments depuis un fichier ZIP"
+
+#: forms/album.py:35
+msgid "Select a '*.zip' file of images to upload as new items."
+msgstr "Séléctionner un fichier '*.zip' contenant des images à ajouter comme nouveaux éléments."
+
+#: models/album.py:19 models/album.py:66 models/slider.py:19
+msgid "Title"
+msgstr "Titre"
+
+#: models/album.py:25 models/card.py:31 models/hero.py:19 models/slider.py:25
+msgid "Template"
+msgstr "Gabarits"
+
+#: models/album.py:30
+msgid "Used template for content formatting."
+msgstr "Utilisez un gabarit HTML spécifique pour la mise en forme."
+
+#: models/album.py:53
+msgid "Albums"
+msgstr ""
+
+#: models/album.py:72
+msgid "Order"
+msgstr "Ordre"
+
+#: models/album.py:77 models/card.py:39 models/hero.py:27 models/slider.py:67
+msgid "Image"
+msgstr ""
+
+#: models/album.py:89
+msgid "Album item"
+msgstr "Élément d'album"
+
+#: models/album.py:90
+msgid "Album items"
+msgstr "Éléments d'albums"
+
+#: models/card.py:19
+msgid "Content to the left, image to the right"
+msgstr "Contenu à gauche, image à droite"
+
+#: models/card.py:20
+msgid "Image to the left, content to the reft"
+msgstr "Image à gauche, contenu à droite"
+
+#: models/card.py:24
+msgid "Alignment"
+msgstr "Alignement"
+
+#: models/card.py:36 models/hero.py:24 models/slider.py:30
+msgid "Used template for content look."
+msgstr "Utilisez un gabarit HTML spécifique pour la mise en forme."
+
+#: models/card.py:47 models/hero.py:35 models/slider.py:75
+msgid "Content"
+msgstr "Contenu"
+
+#: models/card.py:64
+msgid "Cards"
+msgstr ""
+
+#: models/hero.py:52
+msgid "Heros"
+msgstr ""
+
+#: models/slider.py:53
+msgid "Sliders"
+msgstr ""
+
+#: models/slider.py:80
+msgid "link name"
+msgstr "Label du lien"
+
+#: models/slider.py:85
+msgid "link url"
+msgstr "URL du lien"
+
+#: models/slider.py:90
+msgid "open new window"
+msgstr "Nouvelle fenêtre ?"
+
+#: models/slider.py:92
+msgid "If checked the link will be open in a new window"
+msgstr "Si coché, le lien sera ouvert dans une nouvelle fenêtre"
+
+#: models/slider.py:103
+msgid "Slide item"
+msgstr "Élément d'un slider"
+
+#: models/slider.py:104
+msgid "Slide items"
+msgstr "Éléments de sliders"
+
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:20
+msgid "Delete?"
+msgstr "Supprimer?"
+
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:34
+msgid "Change"
+msgstr ""
+
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:36
+msgid "View on site"
+msgstr ""
+
+#: utils.py:51
+msgid "Please keep filesize under {}. Current filesize {}"
+msgstr "Veuillez limiter la taille du fichier à {}. La taille de votre fichier envoyé est {}"
