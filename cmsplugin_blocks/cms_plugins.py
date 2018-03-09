@@ -35,6 +35,7 @@ class AlbumItemAdmin(admin.TabularInline):
     model = AlbumItem
     form = AlbumItemForm
     extra = 0
+    verbose_name = _("Image")
     ordering = ['order']
     template = "cmsplugin_blocks/admin/albumitem_edit_tabular.html"
     fieldsets = (
@@ -51,14 +52,16 @@ class AlbumItemAdmin(admin.TabularInline):
     readonly_fields = ('admin_thumbnail',)
 
     def admin_thumbnail(self, obj):
-        print(obj.image.url)
         try:
-            return '<img src="%s" alt="">' % get_thumbnail(obj.image, '80x80', crop='center').url
+            return "<a href=\"{source}\" target=\"blank\"><img src=\"{thumb}\" alt=\"\"></a>".format(
+                source=obj.image.url,
+                thumb=get_thumbnail(obj.image, '80x80', crop='center').url
+            )
         except IOError:
-            logger.exception('IOError for image %s', obj.image)
+            logger.exception('IOError for image {}'.format(obj.image))
             return 'IOError'
         except ThumbnailError as ex:
-            return 'ThumbnailError, %s' % ex.message
+            return "ThumbnailError, {}".format(ex.message)
 
     admin_thumbnail.short_description = 'Current'
     admin_thumbnail.allow_tags = True

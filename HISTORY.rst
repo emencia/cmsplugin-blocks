@@ -2,13 +2,16 @@
 Changelog
 =========
 
-Version 0.5.0 - Unreleased
+Version 0.5.0 - 2018/03/09
 --------------------------
 
 * Moved zip file validation to ``utils.validate_zip`` method;
 * Use sorl thumbnail in default Album template;
 * Added basic image file validation from mass upload, close #4;
 * Added mass upload file size limit, close #3;
+* Added translation catalog for french language;
+* Added some CSS in template for Album inline admin form;
+* Better README;
 
 Version 0.4.3 - 2018/02/25
 --------------------------

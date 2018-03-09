@@ -40,11 +40,11 @@ msgstr ""
 
 #: forms/album.py:32
 msgid "Add items from a ZIP file"
-msgstr "Ajouter des éléments depuis un fichier ZIP"
+msgstr "Import depuis un fichier ZIP"
 
 #: forms/album.py:35
 msgid "Select a '*.zip' file of images to upload as new items."
-msgstr "Séléctionner un fichier '*.zip' contenant des images à ajouter comme nouveaux éléments."
+msgstr "Fichier '*.zip' contenant des images à ajouter."
 
 #: models/album.py:19 models/album.py:66 models/slider.py:19
 msgid "Title"
@@ -56,7 +56,7 @@ msgstr "Gabarits"
 
 #: models/album.py:30
 msgid "Used template for content formatting."
-msgstr "Utilisez un gabarit HTML spécifique pour la mise en forme."
+msgstr "Gabarit HTML spécifique pour la mise en forme."
 
 #: models/album.py:53
 msgid "Albums"
@@ -76,7 +76,7 @@ msgstr "Élément d'album"
 
 #: models/album.py:90
 msgid "Album items"
-msgstr "Éléments d'albums"
+msgstr "Éléments de l'album"
 
 #: models/card.py:19
 msgid "Content to the left, image to the right"
@@ -92,7 +92,7 @@ msgstr "Alignement"
 
 #: models/card.py:36 models/hero.py:24 models/slider.py:30
 msgid "Used template for content look."
-msgstr "Utilisez un gabarit HTML spécifique pour la mise en forme."
+msgstr "Gabarit HTML spécifique pour la mise en forme."
 
 #: models/card.py:47 models/hero.py:35 models/slider.py:75
 msgid "Content"

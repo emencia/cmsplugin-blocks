@@ -1,4 +1,4 @@
-# Available components templates
+# Available default templates
 BLOCKS_ALBUM_TEMPLATES = [
     ('cmsplugin_blocks/album/default.html', 'Default'),
 ]

@@ -4,7 +4,7 @@
      data-inline-formset="{{ inline_admin_formset.inline_formset_data }}">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
-<fieldset class="module {{ inline_admin_formset.classes }}">
+<fieldset class="module {{ inline_admin_formset.classes }}" style="padding: 1rem 0.5rem;">
    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
    {{ inline_admin_formset.formset.non_form_errors }}
    <table>
@@ -12,12 +12,12 @@
        <th class="original" style="display: none;"></th>
      {% for field in inline_admin_formset.fields %}
        {% if not field.widget.is_hidden %}
-         <th{% if field.required %} class="required"{% endif %}>{{ field.label|capfirst }}
+         <th{% if field.required %} class="required"{% endif %} style="background: #f0f0f0 !important;">{{ field.label|capfirst }}
          {% if field.help_text %}&nbsp;<img src="{% static "admin/img/icon-unknown.svg" %}" class="help help-tooltip" width="10" height="10" alt="({{ field.help_text|striptags }})" title="{{ field.help_text|striptags }}" />{% endif %}
          </th>
        {% endif %}
      {% endfor %}
-     {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
+     {% if inline_admin_formset.formset.can_delete %}<th style="background: #f0f0f0 !important;">{% trans "Delete?" %}</th>{% endif %}
      </tr></thead>
 
      <tbody>
