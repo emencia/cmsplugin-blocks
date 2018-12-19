@@ -1,10 +1,5 @@
 {% load thumbnail %}{% spaceless %}
 <div class="block album">
-    {% if item.brief %}
-    <div class="box brief">
-        {{ item.brief|safe }}
-    </div>
-    {% endif %}
     <div class="flex-grid">
         {% for item in ressources %}
         <div class="cell large-25">

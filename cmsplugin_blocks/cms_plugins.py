@@ -183,6 +183,7 @@ class SlideItemAdmin(admin.StackedInline):
                 'image',
                 'content',
                 (
+                    'order',
                     'link_name',
                     'link_url',
                     'link_open_blank',
@@ -218,7 +219,7 @@ class SliderPlugin(CMSPluginBase):
         context = super(SliderPlugin, self).render(context, instance,
                                                    placeholder)
         self.render_template = instance.template
-        slides = instance.slide_item.all()
+        slides = instance.slide_item.all().order_by('order')
         context.update({
             'instance': instance,
             'slides': slides,

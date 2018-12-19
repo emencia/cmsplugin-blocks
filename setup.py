@@ -26,7 +26,7 @@ setup(
     ],
     install_requires=[
         'Django>=1.9,<1.12',
-        'django-cms>=3.4,<3.5',
+        'django-cms>=3.4',
         'djangocms-text-ckeditor',
         'sorl-thumbnail',
     ],

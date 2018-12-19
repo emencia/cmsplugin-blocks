@@ -76,6 +76,11 @@ class SlideItem(models.Model):
         blank=True,
         default="",
     )
+    order = models.IntegerField(
+        _('Order'),
+        blank=False,
+        default=0
+    )
     link_name = models.CharField(
         _('link name'),
         blank=True,

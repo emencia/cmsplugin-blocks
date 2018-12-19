@@ -16,6 +16,7 @@ class SlideItemForm(forms.ModelForm):
             'slider',
             'image',
             'content',
+            'order',
             'link_name',
             'link_url',
             'link_open_blank',

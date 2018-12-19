@@ -52,7 +52,6 @@ Album
     Available fields:
 
     * title;
-    * brief;
     * template;
 
     Album have related items *AlbumItem* which are added/edited through inline form.
@@ -90,6 +89,7 @@ Slider
 
     * image;
     * content;
+    * order;
     * link_name;
     * link_url;
     * link_open_blank;
@@ -132,3 +132,12 @@ BLOCKS_MASSUPLOAD_IMAGE_TYPES
 BLOCKS_MASSUPLOAD_FILESIZE_LIMIT
     Maximum file size (in bytes) allowed for ZIP archive for mass upload.
     Default to `429916160` (50MiO).
+
+A note about djangocms-text-ckeditor
+************************************
+
+djangocms-text-ckeditor get configurations from
+``CKEDITOR_SETTINGS["toolbar_HTMLField"]`` when used from plugin, you may have
+to duplicate it from ``CKEDITOR_SETTINGS["toolbar_CMS"]`` if you want to share
+the same configuration for CKeditor from CMS pages and CKeditor from blocks
+plugins.
