@@ -15,10 +15,10 @@ Requires
 ********
 
 * Python >= 3.4;
-* Django>=1.9,<1.12;
+* Django>=1.11;
 * Pillow;
 * `sorl-thumbnail`_;
-* `DjangoCMS`_ >= 3.4,<3.5;
+* `DjangoCMS`_ >= 3.4;
 * `djangocms-text-ckeditor`_;
 
 Install
