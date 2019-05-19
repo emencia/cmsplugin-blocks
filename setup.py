@@ -14,7 +14,7 @@ setup(
         'Programming Language :: Python',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         "Programming Language :: Python",
         'Programming Language :: Python :: 3',
@@ -25,7 +25,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
-        'Django>=1.9,<1.12',
+        'Django>=1.11',
         'django-cms>=3.4',
         'djangocms-text-ckeditor',
         'sorl-thumbnail',

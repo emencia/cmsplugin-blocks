@@ -60,7 +60,8 @@ class SlideItem(models.Model):
     """
     slider = models.ForeignKey(
         Slider,
-        related_name="slide_item"
+        related_name="slide_item",
+        on_delete=models.CASCADE
     )
 
     image = models.ImageField(

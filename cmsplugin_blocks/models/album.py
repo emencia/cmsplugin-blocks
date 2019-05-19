@@ -60,7 +60,8 @@ class AlbumItem(models.Model):
     """
     album = models.ForeignKey(
         Album,
-        related_name="album_item"
+        related_name="album_item",
+        on_delete=models.CASCADE
     )
     title = models.CharField(
         _('Title'),

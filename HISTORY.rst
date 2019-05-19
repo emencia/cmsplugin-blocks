@@ -2,6 +2,22 @@
 Changelog
 =========
 
+Version 0.5.2 - 2019/05/18
+--------------------------
+
+* Dropped support for Django<1.11;
+* Add 'on_delete=models.CASCADE' on Foreign key fields to be compatible with Django>=2.0;
+* Fixed changelog;
+
+Version 0.5.1 - 2018/12/19
+--------------------------
+
+* Added 'AlbumItem.order' field
+* Updated readme;
+* Cleaned album template from brief field, close #9;
+* Fixed TextEditorWidget which did not use CMS config, close #7;
+* Removed django-cms constraint '<3.5';
+
 Version 0.5.0 - 2018/03/09
 --------------------------
 
