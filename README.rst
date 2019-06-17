@@ -5,8 +5,10 @@
 Emencia DjangoCMS blocks
 ========================
 
-A set of DjangoCMS plugins to make content with less involved HTML than
-directly using CKeditor for everything.
+A set of DjangoCMS plugins for content structures.
+
+Goal is to make content with less involved HTML than directly using CKeditor
+for everything.
 
 This just supply some plugins with a default basic template. There is no CSS,
 Javascript or anything else like frontend integration.
@@ -24,9 +26,15 @@ Requires
 Install
 *******
 
-First install package ::
+Package
+-------
+
+::
 
     pip install cmsplugin-blocks
+
+Configuration
+-------------
 
 Add it to your installed Django apps in settings like this : ::
 
@@ -48,54 +56,58 @@ Available components
 ********************
 
 Album
+-----
 
-    Available fields:
+Available fields:
 
-    * title;
-    * template;
+* title;
+* template;
 
-    Album have related items *AlbumItem* which are added/edited through inline form.
+Album have related items *AlbumItem* which are added/edited through inline form.
 
-    Available *AlbumItem* items fields:
+Available *AlbumItem* items fields:
 
-    * image;
-    * content;
+* image;
+* content;
 
 Card
+----
 
-    Available fields:
+Available fields:
 
-    * alignment;
-    * template;
-    * image;
-    * content;
+* alignment;
+* template;
+* image;
+* content;
 
 Hero
+----
 
-    Available fields:
+Available fields:
 
-    * template;
-    * image;
-    * content;
+* template;
+* image;
+* content;
 
 Slider
+------
 
-    Available fields:
+Available fields:
 
-    * title;
-    * template;
+* title;
+* template;
 
-    Available *SlideItem* items fields:
+Available *SlideItem* items fields:
 
-    * image;
-    * content;
-    * order;
-    * link_name;
-    * link_url;
-    * link_open_blank;
+* image;
+* content;
+* order;
+* link_name;
+* link_url;
+* link_open_blank;
 
-    Slider have related items *SlideItem* which are added/edited through
-    inline form.
+Slider have related items *SlideItem* which are added/edited through
+inline form.
 
 Mass upload
 ***********
@@ -141,3 +153,21 @@ djangocms-text-ckeditor get configurations from
 to duplicate it from ``CKEDITOR_SETTINGS["toolbar_CMS"]`` if you want to share
 the same configuration for CKeditor from CMS pages and CKeditor from blocks
 plugins.
+
+Development
+***********
+
+Install
+-------
+
+Download repository then install everything with: ::
+
+    make install
+
+Once finished you will need to create a superuser to be able to create a first page: ::
+
+    make superuser
+
+Finally you can load the demonstration server: ::
+
+    make run

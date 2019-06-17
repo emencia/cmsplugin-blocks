@@ -1,35 +1,5 @@
-from setuptools import setup, find_packages
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from setuptools import setup
 
-setup(
-    name='cmsplugin-blocks',
-    version=__import__('cmsplugin_blocks').__version__,
-    description=__import__('cmsplugin_blocks').__doc__,
-    long_description=open('README.rst').read(),
-    author='David Thenon',
-    author_email='dthenon@emencia.com',
-    url='https://github.com/emencia/cmsplugin-blocks',
-    license='MIT',
-    packages=find_packages(),
-    classifiers=[
-        'Programming Language :: Python',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        "Programming Language :: Python",
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Framework :: Django',
-        'Intended Audience :: Developers',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-    ],
-    install_requires=[
-        'Django>=2.1',
-        'django-cms>=3.6',
-        'djangocms-text-ckeditor',
-        'sorl-thumbnail',
-    ],
-    include_package_data=True,
-    zip_safe=False
-)
+setup()
