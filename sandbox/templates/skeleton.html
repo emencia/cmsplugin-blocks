@@ -1,0 +1,36 @@
+{% load i18n static cms_tags sekizai_tags %}<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ LANGUAGE_CODE }}"> <!--<![endif]-->
+<head>{% spaceless %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}Cmsplugin-blocks{% endblock head_title %}</title>
+    {% block head_base_links %}
+        {% comment %}<link rel="stylesheet" href="{% static "css/app.css" %}">{% endcomment %}
+    {% endblock head_base_links %}
+{% endspaceless %}
+    {% render_block "css" %}
+</head>
+
+<body>
+{% cms_toolbar %}
+{% spaceless %}
+
+    {% block header %}
+    <div id="header-container">
+        <h1>Cmsplugin-blocks</h1>
+    </div>
+    {% endblock header %}
+
+    {% block base_content %}
+        {% block content %}
+        {% endblock %}
+    {% endblock %}
+
+    {% block footer %}{% endblock footer %}
+
+{% endspaceless %}
+{% render_block "js" %}
+{% block foot_base_js %}{% endblock foot_base_js %}
+</body>
+</html>
