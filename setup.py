@@ -25,8 +25,8 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
-        'Django>=1.11',
-        'django-cms>=3.4',
+        'Django>=2.1',
+        'django-cms>=3.6',
         'djangocms-text-ckeditor',
         'sorl-thumbnail',
     ],

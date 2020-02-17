@@ -3,8 +3,10 @@
     <div class="content">
         {{ instance.content|safe }}
     </div>
+    {% if instance.image %}
     <div class="media">
         <img src="{{ instance.image.url }}" alt="">
     </div>
+    {% endif %}
 </div>
 {% endspaceless %}

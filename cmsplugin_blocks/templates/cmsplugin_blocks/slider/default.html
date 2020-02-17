@@ -6,6 +6,16 @@
             <div class="caption">
                 <div class="row column">
                     {{ slide.content|safe }}
+
+                    {% if slide.link_url %}
+                    <a href="{{ slide.link_url }}"{% if slide.link_open_blank %} target="blank"{% endif %}>
+                        {% if slide.link_name %}
+                            {{ slide.link_name }}
+                        {% else %}
+                            Read more
+                        {% endif %}
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

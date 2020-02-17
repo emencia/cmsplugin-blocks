@@ -50,10 +50,10 @@ def validate_file_size(data):
     """
     msg = _('Please keep filesize under {}. Current filesize {}')
 
-    if data._size > settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT:
+    if data.size > settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT:
         raise ValidationError(msg.format(
             filesizeformat(settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT),
-            filesizeformat(data._size)
+            filesizeformat(data.size)
         ))
 
 
