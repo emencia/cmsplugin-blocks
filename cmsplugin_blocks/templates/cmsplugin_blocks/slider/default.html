@@ -1,13 +1,20 @@
-{% spaceless %}
+{% load i18n %}{% spaceless %}
 <div class="block slider">
-    <div class="slick-container">
+    <p class="slider__title">{{ instance.title }}</p>
+
+    <div class="slider__items">
         {% for slide in slides %}
-        <div class="item" style="background-image: url({{ slide.image.url }})">
-            <div class="caption">
-                <div class="row column">
-                    {{ slide.content|safe }}
-                </div>
-            </div>
+        <div class="slider__item" style="background-image: url({{ slide.image.url }})">
+            <p class="slider__item-title">{{ slide.title }}</p>
+            {% if slide.content %}<div class="slider__item-content">{{ slide.content|safe }}</div>{% endif %}
+
+            {% if slide.link_url %}
+            <p class="slider__item-link">
+                <a href="{{ slide.link_url }}" class="button"{% if slide.link_open_blank %} target="blank"{% endif %}>
+                    {% if slide.link_name %}{{ slide.link_name }}{% else %}{% trans "Read more" %}{% endif %}
+                </a>
+            </p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
