@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -31,7 +32,10 @@ class Slider(CMSPlugin):
     )
 
     def __str__(self):
-        return self.title
+        return Truncator(strip_tags(self.title)).words(
+            settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
+            truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
+        )
 
     def copy_relations(self, oldinstance):
         """
@@ -63,7 +67,12 @@ class SlideItem(models.Model):
         related_name="slide_item",
         on_delete=models.CASCADE
     )
-
+    title = models.CharField(
+        _('Title'),
+        blank=False,
+        max_length=150,
+        default="",
+    )
     image = models.ImageField(
         _('Image'),
         upload_to='blocks/slider/%y/%m',
@@ -98,12 +107,11 @@ class SlideItem(models.Model):
         help_text=_('If checked the link will be open in a new window'),
     )
 
-    def __init__(self, *args, **kwargs):
-        super(SlideItem, self).__init__(*args, **kwargs)
-        self.content = force_text(self.content)
-
     def __str__(self):
-        return Truncator(strip_tags(self.content)).words(4, truncate="...")
+        return Truncator(strip_tags(self.title)).words(
+            settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
+            truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
+        )
 
     class Meta:
         verbose_name = _('Slide item')

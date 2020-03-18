@@ -1,19 +1,23 @@
 {% load sorl_thumbnail %}{% spaceless %}
-<div class="block album">
-    <div class="flex-grid">
-        <div class="cell">
-            <p class="title">{{ instance.title }}</p>
-        </div>
+<div class="album">
+    <p class="album__title">{{ instance.title }}</p>
+
+    <div class="album__items">
         {% for item in ressources %}
-        <div class="cell large-25">
-            <p><a href="{{ item.image.url }}" target="blank">
-            {% thumbnail item.image "200x100" as im %}
-                <img src="{{ im.url }}" alt="">
-            {% endthumbnail %}
-            </a></p>
-            <p>
+        <div class="album__item">
+            <a href="{{ item.image.url }}" target="blank">
+                <img src="{{ item.image.url }}" alt="">
+            </a>
+            {% comment %}<a href="{{ item.image.url }}" target="blank">
+                {% thumbnail item.image "200x100" as im %}
+                    <img src="{{ im.url }}" alt="">
+                {% endthumbnail %}
+            </a>{% endcomment %}
+            {% if item.title %}
+            <p class="album__item-title">
                 {{ item.title }}
             </p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

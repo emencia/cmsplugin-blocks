@@ -28,6 +28,12 @@ BLOCKS_MASSUPLOAD_IMAGE_TYPES = [
     'png',
 ]
 
+# Common value for model string representation truncation limit length
+BLOCKS_MODEL_TRUNCATION_LENGTH = 4
+
+# Common value form
+BLOCKS_MODEL_TRUNCATION_CHR = "..."
+
 # Maximum file size allowed for mass upload feature
 # This is a limit at Django level so file will still be processed, you may
 # think to set a limit also at server level to avoid basic attacks with very

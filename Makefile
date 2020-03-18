@@ -2,7 +2,6 @@ PYTHON_INTERPRETER=python3
 DEMO_DJANGO_SECRET_KEY=samplesecretfordev
 VENV_PATH=.venv
 PIP=$(VENV_PATH)/bin/pip
-BOUSSOLE=$(VENV_PATH)/bin/boussole
 DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
 FLAKE=$(VENV_PATH)/bin/flake8
 PYTEST=$(VENV_PATH)/bin/pytest
@@ -81,11 +80,11 @@ run:
 .PHONY: run
 
 flake:
-	$(FLAKE) --show-source django_palette
+	$(FLAKE) --show-source $(PACKAGE_NAME)
 .PHONY: flake
 
 tests:
-	$(PYTEST) -vv --exitfirst tests/
+	$(PYTEST) -vv tests/
 .PHONY: tests
 
 quality: tests flake

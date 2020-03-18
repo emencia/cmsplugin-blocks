@@ -31,6 +31,8 @@ from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
 class AlbumItemAdmin(admin.TabularInline):
     """
     Plugin admin form to enable inline mode inside AlbumPlugin
+
+    TODO: Move to admin.py
     """
     model = AlbumItem
     form = AlbumItemForm
@@ -172,6 +174,8 @@ class HeroPlugin(CMSPluginBase):
 class SlideItemAdmin(admin.StackedInline):
     """
     Plugin admin form to enable inline mode inside SliderPlugin
+
+    TODO: Move to admin.py
     """
     model = SlideItem
     form = SlideItemForm

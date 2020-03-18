@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -9,6 +10,7 @@ from cms.models.pluginmodel import CMSPlugin
 
 from cmsplugin_blocks.choices_helpers import (get_card_default_template,
                                               get_card_template_choices)
+
 
 @python_2_unicode_compatible
 class Card(CMSPlugin):
@@ -54,10 +56,10 @@ class Card(CMSPlugin):
         self.content = force_text(self.content)
 
     def __str__(self):
-        return Truncator(strip_tags(self.content)).words(4, truncate="...")
-
-    def save(self, *args, **kwargs):
-        super(Card, self).save(*args, **kwargs)
+        return Truncator(strip_tags(self.content)).words(
+            settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
+            truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
+        )
 
     class Meta:
         verbose_name = _('Card')
