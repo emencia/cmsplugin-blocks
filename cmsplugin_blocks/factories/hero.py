@@ -2,6 +2,7 @@
 import factory
 
 from cmsplugin_blocks.choices_helpers import get_hero_default_template
+from cmsplugin_blocks.factories.utils import create_image_file
 from cmsplugin_blocks.models import Hero
 
 
@@ -11,7 +12,17 @@ class HeroFactory(factory.django.DjangoModelFactory):
     """
     template = get_hero_default_template()
     content = factory.Faker("text", max_nb_chars=42)
-    image = factory.django.FileField(filename="foo.jpg")
 
     class Meta:
         model = Hero
+
+    @factory.lazy_attribute
+    def image(self):
+        """
+        Fill file field with generated image on the fly by PIL.
+
+        Returns:
+            django.core.files.File: File object.
+        """
+
+        return create_image_file()

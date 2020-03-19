@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 import random
 import factory
+import io
+
+from PIL import Image as PILimage
+
+from django.core.files import File
 
 from cmsplugin_blocks.choices_helpers import get_album_default_template
+from cmsplugin_blocks.factories.utils import create_image_file
 from cmsplugin_blocks.models import Album, AlbumItem
 
 
@@ -24,7 +30,17 @@ class AlbumItemFactory(factory.django.DjangoModelFactory):
     album = factory.SubFactory(AlbumFactory)
     title = factory.Faker("text", max_nb_chars=20)
     order = factory.Sequence(lambda n: 10 * n)
-    image = factory.django.FileField(filename="foo.jpg")
 
     class Meta:
         model = AlbumItem
+
+    @factory.lazy_attribute
+    def image(self):
+        """
+        Fill file field with generated image on the fly by PIL.
+
+        Returns:
+            django.core.files.File: File object.
+        """
+
+        return create_image_file()

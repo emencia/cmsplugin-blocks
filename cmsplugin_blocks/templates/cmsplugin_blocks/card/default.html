@@ -1,8 +1,10 @@
-{% spaceless %}
+{% load sorl_thumbnail %}{% spaceless %}
 <div class="card{% if instance.alignment %} card--{{ instance.alignment }}{% endif %}">
     {% if instance.image %}
     <div class="card__media">
-        <img src="{{ instance.image.url }}" alt="">
+        {% thumbnail instance.image "250x200" as im %}
+            <img src="{{ im.url }}" alt="">
+        {% endthumbnail %}
     </div>
     {% endif %}
     {% if instance.content %}

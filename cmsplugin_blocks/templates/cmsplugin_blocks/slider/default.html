@@ -1,21 +1,23 @@
-{% load i18n %}{% spaceless %}
+{% load i18n sorl_thumbnail %}{% spaceless %}
 <div class="block slider">
     <p class="slider__title">{{ instance.title }}</p>
 
     <div class="slider__items">
-        {% for slide in slides %}
-        <div class="slider__item" style="background-image: url({{ slide.image.url }})">
-            <p class="slider__item-title">{{ slide.title }}</p>
-            {% if slide.content %}<div class="slider__item-content">{{ slide.content|safe }}</div>{% endif %}
+        {% for item in slides %}
+            {% thumbnail item.image "1200x400" as im %}
+            <div class="slider__item" style="background-image: url({{ im.url }})">
+                <p class="slider__item-title">{{ item.title }}</p>
+                {% if item.content %}<div class="slider__item-content">{{ item.content|safe }}</div>{% endif %}
 
-            {% if slide.link_url %}
-            <p class="slider__item-link">
-                <a href="{{ slide.link_url }}" class="button"{% if slide.link_open_blank %} target="blank"{% endif %}>
-                    {% if slide.link_name %}{{ slide.link_name }}{% else %}{% trans "Read more" %}{% endif %}
-                </a>
-            </p>
-            {% endif %}
-        </div>
+                {% if item.link_url %}
+                <p class="slider__item-link">
+                    <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="blank"{% endif %}>
+                        {% if item.link_name %}{{ item.link_name }}{% else %}{% trans "Read more" %}{% endif %}
+                    </a>
+                </p>
+                {% endif %}
+            </div>
+            {% endthumbnail %}
         {% endfor %}
     </div>
 </div>

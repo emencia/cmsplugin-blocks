@@ -1,6 +1,8 @@
 """
 Test utilities
 """
+import pytest
+
 from django.test.html import HTMLParseError, parse_html
 
 from cms.api import add_plugin
@@ -14,6 +16,18 @@ def assert_and_parse_html(html):
     """
     dom = parse_html(html)
     return dom
+
+
+class FixturesTestCaseMixin(object):
+    """
+    Mixin to inject pytest fixtures on testcase.
+
+    There fixtures will be available for every testcase tests.
+    """
+
+    @pytest.fixture(autouse=True)
+    def inject_fixtures(self, caplog):
+        self._caplog = caplog
 
 
 class CMSPluginTestCase(CMSTestCase):

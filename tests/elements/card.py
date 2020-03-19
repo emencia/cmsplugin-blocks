@@ -1,8 +1,9 @@
+import logging
 import re
 
 import pytest
 
-from tests.utils import CMSPluginTestCase
+from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
 from cmsplugin_blocks.choices_helpers import get_card_default_template
 from cmsplugin_blocks.cms_plugins import CardPlugin
@@ -44,7 +45,7 @@ def test_model_str(db, settings):
     assert str(instance) == "Lorem ipsum 日本 and..."
 
 
-class CardCMSPluginsTestCase(CMSPluginTestCase):
+class CardCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
     """Card plugin tests case"""
 
     def test_card_plugin_render_full(self):
@@ -76,10 +77,15 @@ class CardCMSPluginsTestCase(CMSPluginTestCase):
         # Check image
         pattern = (
             r'<div class="card__media">'
-            r'<img src="/media/blocks/card/.*\.jpg.*alt="">'
+            r'<img src="/media/cache/.*\.jpg.*alt="">'
             r'</div>'
         )
         self.assertIsNotNone(re.search(pattern, html))
+
+        # Ensure there is no hidden sorl errors
+        for log in self._caplog.record_tuples:
+            if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
+                raise AssertionError("There is some 'sorl.thumbnail' error(s)")
 
         expected_content = """<div class="card__content">{}</div>""".format(
             fabricated.content

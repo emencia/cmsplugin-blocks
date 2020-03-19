@@ -1,8 +1,9 @@
+import logging
 import re
 
 import pytest
 
-from tests.utils import CMSPluginTestCase
+from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
 from cms.api import add_plugin
 from cms.models import Placeholder
@@ -46,7 +47,7 @@ def test_model_str(db, settings):
     assert str(instance) == "Lorem ipsum"
 
 
-class SliderCMSPluginsTestCase(CMSPluginTestCase):
+class SliderCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
     """Slider plugin tests case"""
 
     def test_plugin_render_empty(self):
@@ -90,6 +91,9 @@ class SliderCMSPluginsTestCase(CMSPluginTestCase):
             title=slider.title,
         )
 
+        print()
+        print(html)
+
         # Slider title
         self.assertInHTML(
             """<p class="slider__title">{}</p>""".format(
@@ -100,12 +104,17 @@ class SliderCMSPluginsTestCase(CMSPluginTestCase):
 
         # Item image and title
         pattern = (
-            r'<div class="slider__item" style="background-image\: url\(/media/blocks/slider/.*\.jpg.*>'
+            r'<div class="slider__item" style="background-image\: url\(/media/cache/.*\.jpg.*>'
             r'<p class="slider__item-title">{title:s}</p>'
         ).format(
             title=item.title,
         )
         self.assertIsNotNone(re.search(pattern, html))
+
+        # Ensure there is no hidden sorl errors
+        for log in self._caplog.record_tuples:
+            if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
+                raise AssertionError("There is some 'sorl.thumbnail' error(s)")
 
         # Item content
         self.assertInHTML(

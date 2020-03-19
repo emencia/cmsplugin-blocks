@@ -1,8 +1,9 @@
+import logging
 import re
 
 import pytest
 
-from tests.utils import CMSPluginTestCase
+from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
 from cmsplugin_blocks.choices_helpers import get_hero_default_template
 from cmsplugin_blocks.cms_plugins import HeroPlugin
@@ -44,7 +45,7 @@ def test_model_str(db, settings):
     assert str(instance) == "Lorem ipsum 日本 and..."
 
 
-class HeroCMSPluginsTestCase(CMSPluginTestCase):
+class HeroCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
     """Hero plugin tests case"""
 
     def test_hero_plugin_render_full(self):
@@ -66,9 +67,14 @@ class HeroCMSPluginsTestCase(CMSPluginTestCase):
 
         # Check image
         pattern = (
-            r'<div class="hero__wrapper" style="background-image\: url\(/media/blocks/hero/.*\.jpg.*>'
+            r'<div class="hero__wrapper" style="background-image\: url\(/media/cache/.*\.jpg.*>'
         )
         self.assertIsNotNone(re.search(pattern, html))
+
+        # Ensure there is no hidden sorl errors
+        for log in self._caplog.record_tuples:
+            if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
+                raise AssertionError("There is some 'sorl.thumbnail' error(s)")
 
         # Check content
         expected_content = """<div class="hero__content">{}</div>""".format(
@@ -120,3 +126,8 @@ class HeroCMSPluginsTestCase(CMSPluginTestCase):
             r'<div class="hero__wrapper">'
         )
         self.assertIsNotNone(re.search(pattern, html))
+
+        # Ensure there is no hidden sorl errors
+        for log in self._caplog.record_tuples:
+            if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
+                raise AssertionError("There is some 'sorl.thumbnail' error(s)")
