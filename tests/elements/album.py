@@ -1,8 +1,9 @@
+import logging
 import re
 
 import pytest
 
-from tests.utils import CMSPluginTestCase
+from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
 from cms.api import add_plugin
 from cms.models import Placeholder
@@ -46,7 +47,7 @@ def test_model_str(db, settings):
     assert str(instance) == "Lorem ipsum"
 
 
-class AlbumCMSPluginsTestCase(CMSPluginTestCase):
+class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
     """Album plugin tests case"""
 
     def test_plugin_render_empty(self):
@@ -101,12 +102,17 @@ class AlbumCMSPluginsTestCase(CMSPluginTestCase):
         # Item image and title
         pattern = (
             r'<a href="/media/blocks/album/.*\.jpg.*target="blank">'
-            r'<img src="/media/blocks/album/.*\.jpg.*alt="">'
+            r'<img src="/media/cache/.*\.jpg.*alt="">'
             r'</a>'
         ).format(
             title=fabricated_item.title,
         )
         self.assertIsNotNone(re.search(pattern, html))
+
+        # Ensure there is no hidden sorl errors
+        for log in self._caplog.record_tuples:
+            if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
+                raise AssertionError("There is some 'sorl.thumbnail' error(s)")
 
         # Item title
         self.assertInHTML(

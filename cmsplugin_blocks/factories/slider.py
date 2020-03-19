@@ -3,6 +3,7 @@ import random
 import factory
 
 from cmsplugin_blocks.choices_helpers import get_slider_default_template
+from cmsplugin_blocks.factories.utils import create_image_file
 from cmsplugin_blocks.models import Slider, SlideItem
 
 
@@ -23,7 +24,6 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
     """
     slider = factory.SubFactory(SliderFactory)
     title = factory.Faker("text", max_nb_chars=20)
-    image = factory.django.FileField(filename="foo.jpg")
     content = factory.Faker("text", max_nb_chars=42)
     order = factory.Sequence(lambda n: 10 * n)
     link_name = factory.Faker("text", max_nb_chars=10)
@@ -43,3 +43,14 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
             return factory.Faker("url").generate({})
 
         return ""
+
+    @factory.lazy_attribute
+    def image(self):
+        """
+        Fill file field with generated image on the fly by PIL.
+
+        Returns:
+            django.core.files.File: File object.
+        """
+
+        return create_image_file()

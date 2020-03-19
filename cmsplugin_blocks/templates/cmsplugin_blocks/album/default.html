@@ -6,13 +6,10 @@
         {% for item in ressources %}
         <div class="album__item">
             <a href="{{ item.image.url }}" target="blank">
-                <img src="{{ item.image.url }}" alt="">
-            </a>
-            {% comment %}<a href="{{ item.image.url }}" target="blank">
-                {% thumbnail item.image "200x100" as im %}
+                {% thumbnail item.image "250x200" as im %}
                     <img src="{{ im.url }}" alt="">
                 {% endthumbnail %}
-            </a>{% endcomment %}
+            </a>
             {% if item.title %}
             <p class="album__item-title">
                 {{ item.title }}

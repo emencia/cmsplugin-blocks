@@ -14,4 +14,10 @@ DATABASES = {
     }
 }
 
+# Media directory dedicated to tests
+MEDIA_ROOT = os.path.join(DATA_DIR, "media-tests")
+
+# Require thumbnail to raise exception on errors to ensure tests fail
+THUMBNAIL_DEBUG = True
+
 from cmsplugin_blocks.settings import *

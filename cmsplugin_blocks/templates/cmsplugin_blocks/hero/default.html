@@ -1,6 +1,6 @@
-{% spaceless %}
+{% load sorl_thumbnail %}{% spaceless %}
 <div class="hero">
-    <div class="hero__wrapper"{% if instance.image %} style="background-image: url({{ instance.image.url }})"{% endif %}>
+    <div class="hero__wrapper"{% if instance.image %}{% thumbnail instance.image "1200x400" as im %} style="background-image: url({{ im.url }})"{% endthumbnail %}{% endif %}>
         {% if instance.content %}<div class="hero__content">{{ instance.content|safe }}</div>{% endif %}
     </div>
 </div>

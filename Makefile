@@ -85,6 +85,7 @@ flake:
 
 tests:
 	$(PYTEST) -vv tests/
+	rm -Rf data/media-tests/
 .PHONY: tests
 
 quality: tests flake
