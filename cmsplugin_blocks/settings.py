@@ -18,14 +18,13 @@ BLOCKS_SLIDER_TEMPLATES = [
 # Temporary directory where to store zip files for item mass upload
 BLOCKS_TEMP_DIR = 'temp/'
 
-# Allowed image file extension for basic validation in mass upload from ZIP
-# file
-BLOCKS_MASSUPLOAD_IMAGE_TYPES = [
-    'jpg',
-    'jpeg',
-    'svg',
-    'gif',
-    'png',
+# Allowed image file extensions for blocks plugins
+BLOCKS_ALLOWED_IMAGE_EXTENSIONS = [
+    "jpg",
+    "jpeg",
+    "svg",
+    "gif",
+    "png",
 ]
 
 # Common value for model string representation truncation limit length
@@ -39,6 +38,6 @@ BLOCKS_MODEL_TRUNCATION_CHR = "..."
 # think to set a limit also at server level to avoid basic attacks with very
 # big files.
 # https://stackoverflow.com/questions/2472422/django-file-upload-size-limit
-#BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 5242880 # 5MiO
-#BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 104857600 # 10MiO
-BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 429916160 # 50MiO
+#BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 5242880 # ~5MiO
+#BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 10485760 # ~10MiO
+BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 42991616 # ~50MiO

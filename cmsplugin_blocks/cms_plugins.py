@@ -28,6 +28,7 @@ from cmsplugin_blocks.forms.hero import HeroForm
 from cmsplugin_blocks.models.slider import Slider, SlideItem
 from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
 
+
 class AlbumItemAdmin(admin.TabularInline):
     """
     Plugin admin form to enable inline mode inside AlbumPlugin

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -10,6 +11,8 @@ from cms.models.pluginmodel import CMSPlugin
 
 from cmsplugin_blocks.choices_helpers import (get_slider_default_template,
                                               get_slider_template_choices)
+from cmsplugin_blocks.utils import SmartFormatMixin
+
 
 @python_2_unicode_compatible
 class Slider(CMSPlugin):
@@ -58,7 +61,7 @@ class Slider(CMSPlugin):
 
 
 @python_2_unicode_compatible
-class SlideItem(models.Model):
+class SlideItem(SmartFormatMixin, models.Model):
     """
     Slide item
     """
@@ -73,13 +76,18 @@ class SlideItem(models.Model):
         max_length=150,
         default="",
     )
-    image = models.ImageField(
+    image = models.FileField(
         _('Image'),
         upload_to='blocks/slider/%y/%m',
         max_length=255,
         null=True,
         blank=False,
         default=None,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=settings.BLOCKS_ALLOWED_IMAGE_EXTENSIONS
+            ),
+        ]
     )
     content = models.TextField(
         _(u"Content"),
@@ -112,6 +120,9 @@ class SlideItem(models.Model):
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
         )
+
+    def get_image_format(self):
+        return self.media_format(self.image)
 
     class Meta:
         verbose_name = _('Slide item')

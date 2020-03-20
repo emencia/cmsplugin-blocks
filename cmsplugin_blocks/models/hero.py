@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import strip_tags
@@ -10,10 +11,11 @@ from cms.models.pluginmodel import CMSPlugin
 
 from cmsplugin_blocks.choices_helpers import (get_hero_default_template,
                                               get_hero_template_choices)
+from cmsplugin_blocks.utils import SmartFormatMixin
 
 
 @python_2_unicode_compatible
-class Hero(CMSPlugin):
+class Hero(SmartFormatMixin, CMSPlugin):
     """
     A simple hero content with image and HTML content
     """
@@ -25,13 +27,18 @@ class Hero(CMSPlugin):
         default=get_hero_default_template(),
         help_text=_('Used template for content look.'),
     )
-    image = models.ImageField(
+    image = models.FileField(
         _('Image'),
         upload_to='blocks/hero/%y/%m',
         max_length=255,
         blank=True,
         null=True,
         default=None,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=settings.BLOCKS_ALLOWED_IMAGE_EXTENSIONS
+            ),
+        ]
     )
     content = models.TextField(
         _(u"Content"),
@@ -48,6 +55,9 @@ class Hero(CMSPlugin):
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
         )
+
+    def get_image_format(self):
+        return self.media_format(self.image)
 
     class Meta:
         verbose_name = _('Hero')
