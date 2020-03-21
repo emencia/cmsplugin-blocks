@@ -68,24 +68,28 @@ def validate_zip(data, obj=None):
     If 'obj' is given and valid temporary store it as 'uploaded_zip' attribute
     onto object.
 
-    This returns nothing.
-
     Raises:
         ValidationError: If not a valid zip file or has corrupted files
             (return corrupted filename in exception).
 
     Arguments:
-        data (file object): ZIP a a file object suitable to zipfile module.
+        data (file object): A file like object suitable to zipfile module.
 
     Keyword Arguments:
         obj (object): Optional object where to store temporary archive.
+
+    Returns:
+        zipfile.ZipFile: ZIP file object from given path.
     """
     # Validate ZIP from file metas first octets
     if not zipfile.is_zipfile(data):
-        raise ValidationError("Submited file is not a ZIP archive file")
+        raise ValidationError("Submitted file is not a ZIP archive file")
 
     # Open ZIP
-    archive = zipfile.ZipFile(data)
+    try:
+        archive = zipfile.ZipFile(data)
+    except zipfile.BadZipFile:
+        raise ValidationError("Submitted ZIP file is invalid")
 
     # Search for corrupted files
     corrupted_file = archive.testzip()
@@ -97,6 +101,8 @@ def validate_zip(data, obj=None):
     # ZIP is totally ok, store it to attribute
     if obj:
         obj.uploaded_zip = archive
+
+    return archive
 
 
 def store_images_from_zip(instance, zip_fileobject, item_model,
