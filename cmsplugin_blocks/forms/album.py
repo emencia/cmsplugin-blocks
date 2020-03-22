@@ -28,6 +28,16 @@ class AlbumItemForm(forms.ModelForm):
 
 
 class AlbumForm(forms.ModelForm):
+    """
+    Form to manage an Album with possible ZIP file to store items.
+
+    Be aware that this form does not finally save collected image items, they
+    are stored to attribute ``_awaiting_items`` on Album instance. Then in the
+    common workflow, the CMS plugin using this form will get this attribute and
+    perform final save. If you use this form without the CMS plugin edit
+    workflow, you will need to reproduce it.
+    """
+
     mass_upload = forms.FileField(
         label=_('Add items from a ZIP file'),
         max_length=100,
@@ -57,7 +67,7 @@ class AlbumForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         album = super(AlbumForm, self).save(*args, **kwargs)
 
-        # Collect item from zip if any
+        # Collect item from zip if any so final stage code can save them
         album._awaiting_items = store_images_from_zip(
             album,
             self.uploaded_zip,
