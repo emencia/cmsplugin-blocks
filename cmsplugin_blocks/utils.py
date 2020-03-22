@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import collections
+import logging
 import zipfile
 
 from io import BytesIO
@@ -118,8 +119,15 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
     from instance that does not have an id yet. Items are created and stored
     in a list of item to save further.
 
+    Since this is a method to be used inside save() method, it is required to
+    be silent for non blocking errors on item extraction, plus it should be
+    used after ZIP validation. And so no exception should be raised, instead
+    all catched item error are logged under logging spacename
+    ``cmsplugin_blocks.utils``.
+
     Arguments:
-        instance (object): Saved instance to link to item objects.
+        instance (object): Saved item container instance to link to item
+            objects (to link foreignkey relation).
         zip_fileobject (zipfile.ZipFile): A valid zip file object to search
             for images.
         item_model (model): Model object used to create items objects.
@@ -138,6 +146,8 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
     Returns:
         list: List of saved objects from image items.
     """
+    logger = logging.getLogger("cmsplugin_blocks.utils")
+
     stored_items = []
 
     if zip_fileobject:
@@ -151,7 +161,7 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
             data = zip_fileobject.read(filename)
             if len(data):
                 try:
-                    # the following is taken from
+                    # Following code is taken from
                     # django.forms.fields.ImageField: load() could spot a
                     # truncated JPEG, but it loads the entire image in memory,
                     # which is a DoS vector. See #3848 and #18520. verify()
@@ -159,26 +169,33 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
                     PILImage.open(BytesIO(data)).verify()
                 except Exception as e:
                     # if a "bad" file is found we just skip it.
-                    print('Error verifying image: {}'.format(str(e)))
+                    msg = 'Error verifying image: {}'.format(str(e))
+                    logger.error(msg)
                     continue
 
                 if hasattr(data, 'seek') and isinstance(data.seek,
                                                         collections.Callable):
-                    print('seeked')
+                    #print('seeked')
                     data.seek(0)
 
                 try:
                     item = item_model(**{link_attrname:instance})
                     # Lazy save since we dont have album id yet when creating
-                    getattr(item, image_attrname).save(filename,
-                                                       ContentFile(data),
-                                                       save=False)
+                    getattr(
+                        item,
+                        image_attrname
+                    ).save(
+                        filename,
+                        ContentFile(data),
+                        save=False
+                    )
 
                     # Optional string field to fill from filename
                     if label_attrname:
                         setattr(item, label_attrname, filename)
                 except Exception as e:
-                    print('Error creating item from file: {}'.format(str(e)))
+                    msg = 'Error creating item from file: {}'.format(str(e))
+                    logger.error(msg)
                 else:
                     # Store created item to be saved further in plugin
                     # 'save_model' method
