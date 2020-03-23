@@ -6,6 +6,7 @@ Version 0.6.0 - Unreleased
 --------------------------
 
 * Added test coverage and factories for every plugins;
+* Added tox configuration;
 * Modified every plugin templates to be cleaner and flawless;
 * Added ``title`` attribute to SlideItem model;
 * Use **sorl-thumbnail** on images in every plugin templates;
