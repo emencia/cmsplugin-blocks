@@ -5,13 +5,15 @@ import pytest
 
 from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
-from cms.api import add_plugin
+from cms.api import create_page, add_plugin
 from cms.models import Placeholder
+from cms.utils.urlutils import admin_reverse
 
 from cmsplugin_blocks.choices_helpers import get_album_default_template
 from cmsplugin_blocks.models import Album
 from cmsplugin_blocks.cms_plugins import AlbumPlugin
 from cmsplugin_blocks.factories.album import AlbumFactory, AlbumItemFactory
+from cmsplugin_blocks.factories.user import UserFactory
 
 
 def test_factory(db):
@@ -55,16 +57,16 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         When there is no item, there should not be any HTML item part
         """
         # Create random values for parameters with a factory
-        fabricated = AlbumFactory(title="Lorem ipsum dolore")
+        album = AlbumFactory(title="Lorem ipsum dolore")
 
         placeholder, model_instance, context, html = self.create_basic_render(
             AlbumPlugin,
-            template=fabricated.template,
-            title=fabricated.title,
+            template=album.template,
+            title=album.title,
         )
 
         expected_title = """<p class="album__title">{}</p>""".format(
-            fabricated.title
+            album.title
         )
         self.assertInHTML(expected_title, html)
 
@@ -76,16 +78,16 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         Plugin render with a album with a single item
         """
         # Create random values for parameters with a factory
-        fabricated_album = AlbumFactory.create()
-        fabricated_item = AlbumItemFactory.create(
-            album=fabricated_album,
+        album = AlbumFactory()
+        item = AlbumItemFactory.create(
+            album=album,
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
             AlbumPlugin,
-            copy_relations_from=fabricated_album,
-            template=fabricated_album.template,
-            title=fabricated_album.title,
+            copy_relations_from=album,
+            template=album.template,
+            title=album.title,
         )
 
         print()
@@ -94,7 +96,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Album title
         self.assertInHTML(
             """<p class="album__title">{}</p>""".format(
-                fabricated_album.title
+                album.title
             ),
             html
         )
@@ -105,7 +107,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             r'<img src="/media/cache/.*\.jpg.*alt="">'
             r'</a>'
         ).format(
-            title=fabricated_item.title,
+            title=item.title,
         )
         self.assertIsNotNone(re.search(pattern, html))
 
@@ -117,7 +119,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Item title
         self.assertInHTML(
             """<p class="album__item-title">{}</p>""".format(
-                fabricated_item.title
+                item.title
             ),
             html
         )
@@ -127,17 +129,17 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         Plugin render with a album with a single item without a title
         """
         # Create random values for parameters with a factory
-        fabricated_album = AlbumFactory.create()
-        fabricated_item = AlbumItemFactory.create(
-            album=fabricated_album,
+        album = AlbumFactory()
+        item = AlbumItemFactory.create(
+            album=album,
             title="",
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
             AlbumPlugin,
-            copy_relations_from=fabricated_album,
-            template=fabricated_album.template,
-            title=fabricated_album.title,
+            copy_relations_from=album,
+            template=album.template,
+            title=album.title,
         )
 
         print()
@@ -153,28 +155,28 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         Plugin render with a album with many various item
         """
         # Create random values for parameters with a factory
-        fabricated_album = AlbumFactory.create()
+        album = AlbumFactory()
 
-        fabricated_item_1 = AlbumItemFactory.create(
-            album=fabricated_album,
+        item_1 = AlbumItemFactory.create(
+            album=album,
         )
-        fabricated_item_2 = AlbumItemFactory.create(
-            album=fabricated_album,
+        item_2 = AlbumItemFactory.create(
+            album=album,
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
             AlbumPlugin,
-            copy_relations_from=fabricated_album,
-            template=fabricated_album.template,
-            title=fabricated_album.title,
+            copy_relations_from=album,
+            template=album.template,
+            title=album.title,
         )
 
         #print()
-        #print("album:", (fabricated_album.id, fabricated_album.title))
-        #fabricated_albums = fabricated_album.slide_item.all()
-        #print("fabricated_album.slide_item.all:", fabricated_albums)
-        #if fabricated_albums.count() > 0:
-            #print([(item.id, item.album.title, item.album) for item in fabricated_albums])
+        #print("album:", (album.id, album.title))
+        #albums = album.slide_item.all()
+        #print("album.slide_item.all:", albums)
+        #if albums.count() > 0:
+            #print([(item.id, item.album.title, item.album) for item in albums])
 
         #print()
         #print(html)
@@ -182,14 +184,14 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Item titles
         self.assertInHTML(
             """<p class="album__item-title">{}</p>""".format(
-                fabricated_item_1.title
+                item_1.title
             ),
             html
         )
 
         self.assertInHTML(
             """<p class="album__item-title">{}</p>""".format(
-                fabricated_item_2.title
+                item_2.title
             ),
             html
         )
@@ -198,7 +200,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         """
         Item order should be respected
         """
-        album = AlbumFactory.create()
+        album = AlbumFactory()
 
         # Create item in various order
         item_third = AlbumItemFactory.create(album=album, order=3, title="3")
@@ -223,3 +225,159 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         items = [(item.title, item.order) for item in context["ressources"]]
 
         assert items == [('1', 1), ('2', 2), ('3', 3), ('4', 4)]
+
+    def test_album_plugin_form_add(self):
+        """
+        Plugin creation form should return a success status code and every
+        expected field should be present in HTML.
+        """
+        # Connect a dummy admin
+        staff = UserFactory(is_staff=True, is_superuser=True)
+        self.client.login(username=staff.username, password="password")
+
+        # Create dummy page
+        page = create_page(
+            language="en",
+            title="Dummy",
+            slug="dummy",
+            template="pages/default.html",
+        )
+
+        # Get placeholder
+        placeholder = page.placeholders.get(slot="content")
+
+        # Get the edition plugin form url and open it
+        url = admin_reverse('cms_page_add_plugin')
+        response = self.client.get(url, {
+            'plugin_type': 'AlbumPlugin',
+            'placeholder_id': placeholder.pk,
+            'target_language': 'en',
+            'plugin_language': 'en',
+        })
+
+        html = response.content.decode("utf-8")
+
+        # Expected http success status
+        self.assertEqual(response.status_code, 200)
+
+        # Check all expected fields are present
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<select.*id="id_template".*>'
+                ),
+                html
+            )
+        )
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="text.*id="id_title".*>'
+                ),
+                html
+            )
+        )
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="text.*id="id_album_item-__prefix__-title".*>'
+                ),
+                html
+            )
+        )
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="number.*id="id_album_item-__prefix__-order".*>'
+                ),
+                html
+            )
+        )
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="file.*id="id_album_item-__prefix__-image".*>'
+                ),
+                html
+            )
+        )
+
+    def test_album_plugin_form_edit(self):
+        """
+        Plugin edition form should return a success status code and every
+        expected field should be present in HTML.
+        """
+        # Create random values for parameters with a factory
+        album = AlbumFactory()
+        item = AlbumItemFactory.create(
+            album=album,
+        )
+
+        # Connect a dummy admin
+        staff = UserFactory(is_staff=True, is_superuser=True)
+        self.client.login(username=staff.username, password="password")
+
+        # Create dummy page
+        page = create_page(
+            language="en",
+            title="Dummy",
+            slug="dummy",
+            template="pages/default.html",
+        )
+
+        # Add album plugin to placeholder
+        placeholder = page.placeholders.get(slot="content")
+        model_instance = add_plugin(
+            placeholder,
+            AlbumPlugin,
+            "en",
+            template=album.template,
+            title=album.title,
+        )
+        model_instance.copy_relations(album)
+
+        # Get the edition plugin form url and open it
+        url = admin_reverse('cms_page_edit_plugin', args=[model_instance.id])
+        response = self.client.get(url)
+
+        html = response.content.decode("utf-8")
+        print(html)
+
+        # Expected http success status
+        self.assertEqual(response.status_code, 200)
+
+        # Check expected album fields are present
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<select.*id="id_template".*>'
+                ),
+                html
+            )
+        )
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="text.*id="id_title".*>'
+                ),
+                html
+            )
+        )
+        # Check only a single expected empty field
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="file.*id="id_album_item-__prefix__-image".*>'
+                ),
+                html
+            )
+        )
+        # Check only a single expected filled field
+        self.assertIsNotNone(
+            re.search(
+                (
+                    r'<input.*type="file.*id="id_album_item-0-image".*>'
+                ),
+                html
+            )
+        )

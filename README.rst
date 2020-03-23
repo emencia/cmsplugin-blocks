@@ -17,11 +17,20 @@ Requires
 ********
 
 * Python >= 3.4;
-* Django>=1.11;
+* Django>=2.0;
 * Pillow;
 * `sorl-thumbnail`_;
-* `DjangoCMS`_ >= 3.4;
+* `DjangoCMS`_ >= 3.6;
 * `djangocms-text-ckeditor`_;
+
+Support
+*******
+
+Application is tested against the following versions:
+
+* Python 3.4 to 3.6;
+* Django 2.0 to 2.2;
+* DjangoCMS 3.6 to 3.7;
 
 Install
 *******
