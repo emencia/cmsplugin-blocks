@@ -226,7 +226,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         assert items == [('1', 1), ('2', 2), ('3', 3), ('4', 4)]
 
-    def test_album_plugin_form_add(self):
+    def test_album_plugin_form_view_add(self):
         """
         Plugin creation form should return a success status code and every
         expected field should be present in HTML.
@@ -302,7 +302,7 @@ class AlbumCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             )
         )
 
-    def test_album_plugin_form_edit(self):
+    def test_album_plugin_form_view_edit(self):
         """
         Plugin edition form should return a success status code and every
         expected field should be present in HTML.

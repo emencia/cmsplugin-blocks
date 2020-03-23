@@ -12,6 +12,7 @@ from cmsplugin_blocks.choices_helpers import get_hero_default_template
 from cmsplugin_blocks.cms_plugins import HeroPlugin
 from cmsplugin_blocks.factories.hero import HeroFactory
 from cmsplugin_blocks.factories.user import UserFactory
+from cmsplugin_blocks.forms.hero import HeroForm
 
 
 def test_factory(db):
@@ -136,7 +137,36 @@ class HeroCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             if log[0].startswith("sorl.thumbnail.base") and log[1] == logging.ERROR:
                 raise AssertionError("There is some 'sorl.thumbnail' error(s)")
 
-    def test_hero_plugin_form_add(self):
+    def test_hero_form_empty(self):
+        """
+        Form should not be valid with missing required fields.
+        """
+        form = HeroForm({})
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("template", form.errors)
+
+    def test_hero_form_success(self):
+        """
+        Form should be valid with factory datas.
+        """
+        hero = HeroFactory()
+
+        form = HeroForm({
+            "template": hero.template,
+            "image": hero.image,
+            "content": hero.content,
+        })
+        self.assertTrue(form.is_valid())
+
+        hero_instance = form.save()
+
+        # Checked save values are the same from factory, ignore the image to
+        # avoid playing with file
+        self.assertEqual(hero_instance.template, hero.template)
+        self.assertEqual(hero_instance.content, hero.content)
+
+    def test_hero_plugin_form_view_add(self):
         """
         Plugin creation form should return a success status code and every
         expected field should be present in HTML.
@@ -196,7 +226,7 @@ class HeroCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             )
         )
 
-    def test_hero_plugin_form_edit(self):
+    def test_hero_plugin_form_view_edit(self):
         """
         Plugin edition form should return a success status code and every
         expected field should be present in HTML.
