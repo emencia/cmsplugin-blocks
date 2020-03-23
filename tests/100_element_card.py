@@ -12,6 +12,7 @@ from cmsplugin_blocks.choices_helpers import get_card_default_template
 from cmsplugin_blocks.cms_plugins import CardPlugin
 from cmsplugin_blocks.factories.card import CardFactory
 from cmsplugin_blocks.factories.user import UserFactory
+from cmsplugin_blocks.forms.card import CardForm
 
 
 def test_factory(db):
@@ -154,7 +155,39 @@ class CardCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         )
         self.assertIsNone(re.search(pattern, html))
 
-    def test_card_plugin_form_add(self):
+    def test_card_form_empty(self):
+        """
+        Form should not be valid with missing required fields.
+        """
+        form = CardForm({})
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("alignment", form.errors)
+        self.assertIn("template", form.errors)
+
+    def test_card_form_success(self):
+        """
+        Form should be valid with factory datas.
+        """
+        card = CardFactory()
+
+        form = CardForm({
+            "template": card.template,
+            "alignment": card.alignment,
+            "image": card.image,
+            "content": card.content,
+        })
+        self.assertTrue(form.is_valid())
+
+        card_instance = form.save()
+
+        # Checked save values are the same from factory, ignore the image to
+        # avoid playing with file
+        self.assertEqual(card_instance.template, card.template)
+        self.assertEqual(card_instance.alignment, card.alignment)
+        self.assertEqual(card_instance.content, card.content)
+
+    def test_card_plugin_form_view_add(self):
         """
         Plugin creation form should return a success status code and every
         expected field should be present in HTML.
@@ -222,7 +255,7 @@ class CardCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             )
         )
 
-    def test_card_plugin_form_edit(self):
+    def test_card_plugin_form_view_edit(self):
         """
         Plugin edition form should return a success status code and every
         expected field should be present in HTML.
