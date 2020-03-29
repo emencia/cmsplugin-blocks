@@ -2,12 +2,24 @@
 Test utilities
 """
 import pytest
+import factory
 
 from django.test.html import HTMLParseError, parse_html
 
 from cms.api import add_plugin
 from cms.models import Placeholder
 from cms.test_utils.testcases import CMSTestCase
+
+
+def get_fake_words(length=1):
+    """
+    Shortand to build a string of fake words depending given required count of
+    words.
+    """
+    words = factory.Faker("words", nb=length)
+    words = words.generate()
+
+    return " ".join(words)
 
 
 def assert_and_parse_html(html):

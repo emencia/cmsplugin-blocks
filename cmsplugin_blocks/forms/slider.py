@@ -6,6 +6,16 @@ from djangocms_text_ckeditor.widgets import TextEditorWidget
 from cmsplugin_blocks.models.slider import Slider, SlideItem
 
 
+class SliderForm(forms.ModelForm):
+    class Meta:
+        model = Slider
+        fields = [
+            'title',
+            'template',
+        ]
+        exclude = []
+
+
 class SlideItemForm(forms.ModelForm):
     class Meta:
         model = SlideItem
@@ -20,15 +30,5 @@ class SlideItemForm(forms.ModelForm):
             'link_name',
             'link_url',
             'link_open_blank',
-        ]
-        exclude = []
-
-
-class SliderForm(forms.ModelForm):
-    class Meta:
-        model = Slider
-        fields = [
-            'title',
-            'template',
         ]
         exclude = []

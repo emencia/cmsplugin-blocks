@@ -35,7 +35,10 @@ class Album(CMSPlugin):
     )
 
     def __str__(self):
-        return self.title
+        return Truncator(strip_tags(self.title)).words(
+            settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
+            truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
+        )
 
     def copy_relations(self, oldinstance):
         """
@@ -93,7 +96,10 @@ class AlbumItem(SmartFormatMixin, models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return Truncator(strip_tags(self.title)).words(
+            settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
+            truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
+        )
 
     def get_image_format(self):
         return self.media_format(self.image)

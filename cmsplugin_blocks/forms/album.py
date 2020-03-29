@@ -11,22 +11,6 @@ from cmsplugin_blocks.utils import (validate_file_size, validate_zip,
                                     store_images_from_zip)
 
 
-class AlbumItemForm(forms.ModelForm):
-    class Meta:
-        model = AlbumItem
-        widgets = {
-            'image': FileInput,
-            'order': NumberInput(attrs={'style': 'width: 80px !important;'}),
-        }
-        fields = [
-            'album',
-            'title',
-            'order',
-            'image',
-        ]
-        exclude = []
-
-
 class AlbumForm(forms.ModelForm):
     """
     Form to manage an Album with possible ZIP file to store items.
@@ -85,5 +69,21 @@ class AlbumForm(forms.ModelForm):
             'title',
             'template',
             'mass_upload',
+        ]
+        exclude = []
+
+
+class AlbumItemForm(forms.ModelForm):
+    class Meta:
+        model = AlbumItem
+        widgets = {
+            'image': FileInput,
+            'order': NumberInput(attrs={'style': 'width: 80px !important;'}),
+        }
+        fields = [
+            'album',
+            'title',
+            'order',
+            'image',
         ]
         exclude = []
