@@ -88,7 +88,7 @@ class SliderRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         link_template = (
             """<p class="slider__item-link">"""
-            """<a class="button" href="{url}" target="blank">"""
+            """<a class="button" href="{url}" target="_blank">"""
             """{name}"""
             """</a>"""
             """</p>"""

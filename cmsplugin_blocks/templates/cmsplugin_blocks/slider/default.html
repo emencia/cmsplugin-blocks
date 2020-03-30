@@ -11,7 +11,7 @@
 
                 {% if item.link_url %}
                 <p class="slider__item-link">
-                    <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="blank"{% endif %}>
+                    <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="_blank"{% endif %}>
                         {% if item.link_name %}{{ item.link_name }}{% else %}{% trans "Read more" %}{% endif %}
                     </a>
                 </p>
