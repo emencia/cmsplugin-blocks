@@ -13,10 +13,16 @@ for everything.
 This just supply some plugins with a default basic template. There is no CSS,
 Javascript or anything else like frontend integration.
 
+Warning
+*******
+
+Be aware than 0.6.0 release is a major refactoring with breaking changes.
+
+
 Requires
 ********
 
-* Python >= 3.4;
+* Python>=3.4;
 * Django>=2.0;
 * Pillow;
 * `sorl-thumbnail`_;

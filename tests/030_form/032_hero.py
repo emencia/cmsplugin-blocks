@@ -16,6 +16,8 @@ class HeroFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("template", form.errors)
+        self.assertIn("content", form.errors)
+        self.assertEqual(len(form.errors), 2)
 
     def test_success(self):
         """
@@ -32,7 +34,7 @@ class HeroFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         hero_instance = form.save()
 
-        # Checked save values are the same from factory, ignore the image to
+        # Checked saved values are the same from factory, ignore the image to
         # avoid playing with file
         self.assertEqual(hero_instance.template, hero.template)
         self.assertEqual(hero_instance.content, hero.content)

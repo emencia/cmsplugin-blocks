@@ -112,3 +112,23 @@ def test_str_strip_tags(db, settings):
 
     assert "<p>Ping 日本</p>" == item.title
     assert "Ping 日本" == str(item)
+
+
+def test_item_image_format(db, settings):
+    """
+    Method to get image format should return a valid value without any error.
+    """
+    album = Album(
+        title="Foo",
+        template="Dummy"
+    )
+    album.save()
+
+    item = AlbumItem(
+        album=album,
+        order=42,
+        image="foo.jpg",
+    )
+    item.save()
+
+    assert item.get_image_format() == "JPEG"

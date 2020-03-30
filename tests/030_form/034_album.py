@@ -9,7 +9,7 @@ from cmsplugin_blocks.forms.album import AlbumForm, AlbumItemForm
 class AlbumFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
     """Album form tests case"""
 
-    def test_container_empty(self):
+    def test_album_empty(self):
         """
         Container form should not be valid with missing required fields.
         """
@@ -18,6 +18,7 @@ class AlbumFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("title", form.errors)
         self.assertIn("template", form.errors)
+        self.assertEqual(len(form.errors), 2)
 
     def test_item_empty(self):
         """
@@ -29,8 +30,9 @@ class AlbumFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         self.assertIn("album", form.errors)
         self.assertIn("order", form.errors)
         self.assertIn("image", form.errors)
+        self.assertEqual(len(form.errors), 3)
 
-    def test_container_success(self):
+    def test_album_success(self):
         """
         Form should be valid with factory datas.
         """
@@ -42,8 +44,30 @@ class AlbumFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         })
         self.assertTrue(form.is_valid())
 
-        album_instance = form.save()
+        instance = form.save()
 
-        # Checked save values are the same from factory
-        self.assertEqual(album_instance.title, album.title)
-        self.assertEqual(album_instance.template, album.template)
+        # Checked saved values are the same from factory
+        self.assertEqual(instance.title, album.title)
+        self.assertEqual(instance.template, album.template)
+
+    def test_item_success(self):
+        """
+        Item form should be valid with factory datas.
+        """
+        album = AlbumFactory()
+        item = AlbumItemFactory(album=album)
+
+        form = AlbumItemForm({
+            "album": item.album,
+            "order": item.order,
+        }, {
+            "image": item.image,
+        })
+        self.assertTrue(form.is_valid())
+
+        instance = form.save()
+
+        # Checked saved values are the same from factory
+        self.assertEqual(instance.album, album)
+        self.assertEqual(instance.order, item.order)
+        self.assertEqual(instance.image, item.image)

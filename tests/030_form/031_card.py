@@ -17,6 +17,8 @@ class CardFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("alignment", form.errors)
         self.assertIn("template", form.errors)
+        self.assertIn("content", form.errors)
+        self.assertEqual(len(form.errors), 3)
 
     def test_success(self):
         """
@@ -34,7 +36,7 @@ class CardFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         card_instance = form.save()
 
-        # Checked save values are the same from factory, ignore the image to
+        # Checked saved values are the same from factory, ignore the image to
         # avoid playing with file
         self.assertEqual(card_instance.template, card.template)
         self.assertEqual(card_instance.alignment, card.alignment)

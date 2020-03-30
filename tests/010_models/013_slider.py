@@ -112,3 +112,23 @@ def test_str_strip_tags(db, settings):
 
     assert "<p>Ping 日本</p>" == item.title
     assert "Ping 日本" == str(item)
+
+
+def test_item_image_format(db, settings):
+    """
+    Method to get image format should return a valid value without any error.
+    """
+    slider = Slider(
+        title="Foo",
+        template="Dummy"
+    )
+    slider.save()
+
+    item = SlideItem(
+        slider=slider,
+        order=42,
+        image="foo.jpg",
+    )
+    item.save()
+
+    assert item.get_image_format() == "JPEG"
