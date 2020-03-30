@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
-from django.utils.encoding import force_text, python_2_unicode_compatible
+from django.utils.encoding import force_text
 from django.utils.html import strip_tags
 from django.utils.text import Truncator
 from django.utils.translation import ugettext_lazy as _
@@ -14,7 +14,6 @@ from cmsplugin_blocks.choices_helpers import (get_album_default_template,
 from cmsplugin_blocks.utils import SmartFormatMixin
 
 
-@python_2_unicode_compatible
 class Album(CMSPlugin):
     """
     Album container
@@ -60,7 +59,6 @@ class Album(CMSPlugin):
         verbose_name_plural = _('Albums')
 
 
-@python_2_unicode_compatible
 class AlbumItem(SmartFormatMixin, models.Model):
     """
     Album item
