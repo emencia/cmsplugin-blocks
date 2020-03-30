@@ -16,15 +16,15 @@ help:
 	@echo "  clean               -- to clean EVERYTHING (Warning)"
 	@echo "  clean-pycache       -- to remove all __pycache__, this is recursive from current directory"
 	@echo "  clean-install       -- to clean Python side installation"
-	@echo "  clean-frontend      -- to clean Frontend side installation"
 	@echo "  clean-data          -- to clean data (uploaded medias, database, etc..)"
-	@echo ""
-	@echo "  frontend            -- to build frontend into app static dir"
-	@echo "  watch-frontend      -- to launch webpack in watch mode to rebuild frontend on each change"
 	@echo ""
 	@echo "  run                 -- to run Django development server"
 	@echo "  migrate             -- to apply demo database migrations"
 	@echo "  superuser           -- to create a superuser for Django admin"
+	@echo ""
+	@echo "  flake               -- to launch Flake8 checking"
+	@echo "  tests               -- to launch tests using Pytest"
+	@echo "  quality             -- to launch Flake8 checking and Pytest"
 	@echo
 
 clean-pycache:
