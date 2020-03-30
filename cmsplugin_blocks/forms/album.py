@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import FileInput, NumberInput
-
-from djangocms_text_ckeditor.widgets import TextEditorWidget
 
 from cmsplugin_blocks.models.album import Album, AlbumItem
 from cmsplugin_blocks.utils import (validate_file_size, validate_zip,
@@ -20,6 +17,8 @@ class AlbumForm(forms.ModelForm):
     common workflow, the CMS plugin using this form will get this attribute and
     perform final save. If you use this form without the CMS plugin edit
     workflow, you will need to reproduce it.
+
+    NOTE: "mass_upload" field usage does not have test coverage.
     """
 
     mass_upload = forms.FileField(
@@ -33,7 +32,6 @@ class AlbumForm(forms.ModelForm):
         self.uploaded_zip = None
 
         super(AlbumForm, self).__init__(*args, **kwargs)
-
 
     def clean_mass_upload(self):
         """

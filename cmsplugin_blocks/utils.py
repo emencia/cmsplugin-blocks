@@ -153,8 +153,7 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
     if zip_fileobject:
         for filename in sorted(zip_fileobject.namelist()):
             # Don't process invalid filename or directory
-            if filename.endswith('/') or \
-                not is_valid_image_filename(filename):
+            if filename.endswith('/') or not is_valid_image_filename(filename):
                 continue
 
             # Get archived file from ZIP
@@ -175,11 +174,10 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
 
                 if hasattr(data, 'seek') and isinstance(data.seek,
                                                         collections.Callable):
-                    #print('seeked')
                     data.seek(0)
 
                 try:
-                    item = item_model(**{link_attrname:instance})
+                    item = item_model(**{link_attrname: instance})
                     # Lazy save since we dont have album id yet when creating
                     getattr(
                         item,
