@@ -65,3 +65,13 @@ def test_str_strip_tags(db, settings):
     assert "<p>Foo 日本</p>" == instance.content
     assert "Foo 日本" == str(instance)
 
+
+def test_image_format(db, settings):
+    """
+    Method to get image format should return a valid value without any error.
+    """
+    instance = Hero(image="foo.jpg")
+    instance.save()
+
+    assert instance.get_image_format() == "JPEG"
+
