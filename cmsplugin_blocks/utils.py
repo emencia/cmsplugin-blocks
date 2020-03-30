@@ -53,10 +53,14 @@ def validate_file_size(data):
     """
     msg = _('Please keep filesize under {}. Current filesize {}')
 
-    if data._size > settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT:
+    # "_size" attribute is only available for Django<2.1, for greater Django
+    # version it is "size"
+    size = getattr(data, "_size", None) or getattr(data, "size")
+
+    if size > settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT:
         raise ValidationError(msg.format(
             filesizeformat(settings.BLOCKS_MASSUPLOAD_FILESIZE_LIMIT),
-            filesizeformat(data._size)
+            filesizeformat(size)
         ))
 
     return True
