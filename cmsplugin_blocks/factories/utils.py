@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import factory
 import io
 
 from PIL import Image as PILimage

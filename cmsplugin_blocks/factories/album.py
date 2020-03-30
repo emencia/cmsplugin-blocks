@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-import random
 import factory
-import io
-
-from PIL import Image as PILimage
-
-from django.core.files import File
 
 from cmsplugin_blocks.choices_helpers import get_album_default_template
 from cmsplugin_blocks.factories.utils import create_image_file

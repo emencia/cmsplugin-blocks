@@ -2,22 +2,20 @@
 """
 CMS Plugin interface definitions
 """
-from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from sorl.thumbnail.helpers import ThumbnailError
-from sorl.thumbnail import get_thumbnail
+from cmsplugin_blocks.admin import AlbumItemAdmin, SlideItemAdmin
 
 from cmsplugin_blocks.choices_helpers import (get_album_default_template,
                                               get_card_default_template,
                                               get_hero_default_template,
                                               get_slider_default_template)
 
-from cmsplugin_blocks.models.album import Album, AlbumItem
-from cmsplugin_blocks.forms.album import AlbumForm, AlbumItemForm
+from cmsplugin_blocks.models.album import Album
+from cmsplugin_blocks.forms.album import AlbumForm
 
 from cmsplugin_blocks.models.card import Card
 from cmsplugin_blocks.forms.card import CardForm
@@ -25,49 +23,8 @@ from cmsplugin_blocks.forms.card import CardForm
 from cmsplugin_blocks.models.hero import Hero
 from cmsplugin_blocks.forms.hero import HeroForm
 
-from cmsplugin_blocks.models.slider import Slider, SlideItem
-from cmsplugin_blocks.forms.slider import SliderForm, SlideItemForm
-
-
-class AlbumItemAdmin(admin.TabularInline):
-    """
-    Plugin admin form to enable inline mode inside AlbumPlugin
-
-    TODO: Move to admin.py
-    """
-    model = AlbumItem
-    form = AlbumItemForm
-    extra = 0
-    verbose_name = _("Image")
-    ordering = ['order']
-    template = "cmsplugin_blocks/admin/albumitem_edit_tabular.html"
-    fieldsets = (
-        (None, {
-            'fields': (
-                'admin_thumbnail',
-                'album',
-                'title',
-                'order',
-                'image',
-            ),
-        }),
-    )
-    readonly_fields = ('admin_thumbnail',)
-
-    def admin_thumbnail(self, obj):
-        try:
-            return "<a href=\"{source}\" target=\"blank\"><img src=\"{thumb}\" alt=\"\"></a>".format(
-                source=obj.image.url,
-                thumb=get_thumbnail(obj.image, '80x80', crop='center').url
-            )
-        except IOError:
-            logger.exception('IOError for image {}'.format(obj.image))
-            return 'IOError'
-        except ThumbnailError as ex:
-            return "ThumbnailError, {}".format(ex.message)
-
-    admin_thumbnail.short_description = 'Current'
-    admin_thumbnail.allow_tags = True
+from cmsplugin_blocks.models.slider import Slider
+from cmsplugin_blocks.forms.slider import SliderForm
 
 
 class AlbumPlugin(CMSPluginBase):
@@ -170,32 +127,6 @@ class HeroPlugin(CMSPluginBase):
         })
 
         return context
-
-
-class SlideItemAdmin(admin.StackedInline):
-    """
-    Plugin admin form to enable inline mode inside SliderPlugin
-
-    TODO: Move to admin.py
-    """
-    model = SlideItem
-    form = SlideItemForm
-    extra = 0
-    fieldsets = (
-        (None, {
-            'fields': (
-                'slider',
-                'image',
-                'content',
-                (
-                    'order',
-                    'link_name',
-                    'link_url',
-                    'link_open_blank',
-                ),
-            ),
-        }),
-    )
 
 
 class SliderPlugin(CMSPluginBase):
