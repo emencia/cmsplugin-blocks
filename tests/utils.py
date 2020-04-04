@@ -34,12 +34,13 @@ class FixturesTestCaseMixin(object):
     """
     Mixin to inject pytest fixtures on testcase.
 
-    There fixtures will be available for every testcase tests.
+    These fixtures will be available for every testcase tests.
     """
 
     @pytest.fixture(autouse=True)
-    def inject_fixtures(self, caplog):
+    def inject_fixtures(self, caplog, testsettings):
         self._caplog = caplog
+        self._testsettings = testsettings
 
 
 class CMSPluginTestCase(CMSTestCase):

@@ -18,7 +18,7 @@ class AlbumForm(forms.ModelForm):
     perform final save. If you use this form without the CMS plugin edit
     workflow, you will need to reproduce it.
 
-    NOTE: "mass_upload" field usage does not have test coverage.
+    TODO: "mass_upload" field usage does not have test coverage.
     """
 
     mass_upload = forms.FileField(
