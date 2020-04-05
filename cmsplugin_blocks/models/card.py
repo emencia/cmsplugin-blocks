@@ -58,7 +58,7 @@ class Card(SmartFormatMixin, CMSPlugin):
     )
 
     def __init__(self, *args, **kwargs):
-        super(Card, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.content = force_text(self.content)
 
     def __str__(self):

@@ -8,7 +8,7 @@ from cms.api import create_page, add_plugin
 from cms.models import Placeholder
 from cms.utils.urlutils import admin_reverse
 
-from cmsplugin_blocks.cms_plugins import AlbumPlugin
+from cmsplugin_blocks.plugins.album import AlbumPlugin
 from cmsplugin_blocks.factories.album import AlbumFactory, AlbumItemFactory
 from cmsplugin_blocks.factories.user import UserFactory
 

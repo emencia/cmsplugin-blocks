@@ -5,7 +5,7 @@ import pytest
 
 from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
-from cmsplugin_blocks.cms_plugins import AlbumPlugin
+from cmsplugin_blocks.plugins.album import AlbumPlugin
 from cmsplugin_blocks.factories.album import AlbumFactory, AlbumItemFactory
 
 
