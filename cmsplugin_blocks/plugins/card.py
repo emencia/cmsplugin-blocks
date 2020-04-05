@@ -30,8 +30,7 @@ class CardPlugin(CMSPluginBase):
     )
 
     def render(self, context, instance, placeholder):
-        context = super().render(context, instance,
-                                                 placeholder)
+        context = super().render(context, instance, placeholder)
         self.render_template = instance.template
 
         context.update({

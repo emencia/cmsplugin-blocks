@@ -37,8 +37,7 @@ class SliderPlugin(CMSPluginBase):
     )
 
     def render(self, context, instance, placeholder):
-        context = super().render(context, instance,
-                                                   placeholder)
+        context = super().render(context, instance, placeholder)
         self.render_template = instance.template
         slides = instance.slide_item.all().order_by('order')
         context.update({
