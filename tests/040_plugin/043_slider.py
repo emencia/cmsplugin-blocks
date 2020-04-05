@@ -8,7 +8,7 @@ from cms.api import create_page, add_plugin
 from cms.models import Placeholder
 from cms.utils.urlutils import admin_reverse
 
-from cmsplugin_blocks.cms_plugins import SliderPlugin
+from cmsplugin_blocks.plugins.slider import SliderPlugin
 from cmsplugin_blocks.factories.slider import SliderFactory, SlideItemFactory
 from cmsplugin_blocks.factories.user import UserFactory
 

@@ -7,7 +7,7 @@ from cms.utils.urlutils import admin_reverse
 
 from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
-from cmsplugin_blocks.cms_plugins import HeroPlugin
+from cmsplugin_blocks.plugins.hero import HeroPlugin
 from cmsplugin_blocks.factories.hero import HeroFactory
 from cmsplugin_blocks.factories.user import UserFactory
 

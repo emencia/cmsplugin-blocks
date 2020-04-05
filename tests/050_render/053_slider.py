@@ -5,7 +5,7 @@ import pytest
 
 from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
-from cmsplugin_blocks.cms_plugins import SliderPlugin
+from cmsplugin_blocks.plugins.slider import SliderPlugin
 from cmsplugin_blocks.factories.slider import SliderFactory, SlideItemFactory
 
 

@@ -5,7 +5,7 @@ import pytest
 
 from tests.utils import FixturesTestCaseMixin, CMSPluginTestCase
 
-from cmsplugin_blocks.cms_plugins import CardPlugin
+from cmsplugin_blocks.plugins.card import CardPlugin
 from cmsplugin_blocks.factories.card import CardFactory
 
 

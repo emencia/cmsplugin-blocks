@@ -17,8 +17,6 @@ class AlbumForm(forms.ModelForm):
     common workflow, the CMS plugin using this form will get this attribute and
     perform final save. If you use this form without the CMS plugin edit
     workflow, you will need to reproduce it.
-
-    TODO: "mass_upload" field usage does not have test coverage.
     """
 
     mass_upload = forms.FileField(
@@ -31,7 +29,7 @@ class AlbumForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.uploaded_zip = None
 
-        super(AlbumForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean_mass_upload(self):
         """
@@ -47,7 +45,7 @@ class AlbumForm(forms.ModelForm):
         return data
 
     def save(self, *args, **kwargs):
-        album = super(AlbumForm, self).save(*args, **kwargs)
+        album = super().save(*args, **kwargs)
 
         # Collect item from zip if any so final stage code can save them
         album._awaiting_items = store_images_from_zip(
