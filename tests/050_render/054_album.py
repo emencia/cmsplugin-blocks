@@ -63,7 +63,7 @@ class AlbumRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         # Item image and title
         pattern = (
-            r'<a href="/media/blocks/album/.*\.jpg.*target="blank">'
+            r'<a href="/media/blocks/album/.*\.png.*target="blank">'
             r'<img src="/media/cache/.*\.jpg.*alt="">'
             r'</a>'
         ).format(

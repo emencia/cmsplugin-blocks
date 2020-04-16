@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+
+
+AVAILABLE_FORMATS = getattr(settings, "SMART_FORMAT_AVAILABLE_FORMATS", [
+    ("jpg", "JPEG"),
+    ("jpeg", "JPEG"),
+    ("png", "PNG"),
+    ("gif", "GIF"),
+    ("svg", "SVG"),
+])
 
 
 class SmartFormatMixin(object):
@@ -6,6 +16,7 @@ class SmartFormatMixin(object):
     A mixin to inherit from a model so it will have some common helper
     methods to manage image formats.
     """
+
     def media_format(self, mediafile):
         """
         Common method to perform a naive check about image format using file
@@ -37,13 +48,9 @@ class SmartFormatMixin(object):
         """
         if mediafile:
             ext = mediafile.name.split(".")[-1].lower()
-            if ext in ["jpg", "jpeg"]:
-                return "JPEG"
-            elif ext in ["png"]:
-                return "PNG"
-            elif ext in ["gif"]:
-                return "GIF"
-            elif ext in ["svg"]:
-                return "SVG"
+
+            for fileext, formatname in AVAILABLE_FORMATS:
+                if ext == fileext:
+                    return formatname
 
         return None
