@@ -48,7 +48,6 @@ def create_image_file(filename=None, size=(100, 100), color="blue",
     # Create a SVG file
     if format_name == 'SVG':
         width, height = size
-        print("size:", width, height)
         html = (
             """<svg xmlns="http://www.w3.org/2000/svg" """
             """viewBox="0 0 {width} {height}">"""
@@ -59,7 +58,6 @@ def create_image_file(filename=None, size=(100, 100), color="blue",
             height=str(height),
             color=color,
         )
-        print(html)
         thumb_io = io.StringIO(html)
     # Create an image file for every other formats
     else:

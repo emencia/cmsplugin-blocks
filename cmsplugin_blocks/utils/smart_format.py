@@ -10,6 +10,8 @@ AVAILABLE_FORMATS = getattr(settings, "SMART_FORMAT_AVAILABLE_FORMATS", [
     ("svg", "SVG"),
 ])
 
+AVAILABLE_FORMAT_EXTENSIONS = [k for k, v in AVAILABLE_FORMATS]
+
 
 class SmartFormatMixin(object):
     """
