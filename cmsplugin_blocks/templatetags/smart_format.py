@@ -7,7 +7,7 @@ from cmsplugin_blocks.exceptions import (
     InvalidFormatError, IncompatibleSvgToBitmap, IncompatibleBitmapToSvg
 )
 from cmsplugin_blocks.utils import (
-    AVAILABLE_FORMAT_EXTENSIONS, SmartFormatMixin
+    AVAILABLE_FORMAT_EXTENSIONS, SmartFormatMixin, SvgFile
 )
 
 register = template.Library()
@@ -69,7 +69,7 @@ def media_format_url(source, geometry, *args, **kwargs):
                 format_name=required_format.lower(),
             ))
         # SVG to SVG is correct (nothing to do)
-        return source
+        return SvgFile(source)
     # Unknown format
     elif required_format.lower() not in AVAILABLE_FORMAT_EXTENSIONS:
         msg = ("Required format '{format_name}' does not match available "
@@ -90,7 +90,7 @@ def media_format_url(source, geometry, *args, **kwargs):
 
     # For SVG source, just returns the source file
     if required_format == "SVG":
-        return source
+        return SvgFile(source)
 
     # Here we assume the format is ok, if it has been manually defined, user
     # is responsible about possible error with its content
