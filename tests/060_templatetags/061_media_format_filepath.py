@@ -1,4 +1,5 @@
 import io
+import json
 import os
 
 from PIL import Image
@@ -13,6 +14,7 @@ from django.template import Context, Template
 from cmsplugin_blocks.exceptions import (
     InvalidFormatError, IncompatibleSvgToBitmap, IncompatibleBitmapToSvg
 )
+from cmsplugin_blocks.utils import SvgFile
 
 
 def test_basic(db):
@@ -25,7 +27,7 @@ def test_basic(db):
     image = get_test_source(storage)
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -46,7 +48,53 @@ def test_basic(db):
 
     # Fail because the File object given to sorl have the initial required file
     # name which is not the final filename (which have additional unique hash)
-    assert os.path.exists(thumb_filepath) == True
+    assert os.path.exists(thumb_filepath)
+
+    # Open created image file with PIL for validation
+    with Image.open(thumb_filepath) as im:
+        assert im.format == "PNG"
+        assert im.size == (50, 50)
+
+
+def test_assignation(db):
+    """
+    Basic usage with assignation (with "as" keyword)
+    """
+    storage = get_storage_class()()
+
+    # Create a dummy source image file
+    image = get_test_source(storage)
+    saved_source = storage.path(image.name)
+
+    assert os.path.exists(saved_source)
+
+    # Template to use tag with dummy image
+    t = Template(
+        (
+            "{% load smart_format %}"
+            "{% media_format_url myfileobject geometry as mythumb %}[{{ mythumb }}]"
+        )
+    )
+    # Template context to pass tag arguments
+    c = {
+        "myfileobject": image,
+        "geometry": "50x50",
+    }
+
+    # Render template with tag usage
+    result = t.render(Context(c))
+
+    # Ensure assignment is correctly done in variable which we surrounded with
+    # dummy brackets for distinction purposes
+    assert result.startswith("[")
+    assert result.endswith("]")
+
+    # Get thumb url from value inside brackets
+    thumb_filepath = storage.path(result.strip()[1:-1])
+
+    # Fail because the File object given to sorl have the initial required file
+    # name which is not the final filename (which have additional unique hash)
+    assert os.path.exists(thumb_filepath)
 
     # Open created image file with PIL for validation
     with Image.open(thumb_filepath) as im:
@@ -65,7 +113,7 @@ def test_upscale_disabled(db):
     image = get_test_source(storage, size=(50, 50))
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -87,7 +135,7 @@ def test_upscale_disabled(db):
 
     # Fail because the File object given to sorl have the initial required file
     # name which is not the final filename (which have additional unique hash)
-    assert os.path.exists(thumb_filepath) == True
+    assert os.path.exists(thumb_filepath)
 
     # Open created image file with PIL for validation
     with Image.open(thumb_filepath) as im:
@@ -114,7 +162,7 @@ def test_format_auto_bitmap(db, expected):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -133,7 +181,7 @@ def test_format_auto_bitmap(db, expected):
     result = t.render(Context(c))
     thumb_filepath = storage.path(result.strip())
 
-    assert os.path.exists(thumb_filepath) == True
+    assert os.path.exists(thumb_filepath)
 
     # Open created image file with PIL for validation
     with Image.open(thumb_filepath) as im:
@@ -154,7 +202,7 @@ def test_format_auto_svg(db):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -173,7 +221,7 @@ def test_format_auto_svg(db):
     result = t.render(Context(c))
     thumb_filepath = storage.path(result.strip())
 
-    assert os.path.exists(thumb_filepath) == True
+    assert os.path.exists(thumb_filepath)
 
     # Thumb object is the source file object
     assert thumb_filepath == saved_source
@@ -182,7 +230,7 @@ def test_format_auto_svg(db):
     with io.open(thumb_filepath, "r") as fp:
         content = fp.read()
 
-    assert content.startswith("<svg") == True
+    assert content.startswith("<svg")
 
 
 def test_format_invalid_format_name(db):
@@ -198,7 +246,7 @@ def test_format_invalid_format_name(db):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -233,7 +281,7 @@ def test_format_forced_jpeg(db):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -253,7 +301,7 @@ def test_format_forced_jpeg(db):
     result = t.render(Context(c))
     thumb_filepath = storage.path(result.strip())
 
-    assert os.path.exists(thumb_filepath) == True
+    assert os.path.exists(thumb_filepath)
 
     # Open created image file with PIL for validation
     with Image.open(thumb_filepath) as im:
@@ -274,7 +322,7 @@ def test_format_incompatible_bitmap_to_svg(db):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -309,7 +357,7 @@ def test_format_incompatible_svg_to_bitmap(db):
     )
     saved_source = storage.path(image.name)
 
-    assert os.path.exists(saved_source) == True
+    assert os.path.exists(saved_source)
 
     # Template to use tag with dummy image
     t = Template(
@@ -328,3 +376,96 @@ def test_format_incompatible_svg_to_bitmap(db):
     # Render template with tag usage
     with pytest.raises(IncompatibleSvgToBitmap):
         result = t.render(Context(c))
+
+
+def test_bitmap_url(db):
+    """
+    Bitmap thumb url should be a valid attribute with correct url
+    """
+    storage = get_storage_class()()
+
+    # Create a dummy source image file
+    image = get_test_source(storage)
+    saved_source = storage.path(image.name)
+
+    assert os.path.exists(saved_source)
+
+    # Template to use tag with dummy image
+    # We render a basic JSON string to return some values
+    t = Template(
+        (
+            """{% load smart_format %}"""
+            """{% media_format_url myfileobject geometry as mythumb %}"""
+            """{"name": "{{ mythumb }}", "url": "{{ mythumb.url }}" }"""
+        )
+    )
+    # Template context to pass tag arguments
+    c = {
+        "myfileobject": image,
+        "geometry": "50x50",
+    }
+
+    # Render template with tag usage
+    result = t.render(Context(c))
+
+    # Decode JSON string
+    datas = json.loads(result.strip())
+
+    print("result:", result)
+    print(datas)
+
+    thumb_filepath = storage.path(datas["name"])
+    thumb_url = storage.url(datas["name"])
+
+    print("thumb_filepath:", thumb_filepath)
+    print("thumb_url:", thumb_url)
+
+    # Thumb file does exists and correspond to the thumb url
+    assert os.path.exists(thumb_filepath)
+    assert len(datas["url"]) > 0
+    assert thumb_url == datas["url"]
+
+
+def test_svg_url(db):
+    """
+    SVG file object url should be a valid attribute with correct url
+    """
+    storage = get_storage_class()()
+
+    # Create a dummy source image file
+    image = get_test_source(
+        storage,
+        format_name="SVG",
+    )
+    saved_source = storage.path(image.name)
+
+    assert os.path.exists(saved_source)
+
+    # Template to use tag with dummy image
+    # We render a basic JSON string to return some values
+    t = Template(
+        (
+            """{% load smart_format %}"""
+            """{% media_format_url myfileobject geometry as mythumb %}"""
+            """{"name": "{{ mythumb }}", "url": "{{ mythumb.url }}" }"""
+        )
+    )
+    # Template context to pass tag arguments
+    c = {
+        "myfileobject": image,
+        "geometry": "50x50",
+    }
+
+    # Render template with tag usage
+    result = t.render(Context(c))
+
+    # Decode JSON string
+    datas = json.loads(result.strip())
+
+    thumb_filepath = storage.path(datas["name"])
+    thumb_url = storage.url(datas["name"])
+
+    # Thumb file does exists and correspond to expected thumb url
+    assert os.path.exists(thumb_filepath)
+    assert len(datas["url"]) > 0
+    assert thumb_url == datas["url"]
