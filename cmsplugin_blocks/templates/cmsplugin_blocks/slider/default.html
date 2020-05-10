@@ -1,11 +1,11 @@
-{% load i18n sorl_thumbnail %}{% spaceless %}
+{% load i18n smart_format %}{% spaceless %}
 <div class="block slider">
     <p class="slider__title">{{ instance.title }}</p>
 
     <div class="slider__items">
         {% for item in slides %}
-            {% thumbnail item.image "1200x400" as im %}
-            <div class="slider__item" style="background-image: url({{ im.url }})">
+            {% media_thumb item.image "1200x400" as thumb %}
+            <div class="slider__item" style="background-image: url({{ thumb.url }})">
                 <p class="slider__item-title">{{ item.title }}</p>
                 {% if item.content %}<div class="slider__item-content">{{ item.content|safe }}</div>{% endif %}
 
@@ -17,7 +17,6 @@
                 </p>
                 {% endif %}
             </div>
-            {% endthumbnail %}
         {% endfor %}
     </div>
 </div>

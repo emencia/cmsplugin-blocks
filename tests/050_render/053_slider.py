@@ -66,7 +66,7 @@ class SliderRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         # Item image and title
         pattern = (
-            r'<div class="slider__item" style="background-image\: url\(/media/cache/.*\.jpg.*>'
+            r'<div class="slider__item" style="background-image\: url\(/media/cache/.*\.png.*>'
             r'<p class="slider__item-title">{title:s}</p>'
         ).format(
             title=item.title,

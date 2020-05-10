@@ -1,21 +1,20 @@
-{% load sorl_thumbnail %}{% spaceless %}
+{% load smart_format %}{% spaceless %}
 <div class="album">
     <p class="album__title">{{ instance.title }}</p>
 
     <div class="album__items">
         {% for item in ressources %}
-        <div class="album__item">
-            <a href="{{ item.image.url }}" target="blank">
-                {% thumbnail item.image "250x200" as im %}
-                    <img src="{{ im.url }}" alt="">
-                {% endthumbnail %}
-            </a>
-            {% if item.title %}
-            <p class="album__item-title">
-                {{ item.title }}
-            </p>
-            {% endif %}
-        </div>
+            {% media_thumb item.image "250x200" as thumb %}
+            <div class="album__item">
+                <a href="{{ item.image.url }}" target="blank">
+                    <img src="{{ thumb.url }}" alt="">
+                </a>
+                {% if item.title %}
+                <p class="album__item-title">
+                    {{ item.title }}
+                </p>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 </div>

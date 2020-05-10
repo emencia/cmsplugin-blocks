@@ -14,7 +14,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def media_format_url(source, geometry, *args, **kwargs):
+def media_thumb(source, geometry, *args, **kwargs):
     """
     Determine the right format and return the Sorl thumb file url path for
     given image file.
