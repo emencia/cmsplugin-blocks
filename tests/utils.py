@@ -1,6 +1,8 @@
 """
 Test utilities
 """
+import os
+
 import pytest
 import factory
 
@@ -9,6 +11,7 @@ from django.test.html import HTMLParseError, parse_html
 from cms.api import add_plugin
 from cms.models import Placeholder
 from cms.test_utils.testcases import CMSTestCase
+from cmsplugin_blocks.utils.factories import create_image_file
 
 
 def get_fake_words(length=1):
@@ -20,6 +23,42 @@ def get_fake_words(length=1):
     words = words.generate()
 
     return " ".join(words)
+
+
+def get_test_source(storage, *args, **kwargs):
+    """
+    Shortcut helper to create a dummy image, save it to the FS and get its
+    final path from storage.
+
+    Arguments:
+        storage (django.core.files.storage.Storage): Storage class to use to
+            save file to the file system.
+
+    Keyword Arguments:
+        storage (django.core.files.storage.Storage): Storage class to use to
+            save file to the file system. This is a required argument.
+        destination_dir (string): relative directory path where to save file
+            in storage directory. Default to "pil".
+        *args: Any other positionnal arguments are passed to
+            ``create_image_file``.
+        **kwargs: Any other Keyword arguments are passed to
+            ``create_image_file``.
+
+    Returns:
+        django.core.files.File: File object with the right final file path.
+    """
+    destination_dir = kwargs.pop("destination_dir", "pil")
+
+    image = create_image_file(*args, **kwargs)
+
+    destination = os.path.join(destination_dir, image.name)
+    source_filepath = storage.save(destination, image)
+
+    # Trick to update name to final destination since File object is not
+    # automatically updated to the final filepath during storage.
+    image.name = source_filepath
+
+    return image
 
 
 def assert_and_parse_html(html):
