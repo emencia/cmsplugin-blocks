@@ -41,7 +41,7 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Check image
         pattern = (
             r'<div class="card__media">'
-            r'<img src="/media/cache/.*\.jpg.*alt="">'
+            r'<img src="/media/cache/.*\.png.*alt="">'
             r'</div>'
         )
         self.assertIsNotNone(re.search(pattern, html))
@@ -79,7 +79,7 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Check image
         pattern = (
             r'<div class="card__media">'
-            r'<img src="/media/blocks/card/.*\.jpg.*alt="">'
+            r'<img src="/media/blocks/card/.*\.png.*alt="">'
             r'</div>'
         )
         self.assertIsNone(re.search(pattern, html))

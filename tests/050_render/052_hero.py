@@ -31,7 +31,7 @@ class HeroRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         # Check image
         pattern = (
-            r'<div class="hero__wrapper" style="background-image\: url\(/media/cache/.*\.jpg.*>'
+            r'<div class="hero__wrapper" style="background-image\: url\(/media/cache/.*\.png.*>'
         )
         self.assertIsNotNone(re.search(pattern, html))
 

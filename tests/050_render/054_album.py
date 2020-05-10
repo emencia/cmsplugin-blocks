@@ -64,7 +64,7 @@ class AlbumRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         # Item image and title
         pattern = (
             r'<a href="/media/blocks/album/.*\.png.*target="blank">'
-            r'<img src="/media/cache/.*\.jpg.*alt="">'
+            r'<img src="/media/cache/.*\.png.*alt="">'
             r'</a>'
         ).format(
             title=item.title,

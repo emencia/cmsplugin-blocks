@@ -33,7 +33,7 @@ def test_basic(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry %}"
+            "{% media_thumb myfileobject geometry %}"
         )
     )
     # Template context to pass tag arguments
@@ -72,7 +72,7 @@ def test_assignation(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry as mythumb %}[{{ mythumb }}]"
+            "{% media_thumb myfileobject geometry as mythumb %}[{{ mythumb }}]"
         )
     )
     # Template context to pass tag arguments
@@ -119,7 +119,7 @@ def test_upscale_disabled(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry upscale=upscale %}"
+            "{% media_thumb myfileobject geometry upscale=upscale %}"
         )
     )
     # Template context to pass tag arguments
@@ -168,7 +168,7 @@ def test_format_auto_bitmap(db, expected):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry %}"
+            "{% media_thumb myfileobject geometry %}"
         )
     )
     # Template context to pass tag arguments
@@ -208,7 +208,7 @@ def test_format_auto_svg(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry %}"
+            "{% media_thumb myfileobject geometry %}"
         )
     )
     # Template context to pass tag arguments
@@ -252,7 +252,7 @@ def test_format_invalid_format_name(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry format=format %}"
+            "{% media_thumb myfileobject geometry format=format %}"
         )
     )
     # Template context to pass tag arguments
@@ -287,7 +287,7 @@ def test_format_forced_jpeg(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry format=format %}"
+            "{% media_thumb myfileobject geometry format=format %}"
         )
     )
     # Template context to pass tag arguments
@@ -328,7 +328,7 @@ def test_format_incompatible_bitmap_to_svg(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry format=format %}"
+            "{% media_thumb myfileobject geometry format=format %}"
         )
     )
     # Template context to pass tag arguments
@@ -363,7 +363,7 @@ def test_format_incompatible_svg_to_bitmap(db):
     t = Template(
         (
             "{% load smart_format %}"
-            "{% media_format_url myfileobject geometry format=format %}"
+            "{% media_thumb myfileobject geometry format=format %}"
         )
     )
     # Template context to pass tag arguments
@@ -395,7 +395,7 @@ def test_bitmap_url(db):
     t = Template(
         (
             """{% load smart_format %}"""
-            """{% media_format_url myfileobject geometry as mythumb %}"""
+            """{% media_thumb myfileobject geometry as mythumb %}"""
             """{"name": "{{ mythumb }}", "url": "{{ mythumb.url }}" }"""
         )
     )
@@ -446,7 +446,7 @@ def test_svg_url(db):
     t = Template(
         (
             """{% load smart_format %}"""
-            """{% media_format_url myfileobject geometry as mythumb %}"""
+            """{% media_thumb myfileobject geometry as mythumb %}"""
             """{"name": "{{ mythumb }}", "url": "{{ mythumb.url }}" }"""
         )
     )
