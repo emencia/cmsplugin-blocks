@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Version 0.6.0 - Unreleased
+Version 0.6.0 - 2020/05/11
 --------------------------
 
 This is a major refactoring with may involve breaking changes for some custom
