@@ -13,16 +13,10 @@ for everything.
 This just supply some plugins with a default basic template. There is no CSS,
 Javascript or anything else like frontend integration.
 
-Warning
-*******
-
-Be aware than 0.6.0 release is a major refactoring with breaking changes.
-
-
 Requires
 ********
 
-* Python>=3.4;
+* Python >= 3.4;
 * Django>=2.0;
 * Pillow;
 * `sorl-thumbnail`_;
@@ -35,7 +29,7 @@ Support
 Application is tested against the following versions:
 
 * Python 3.4 to 3.6;
-* Django 2.0 to 2.2;
+* Django 2.0 to 3.0;
 * DjangoCMS 3.6 to 3.7;
 
 Install

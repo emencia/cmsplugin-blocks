@@ -5,15 +5,17 @@ Changelog
 Version 0.6.0 - Unreleased
 --------------------------
 
-This will be a major refactoring with breaking changes.
+This is a major refactoring with may involve breaking changes for some custom
+usages.
 
 * Added full test coverage;
 * Added tox configuration;
 * Modified every plugin templates to be cleaner and flawless;
 * Added ``title`` attribute to SlideItem model;
-* Use **sorl-thumbnail** on images in every plugin templates;
 * Use ``FileField`` instead of ``ImageField`` for image fields in every plugin
   so we can use SVG;
+* Add a new template tag ``media_thumb`` with smart format guessing instead of
+  Sorl tag ``thumbnail`` on images in every plugin templates;
 
 Version 0.5.2 - 2019/05/18
 --------------------------

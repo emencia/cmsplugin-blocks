@@ -4,7 +4,7 @@ import zipfile
 from django.conf import settings
 from django.forms import ValidationError
 from django.template.defaultfilters import filesizeformat
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def is_valid_image_filename(filename):

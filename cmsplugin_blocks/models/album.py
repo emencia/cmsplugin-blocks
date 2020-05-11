@@ -4,7 +4,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils.html import strip_tags
 from django.utils.text import Truncator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from cms.models.pluginmodel import CMSPlugin
 
