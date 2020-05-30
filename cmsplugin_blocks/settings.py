@@ -1,3 +1,12 @@
+# Enabled plugin to register, unregistered plugin models are still created
+# but not available anymore in DjangoCMS
+BLOCKS_ENABLED_PLUGINS = [
+    "AlbumPlugin",
+    "CardPlugin",
+    "HeroPlugin",
+    "SliderPlugin",
+]
+
 # Available default templates
 BLOCKS_ALBUM_TEMPLATES = [
     ('cmsplugin_blocks/album/default.html', 'Default'),

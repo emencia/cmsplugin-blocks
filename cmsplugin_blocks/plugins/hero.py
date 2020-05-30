@@ -13,7 +13,7 @@ from cmsplugin_blocks.forms.hero import HeroForm
 
 
 class HeroPlugin(CMSPluginBase):
-    module = _('Blocks')
+    module = _("Blocks")
     name = _("Hero")
     model = Hero
     form = HeroForm
@@ -21,10 +21,10 @@ class HeroPlugin(CMSPluginBase):
     cache = True
     fieldsets = (
         (None, {
-            'fields': (
-                'template',
-                'image',
-                'content',
+            "fields": (
+                "template",
+                "image",
+                "content",
             ),
         }),
     )
@@ -34,7 +34,7 @@ class HeroPlugin(CMSPluginBase):
         self.render_template = instance.template
 
         context.update({
-            'instance': instance,
+            "instance": instance,
         })
 
         return context

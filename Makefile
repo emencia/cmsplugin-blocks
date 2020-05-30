@@ -2,6 +2,7 @@ PYTHON_INTERPRETER=python3
 DEMO_DJANGO_SECRET_KEY=samplesecretfordev
 VENV_PATH=.venv
 PIP=$(VENV_PATH)/bin/pip
+BOUSSOLE=$(VENV_PATH)/bin/boussole
 DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
 FLAKE=$(VENV_PATH)/bin/flake8
 PYTEST=$(VENV_PATH)/bin/pytest
@@ -17,6 +18,9 @@ help:
 	@echo "  clean-pycache       -- to remove all __pycache__, this is recursive from current directory"
 	@echo "  clean-install       -- to clean Python side installation"
 	@echo "  clean-data          -- to clean data (uploaded medias, database, etc..)"
+	@echo ""
+	@echo "  css                 -- to build stylesheets with Boussole from Sass sources"
+	@echo "  watch-sass          -- to launch Boussole watch mode to rebuild stylesheets from Sass sources"
 	@echo ""
 	@echo "  run                 -- to run Django development server"
 	@echo "  migrate             -- to apply demo database migrations"
@@ -73,6 +77,14 @@ install: venv create-var-dirs
 	$(PIP) install -e .[dev]
 	${MAKE} migrate
 .PHONY: install
+
+css:
+	$(BOUSSOLE) compile --config sass/boussole.json
+.PHONY: css
+
+watch-sass:
+	$(BOUSSOLE) watch --config sass/boussole.json
+.PHONY: watch-sass
 
 run:
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \

@@ -6,6 +6,7 @@ from django.forms.widgets import FileInput, NumberInput
 from cmsplugin_blocks.models.album import Album, AlbumItem
 from cmsplugin_blocks.utils import (validate_file_size, validate_zip,
                                     store_images_from_zip)
+from cmsplugin_blocks.widgets import FileInputButtonBase
 
 
 class AlbumForm(forms.ModelForm):
@@ -20,10 +21,11 @@ class AlbumForm(forms.ModelForm):
     """
 
     mass_upload = forms.FileField(
-        label=_('Add items from a ZIP file'),
+        label=_("Add items from a ZIP"),
         max_length=100,
         required=False,
-        help_text=_("Select a '*.zip' file of images to upload as new items.")
+        help_text=_("Select a '*.zip' file of images to upload as new items."),
+        widget=FileInputButtonBase,
     )
 
     def __init__(self, *args, **kwargs):
@@ -34,9 +36,9 @@ class AlbumForm(forms.ModelForm):
     def clean_mass_upload(self):
         """
         Validate uploaded ZIP archive file and temporary store it to
-        'uploaded_zip' form object attribute if valid.
+        "uploaded_zip" form object attribute if valid.
         """
-        data = self.cleaned_data['mass_upload']
+        data = self.cleaned_data["mass_upload"]
 
         if data:
             validate_file_size(data)
@@ -52,8 +54,8 @@ class AlbumForm(forms.ModelForm):
             album,
             self.uploaded_zip,
             AlbumItem,
-            'album',
-            'image',
+            "album",
+            "image",
             label_attrname="title"
         )
 
@@ -61,25 +63,34 @@ class AlbumForm(forms.ModelForm):
 
     class Meta:
         model = Album
+        widgets = {
+            "order": NumberInput(attrs={"style": "width: 80px !important;"}),
+        }
         fields = [
-            'title',
-            'template',
-            'mass_upload',
+            "title",
+            "template",
+            "mass_upload",
         ]
         exclude = []
+
+    class Media:
+        css = {
+            "all": ("cmsplugin_blocks/css/admin/album.css",),
+        }
+        js = ("cmsplugin_blocks/js/fileinputbutton.js",)
 
 
 class AlbumItemForm(forms.ModelForm):
     class Meta:
         model = AlbumItem
         widgets = {
-            'image': FileInput,
-            'order': NumberInput(attrs={'style': 'width: 80px !important;'}),
+            "image": FileInputButtonBase,
+            "order": NumberInput(attrs={"style": "width: 80px !important;"}),
         }
         fields = [
-            'album',
-            'title',
-            'order',
-            'image',
+            "album",
+            "title",
+            "order",
+            "image",
         ]
         exclude = []

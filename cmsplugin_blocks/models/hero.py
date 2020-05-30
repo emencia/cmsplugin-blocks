@@ -19,16 +19,16 @@ class Hero(SmartFormatMixin, CMSPlugin):
     A simple hero content with image and HTML content
     """
     template = models.CharField(
-        _('Template'),
+        _("Template"),
         blank=False,
         max_length=150,
         choices=get_hero_template_choices(),
         default=get_hero_default_template(),
-        help_text=_('Used template for content look.'),
+        help_text=_("Used template for content look."),
     )
     image = models.FileField(
-        _('Image'),
-        upload_to='blocks/hero/%y/%m',
+        _("Image"),
+        upload_to="blocks/hero/%y/%m",
         max_length=255,
         blank=True,
         null=True,
@@ -59,5 +59,5 @@ class Hero(SmartFormatMixin, CMSPlugin):
         return self.media_format(self.image)
 
     class Meta:
-        verbose_name = _('Hero')
-        verbose_name_plural = _('Heros')
+        verbose_name = _("Hero")
+        verbose_name_plural = _("Heros")

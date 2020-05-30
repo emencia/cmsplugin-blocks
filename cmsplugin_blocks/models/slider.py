@@ -18,18 +18,18 @@ class Slider(CMSPlugin):
     Slide container
     """
     title = models.CharField(
-        _('Title'),
+        _("Title"),
         blank=False,
         max_length=150,
         default="",
     )
     template = models.CharField(
-        _('Template'),
+        _("Template"),
         blank=False,
         max_length=150,
         choices=get_slider_template_choices(),
         default=get_slider_default_template(),
-        help_text=_('Used template for content look.'),
+        help_text=_("Used template for content look."),
     )
 
     def __str__(self):
@@ -54,8 +54,8 @@ class Slider(CMSPlugin):
             slide_item.save()
 
     class Meta:
-        verbose_name = _('Slider')
-        verbose_name_plural = _('Sliders')
+        verbose_name = _("Slider")
+        verbose_name_plural = _("Sliders")
 
 
 class SlideItem(SmartFormatMixin, models.Model):
@@ -68,14 +68,14 @@ class SlideItem(SmartFormatMixin, models.Model):
         on_delete=models.CASCADE
     )
     title = models.CharField(
-        _('Title'),
+        _("Title"),
         blank=False,
         max_length=150,
         default="",
     )
     image = models.FileField(
-        _('Image'),
-        upload_to='blocks/slider/%y/%m',
+        _("Image"),
+        upload_to="blocks/slider/%y/%m",
         max_length=255,
         null=True,
         blank=False,
@@ -92,24 +92,24 @@ class SlideItem(SmartFormatMixin, models.Model):
         default="",
     )
     order = models.IntegerField(
-        _('Order'),
+        _("Order"),
         blank=False,
         default=0
     )
     link_name = models.CharField(
-        _('link name'),
+        _("link name"),
         blank=True,
         max_length=45,
     )
     link_url = models.CharField(
-        _('link url'),
+        _("link url"),
         blank=True,
         max_length=255,
     )
     link_open_blank = models.BooleanField(
-        _('open new window'),
+        _("open new window"),
         default=False,
-        help_text=_('If checked the link will be open in a new window'),
+        help_text=_("If checked the link will be open in a new window"),
     )
 
     def __str__(self):
@@ -122,5 +122,5 @@ class SlideItem(SmartFormatMixin, models.Model):
         return self.media_format(self.image)
 
     class Meta:
-        verbose_name = _('Slide item')
-        verbose_name_plural = _('Slide items')
+        verbose_name = _("Slide item")
+        verbose_name_plural = _("Slide items")

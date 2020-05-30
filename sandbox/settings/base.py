@@ -130,6 +130,11 @@ LANGUAGES = [
 # Absolute filesystem path to the directory that contain tests fixtures files
 TESTS_FIXTURES_DIR = os.path.join('..', 'tests', 'data_fixtures')
 
+# Admin style need to be put before Django admin
+INSTALLED_APPS[0:0] = [
+    'djangocms_admin_style',
+]
+
 INSTALLED_APPS = INSTALLED_APPS + [
     # Enable CMS required apps
     'cms',
@@ -150,6 +155,9 @@ MIDDLEWARE.extend([
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
 ])
+
+# Required since DjangoCMS 3.7.2
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 

@@ -1,0 +1,79 @@
+//
+// Stylesheet for Hero plugin form
+//
+@import '../tools/reset';
+@import '../tools/include-media';
+@import '../tools/flexbox';
+@import '../tools/include-fileinputbutton';
+
+
+// Breakpoints accorded to expected plugin iframe sizes
+$breakpoints: (
+  'small': 640px,
+  'medium': 800px,
+  'large': 1000px,
+);
+
+
+#hero_form {
+    // Enforce fileinputbutton styles with !important since django-admin-style
+    // does a lot of overriding with important mark
+    .fileinputbutton {
+        @include fileinputbutton-input($force: true);
+        @include fileinputbutton-preview($force: true);
+        @include fileinputbutton-clearable($force: true);
+
+        & + label {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-row {
+        @include box-sizing;
+
+        // Turn group fields grid with template field to a flexbox grid
+        &.field-image {
+            display: flex;
+            flex-wrap: wrap;
+
+            // Neutralize useless div added by Django admin
+            & > div:not(.fieldBox) {
+                @include sv-flex(1, 0, 100%);
+            }
+
+            .fieldBox {
+                @include sv-flex(1, 0, 100%);
+                width: auto;
+                margin: 0;
+                float: none;
+                border: 0;
+
+                @include media("<small") {
+                    padding-left: 0;
+                }
+
+                @include media(">=small") {
+                    @include sv-flex(1, 1, 50%);
+                    padding: 0 0.2rem;
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
+                    }
+
+                    select {
+                        max-width: 99% !important;
+                    }
+                }
+
+                .help {
+                    padding-left: 0;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

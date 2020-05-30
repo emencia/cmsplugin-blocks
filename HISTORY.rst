@@ -2,6 +2,17 @@
 Changelog
 =========
 
+Version 0.7.0 - Unreleased
+--------------------------
+
+* Added new setting ``BLOCKS_ENABLED_PLUGINS`` which list plugins to enable
+  for usage. Disabled plugins won't be visible but their models are still
+  created in your database. **WARNING:** You need to update to add this new
+  setting;
+* Added missing field "title" for Slide item form;
+* Added fileinputbutton component;
+* Added stylesheets to some component admin forms to improve their ergonomy;
+
 Version 0.6.0 - 2020/05/11
 --------------------------
 

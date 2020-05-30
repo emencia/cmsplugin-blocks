@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
-from cmsplugin_blocks.admin import AlbumItemAdmin
+from cmsplugin_blocks.admin.album import AlbumItemAdmin
 
 from cmsplugin_blocks.choices_helpers import get_album_default_template
 
@@ -18,9 +18,9 @@ class AlbumPlugin(CMSPluginBase):
     """
     Album interface is able to add/edit/remove items within inline forms.
 
-    Also used template is dynamically retrieved from 'template' value.
+    Also used template is dynamically retrieved from "template" value.
     """
-    module = _('Blocks')
+    module = _("Blocks")
     name = _("Album")
     model = Album
     form = AlbumForm
@@ -29,9 +29,12 @@ class AlbumPlugin(CMSPluginBase):
     cache = True
     fieldsets = (
         (None, {
-            'fields': (
-                'title',
-                ('template', 'mass_upload'),
+            "fields": (
+                "title",
+                (
+                    "template",
+                    "mass_upload",
+                ),
             ),
         }),
     )
@@ -39,10 +42,10 @@ class AlbumPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         self.render_template = instance.template
-        ressources = instance.album_item.all().order_by('order')
+        ressources = instance.album_item.all().order_by("order")
         context.update({
-            'instance': instance,
-            'ressources': ressources,
+            "instance": instance,
+            "ressources": ressources,
         })
         return context
 
@@ -50,7 +53,7 @@ class AlbumPlugin(CMSPluginBase):
         result = super().save_model(request, obj, form, change)
 
         # Save awaiting item in memory
-        for item in getattr(obj, '_awaiting_items', []):
+        for item in getattr(obj, "_awaiting_items", []):
             item.album = obj
             item.save()
 

@@ -1,0 +1,111 @@
+//
+// Stylesheet for Album plugin form
+//
+@import '../tools/reset';
+@import '../tools/include-media';
+@import '../tools/flexbox';
+@import '../tools/include-fileinputbutton';
+
+
+// Breakpoints accorded to expected plugin iframe sizes
+$breakpoints: (
+  'small': 640px,
+  'medium': 800px,
+  'large': 1000px,
+);
+
+
+#album_form {
+    // Enforce fileinputbutton styles with !important since django-admin-style
+    // does a lot of overriding with important mark
+    .fileinputbutton {
+        @include fileinputbutton-input($force: true);
+
+        & + label {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-row {
+        @include box-sizing;
+
+        // Restore alternate background for inline items which admin-style try
+        // to erase
+        &.row1 {
+            background: #ffffff;
+        }
+        &.row2 {
+            background: #fbfbfb;
+        }
+
+        // Turn group fields grid with template field to a flexbox grid
+        &.field-template {
+            display: flex;
+            flex-wrap: wrap;
+
+            .fieldBox {
+                @include sv-flex(1, 0, 100%);
+                width: auto;
+                margin: 0;
+                float: none;
+                border: 0;
+
+                @include media(">=small") {
+                    @include sv-flex(1, 1, 50%);
+                    padding: 0 0.2rem;
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
+                    }
+
+                    select {
+                        max-width: 99% !important;
+                    }
+                }
+
+                .help {
+                    padding-left: 0;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    // Items
+    fieldset {
+        // More distinct title for inline items
+        h2 {
+            text-transform: uppercase;
+        }
+
+        .form-row {
+            td {
+                padding: 0.9375rem 0.625rem !important;
+                vertical-align: middle !important;
+            }
+        }
+
+        // Title text input take the full width
+        .field-title {
+            input {
+                width: 100% !important;
+            }
+        }
+
+        // More distinct title for add item button
+        .add-row a {
+            text-transform: uppercase;
+        }
+
+        // Fix delete link alignment
+        .inline-deletelink {
+            width: auto;
+            height: auto;
+            float: none;
+        }
+    }
+}

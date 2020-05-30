@@ -18,18 +18,18 @@ class Album(CMSPlugin):
     Album container
     """
     title = models.CharField(
-        _('Title'),
+        _("Title"),
         blank=False,
         max_length=150,
         default="",
     )
     template = models.CharField(
-        _('Template'),
+        _("Template"),
         blank=False,
         max_length=150,
         choices=get_album_template_choices(),
         default=get_album_default_template(),
-        help_text=_('Used template for content formatting.'),
+        help_text=_("Used template for content formatting."),
     )
 
     def __str__(self):
@@ -54,8 +54,8 @@ class Album(CMSPlugin):
             album_item.save()
 
     class Meta:
-        verbose_name = _('Album')
-        verbose_name_plural = _('Albums')
+        verbose_name = _("Album")
+        verbose_name_plural = _("Albums")
 
 
 class AlbumItem(SmartFormatMixin, models.Model):
@@ -68,19 +68,19 @@ class AlbumItem(SmartFormatMixin, models.Model):
         on_delete=models.CASCADE
     )
     title = models.CharField(
-        _('Title'),
+        _("Title"),
         blank=True,
         max_length=150,
         default="",
     )
     order = models.IntegerField(
-        _('Order'),
+        _("Order"),
         blank=False,
         default=0
     )
     image = models.FileField(
-        _('Image'),
-        upload_to='blocks/album/%y/%m',
+        _("Image"),
+        upload_to="blocks/album/%y/%m",
         max_length=255,
         null=True,
         blank=False,
@@ -102,5 +102,5 @@ class AlbumItem(SmartFormatMixin, models.Model):
         return self.media_format(self.image)
 
     class Meta:
-        verbose_name = _('Album item')
-        verbose_name_plural = _('Album items')
+        verbose_name = _("Album item")
+        verbose_name_plural = _("Album items")
