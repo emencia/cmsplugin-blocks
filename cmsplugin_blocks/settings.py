@@ -43,7 +43,7 @@ BLOCKS_MODEL_TRUNCATION_LENGTH = 4
 BLOCKS_MODEL_TRUNCATION_CHR = "..."
 
 # Maximum file size allowed for mass upload feature
-# This is a limit at Django level so file will still be processed, you may
+# This is a limit at Django level so file will still be processed, you should
 # think to set a limit also at server level to avoid basic attacks with very
 # big files.
 # https://stackoverflow.com/questions/2472422/django-file-upload-size-limit

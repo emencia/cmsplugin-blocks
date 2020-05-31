@@ -28,9 +28,10 @@ class SliderFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("slider", form.errors)
+        self.assertIn("title", form.errors)
         self.assertIn("order", form.errors)
         self.assertIn("image", form.errors)
-        self.assertEqual(len(form.errors), 3)
+        self.assertEqual(len(form.errors), 4)
 
     def test_slider_success(self):
         """
@@ -59,6 +60,7 @@ class SliderFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         form = SlideItemForm({
             "slider": item.slider,
+            "title": item.title,
             "order": item.order,
         }, {
             "image": item.image,
