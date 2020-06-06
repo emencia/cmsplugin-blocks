@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
-from cmsplugin_blocks.admin import SlideItemAdmin
+from cmsplugin_blocks.admin.slider import SlideItemAdmin
 
 from cmsplugin_blocks.choices_helpers import get_slider_default_template
 
@@ -20,7 +20,7 @@ class SliderPlugin(CMSPluginBase):
 
     Also used template is dynamically retrieved from 'template' value.
     """
-    module = _('Blocks')
+    module = _("Blocks")
     name = _("Slider")
     model = Slider
     form = SliderForm
@@ -29,9 +29,9 @@ class SliderPlugin(CMSPluginBase):
     cache = True
     fieldsets = (
         (None, {
-            'fields': (
-                'title',
-                'template',
+            "fields": (
+                "title",
+                "template",
             ),
         }),
     )
@@ -39,9 +39,9 @@ class SliderPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
         self.render_template = instance.template
-        slides = instance.slide_item.all().order_by('order')
+        slides = instance.slide_item.all().order_by("order")
         context.update({
-            'instance': instance,
-            'slides': slides,
+            "instance": instance,
+            "slides": slides,
         })
         return context

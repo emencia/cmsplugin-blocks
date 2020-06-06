@@ -13,7 +13,7 @@ from cmsplugin_blocks.forms.card import CardForm
 
 
 class CardPlugin(CMSPluginBase):
-    module = _('Blocks')
+    module = _("Blocks")
     name = _("Card")
     model = Card
     form = CardForm
@@ -21,10 +21,13 @@ class CardPlugin(CMSPluginBase):
     cache = True
     fieldsets = (
         (None, {
-            'fields': (
-                ('alignment', 'template'),
-                'image',
-                'content',
+            "fields": (
+                "template",
+                (
+                    "alignment",
+                    "image",
+                ),
+                "content",
             ),
         }),
     )
@@ -34,7 +37,7 @@ class CardPlugin(CMSPluginBase):
         self.render_template = instance.template
 
         context.update({
-            'instance': instance,
+            "instance": instance,
         })
 
         return context

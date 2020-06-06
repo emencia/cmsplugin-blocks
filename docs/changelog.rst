@@ -1,11 +1,31 @@
+
 =========
 Changelog
 =========
 
+Version 0.7.0 - Unreleased
+--------------------------
+
+Better plugin form ergonomy and documentation.
+
+* Added new setting ``BLOCKS_ENABLED_PLUGINS`` which list plugins to enable
+  for usage. Disabled plugins won't be visible but their models are still
+  created in your database. **WARNING:** You need to update your project
+  settings to add this new setting if you don't include the app settings;
+* Added missing field ``title`` for Slide item form;
+* Added ``FileInputButton`` widgets to use instead FileInput;
+* Added ``ClearableFileInputButton`` widgets to use instead ClearableFileInput;
+* Added custom stylesheets for every plugin admin forms to improve their ergonomy;
+* Added Boussole to development requirement to build CSS from Sass sources;
+* Mute the ``RemovedInDjango40Warning`` warning until DjangoCMS has fixed its
+  usage of ``ugettext_lazy``;
+* Added missing default settings ``SMART_FORMAT_AVAILABLE_FORMATS``;
+* Added documentation in ``docs`` with Sphinx and livereload;
+
 Version 0.6.0 - 2020/05/11
 --------------------------
 
-This is a major refactoring with may involve breaking changes for some custom
+This is a major refactoring which may involve breaking changes for some custom
 usages.
 
 * Added full test coverage;

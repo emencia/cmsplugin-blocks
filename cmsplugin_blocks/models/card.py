@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+====
+Card
+====
+
+A card component with a title, image and content. Optionally there is a choice
+to define a direction for content and image.
+
+"""
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -16,31 +25,41 @@ from cmsplugin_blocks.utils import SmartFormatMixin
 
 class Card(SmartFormatMixin, CMSPlugin):
     """
-    A simple card object
+    Card component.
     """
     ALIGNMENT_CHOICES = [
-        ('left', _('Content to the left, image to the right')),
-        ('right', _('Image to the left, content to the reft')),
+        ("left", _("Content to the left, image to the right")),
+        ("right", _("Image to the left, content to the reft")),
     ]
 
     alignment = models.CharField(
-        _('Alignment'),
+        _("Alignment"),
         choices=ALIGNMENT_CHOICES,
         max_length=15,
         blank=False,
-        default='left',
+        default="left",
     )
+    """
+    Content alignment choice, either content to the left and image to the right
+    or vice versa.
+    """
+
     template = models.CharField(
-        _('Template'),
+        _("Template"),
         blank=False,
         max_length=150,
         choices=get_card_template_choices(),
         default=get_card_default_template(),
-        help_text=_('Used template for content look.'),
+        help_text=_("Used template for content look."),
     )
+    """
+    Template choice from available plugin templates in setting
+    ``BLOCKS_CARD_TEMPLATES``. Default to the first choice item.
+    """
+
     image = models.FileField(
-        _('Image'),
-        upload_to='blocks/card/%y/%m',
+        _("Image"),
+        upload_to="blocks/card/%y/%m",
         max_length=255,
         blank=True,
         null=True,
@@ -51,11 +70,19 @@ class Card(SmartFormatMixin, CMSPlugin):
             ),
         ]
     )
+    """
+    Optional image file, limited to enabled image formats from settings
+    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    """
+
     content = models.TextField(
         _(u"Content"),
         blank=False,
         default="",
     )
+    """
+    Required long text, it will be editable through CKeditor on plugin form.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -71,5 +98,5 @@ class Card(SmartFormatMixin, CMSPlugin):
         return self.media_format(self.image)
 
     class Meta:
-        verbose_name = _('Card')
-        verbose_name_plural = _('Cards')
+        verbose_name = _("Card")
+        verbose_name_plural = _("Cards")

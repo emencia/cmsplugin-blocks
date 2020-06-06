@@ -1,0 +1,14 @@
+// Reset Django admin helpers
+
+// Use modern box-sizing behavior (to compute size with
+// margin/padding/border included)
+//
+@mixin box-sizing() {
+    box-sizing: border-box;
+
+    *,
+    ::before,
+    ::after {
+        box-sizing: inherit;
+    }
+}

@@ -29,17 +29,44 @@ def media_thumb(source, geometry, *args, **kwargs):
             for more details.
 
     Keyword Arguments:
-        format (string): Either ``PNG``, ``JPEG``, ``GIF``, ``SVG`` or ``auto``.
+        format (string):
+            An available format name from settings ``SMART_FORMAT_AVAILABLE_FORMATS``:
 
             * ``PNG``, ``JPEG`` and ``GIF`` enforce the thumb format no matter
               the source image format. Be careful to not enforce a format where
               a SVG is a possible source format, since Sorl can't read SVG.
             * ``SVG`` will not produce any thumb, just return the same path
-              than the source one since SVG does not need a thumb.
-            * ``auto`` format automatically find and use the same format than
+              than the source one since SVG does not need a thumb and is not
+              supported from image libraries.
+            * ``auto`` to automatically find and use the same format than
               the source image. This is the recommended way.
 
             When argument is empty the default value is ``auto``.
+
+    Example:
+        The most basic usage is to define only thumbnail geometry in default
+        "auto" format mode: ::
+
+            {% load smart_format %}
+            {% media_thumb instance.image "250x200" as thumb %}
+            <img src="{{ thumb.url }}" alt="">
+
+        You can also enforce a specific format: ::
+
+            {% load smart_format %}
+            {% media_thumb instance.image "250x200" format="JPEG" as thumb %}
+            <img src="{{ thumb.url }}" alt="">
+
+        Keep it in mind than do it will raise error with SVG image files (if you
+        allowed SVG format in plugins) since image libraries (like Pillow or
+        ImageMagick) has no support for SVG.
+
+        Every argument but ``format`` is passed to Sorl, so like for cropping
+        image you can do : ::
+
+            {% load smart_format %}
+            {% media_thumb instance.image "250x200" crop="center" as thumb %}
+            <img src="{{ thumb.url }}" alt="">
 
     Return:
         sorl.thumbnail.images.ImageFile: Sorl ImageFile instance for created

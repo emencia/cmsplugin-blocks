@@ -1,0 +1,8 @@
+{
+    "SOURCES_PATH": "scss",
+    "TARGET_PATH": "../cmsplugin_blocks/static/cmsplugin_blocks/css",
+    "LIBRARY_PATHS": [],
+    "OUTPUT_STYLES": "expanded",
+    "SOURCE_COMMENTS": false,
+    "EXCLUDES": []
+}

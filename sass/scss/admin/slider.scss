@@ -1,0 +1,125 @@
+//
+// Stylesheet for Slider plugin form
+//
+@import '../tools/reset';
+@import '../tools/include-media';
+@import '../tools/flexbox';
+@import '../tools/include-fileinputbutton';
+
+
+// Breakpoints accorded to expected plugin iframe sizes
+$breakpoints: (
+  'small': 640px,
+  'medium': 800px,
+  'large': 1000px,
+);
+
+
+#slider_form {
+    // Enforce fileinputbutton styles with !important since django-admin-style
+    // does a lot of overriding with important mark
+    .fileinputbutton {
+        @include fileinputbutton-input($force: true);
+        @include fileinputbutton-preview($force: true);
+        @include fileinputbutton-clearable($force: true);
+
+        & + label {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-row {
+        @include box-sizing;
+    }
+
+    // More distinct title for slide items
+    #slide_item-group {
+        .inline-related {
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+
+            h3 {
+                background: #e0e0e0;
+            }
+        }
+    }
+
+    // Items
+    fieldset {
+        // More distinct title for inline items
+        h2 {
+            text-transform: uppercase;
+        }
+
+        .form-row {
+            td {
+                padding: 0.9375rem 0.625rem !important;
+                vertical-align: middle !important;
+            }
+
+            &.field-image,
+            &.field-link_name {
+                display: flex;
+                flex-wrap: wrap;
+
+                // Neutralize useless div added by Django admin
+                & > div:not(.fieldBox) {
+                    @include sv-flex(1, 0, 100%);
+                }
+
+                .fieldBox {
+                    @include sv-flex(1, 0, 100%);
+                    width: auto;
+                    margin: 0;
+                    float: none;
+                    border: 0;
+
+                    @include media("<small") {
+                        padding-left: 0;
+                    }
+
+                    @include media(">=small") {
+                        @include sv-flex(1, 1, 50%);
+                        padding: 0 0.2rem;
+
+                        &:first-child {
+                            padding-left: 0;
+                        }
+
+                        &:last-child {
+                            padding-right: 0;
+                        }
+
+                        .vTextField,
+                        select {
+                            max-width: 99% !important;
+                        }
+                    }
+
+                    .help {
+                        padding-left: 0;
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+
+        // Title text input take the full width
+        .field-title {
+            input {
+                width: 100% !important;
+            }
+        }
+
+        // More distinct title for add item button
+        .add-row a {
+            text-transform: uppercase;
+        }
+
+        // Fix delete link alignment
+        .inline-deletelink {
+            width: auto;
+            height: auto;
+            float: none;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+//
+// Base stylesheet for the fileinputbutton widget
+//
+@import './tools/include-fileinputbutton';
+
+
+.fileinputbutton {
+    @include fileinputbutton-input();
+}

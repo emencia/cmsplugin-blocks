@@ -1,0 +1,259 @@
+#slider_form .fileinputbutton .fileinputbutton__input {
+  position: absolute !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 0.1px !important;
+  height: 0.1px !important;
+  min-height: auto !important;
+  color: #29303b !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  z-index: -1 !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input + label {
+  display: inline-block !important;
+  max-width: 10rem !important;
+  margin: 0 !important;
+  padding: 0.375rem 0.625rem !important;
+  overflow: hidden !important;
+  color: inherit !important;
+  text-transform: none !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  background-color: #f1f1f2 !important;
+  border: 0.0625rem solid #d2d2d2 !important;
+  border-radius: 0.1875rem !important;
+  height: 2.55rem !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input + label > * {
+  color: inherit !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input + label:hover {
+  color: #29303b !important;
+  background-color: #eceff1 !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input + label svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  margin-top: -0.25rem !important;
+  margin-right: 0.25rem !important;
+  vertical-align: middle !important;
+  fill: currentColor !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input + label::before, #slider_form .fileinputbutton .fileinputbutton__input + label::after {
+  display: none !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input:focus + label, #slider_form .fileinputbutton .fileinputbutton__input.has-focus + label {
+  color: #29303b !important;
+  background-color: #eceff1 !important;
+  border: 0.0625rem solid #eceff1 !important;
+  outline: 0.0625rem dotted #29303b !important;
+  outline: -webkit-focus-ring-color auto 0.3125rem !important;
+}
+
+#slider_form .fileinputbutton .fileinputbutton__input.has-selection + label {
+  color: #f1f1f2 !important;
+  background-color: #686f7a !important;
+  border: 0.0625rem solid #686f7a !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview .fileinputbutton__initial {
+  position: relative !important;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview .fileinputbutton__preview a {
+  display: block !important;
+  padding: 0.4rem !important;
+  text-align: center !important;
+  background: #f1f1f2 !important;
+  border: 0.0625rem solid #d2d2d2 !important;
+  border-top-left-radius: 0.2rem !important;
+  border-bottom-left-radius: 0.2rem !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview .fileinputbutton__preview a img {
+  display: inline-block !important;
+  margin: 0 auto !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview .fileinputbutton__controls {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--has-preview .fileinputbutton__input + label {
+  max-width: 15rem !important;
+  margin: 0 0 0 0.3rem !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--clearable .fileinputbutton__clear {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  display: flex !important;
+  position: relative !important;
+  width: 100% !important;
+  padding: 0.1rem 0.4rem !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  background: #f1f1f2 !important;
+  border: 0.0625rem solid #d2d2d2 !important;
+  border-left: 0 !important;
+  border-top-right-radius: 0.2rem !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--clearable .fileinputbutton__clear::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: -1px !important;
+  width: 1px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  background: #f1f1f2 !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--clearable .fileinputbutton__clear input {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  top: 0 !important;
+  margin-right: 0.5rem !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--clearable .fileinputbutton__clear label {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  margin: 0 !important;
+  line-height: 1.1 !important;
+  height: auto !important;
+  font-size: 0.9rem !important;
+}
+
+#slider_form .fileinputbutton.fileinputbutton--clearable .fileinputbutton__input + label {
+  margin: 0.3rem 0 0 0.3rem !important;
+}
+
+#slider_form .fileinputbutton + label {
+  margin-bottom: 0;
+}
+
+#slider_form .form-row {
+  box-sizing: border-box;
+}
+
+#slider_form .form-row *,
+#slider_form .form-row ::before,
+#slider_form .form-row ::after {
+  box-sizing: inherit;
+}
+
+#slider_form #slide_item-group .inline-related {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+#slider_form #slide_item-group .inline-related h3 {
+  background: #e0e0e0;
+}
+
+#slider_form fieldset h2 {
+  text-transform: uppercase;
+}
+
+#slider_form fieldset .form-row td {
+  padding: 0.9375rem 0.625rem !important;
+  vertical-align: middle !important;
+}
+
+#slider_form fieldset .form-row.field-image, #slider_form fieldset .form-row.field-link_name {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#slider_form fieldset .form-row.field-image > div:not(.fieldBox), #slider_form fieldset .form-row.field-link_name > div:not(.fieldBox) {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+#slider_form fieldset .form-row.field-image .fieldBox, #slider_form fieldset .form-row.field-link_name .fieldBox {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+  width: auto;
+  margin: 0;
+  float: none;
+  border: 0;
+}
+
+@media (max-width: 639px) {
+  #slider_form fieldset .form-row.field-image .fieldBox, #slider_form fieldset .form-row.field-link_name .fieldBox {
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  #slider_form fieldset .form-row.field-image .fieldBox, #slider_form fieldset .form-row.field-link_name .fieldBox {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 50%;
+    max-width: 50%;
+    padding: 0 0.2rem;
+  }
+  #slider_form fieldset .form-row.field-image .fieldBox:first-child, #slider_form fieldset .form-row.field-link_name .fieldBox:first-child {
+    padding-left: 0;
+  }
+  #slider_form fieldset .form-row.field-image .fieldBox:last-child, #slider_form fieldset .form-row.field-link_name .fieldBox:last-child {
+    padding-right: 0;
+  }
+  #slider_form fieldset .form-row.field-image .fieldBox .vTextField,
+#slider_form fieldset .form-row.field-image .fieldBox select, #slider_form fieldset .form-row.field-link_name .fieldBox .vTextField,
+#slider_form fieldset .form-row.field-link_name .fieldBox select {
+    max-width: 99% !important;
+  }
+}
+
+#slider_form fieldset .form-row.field-image .fieldBox .help, #slider_form fieldset .form-row.field-link_name .fieldBox .help {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#slider_form fieldset .field-title input {
+  width: 100% !important;
+}
+
+#slider_form fieldset .add-row a {
+  text-transform: uppercase;
+}
+
+#slider_form fieldset .inline-deletelink {
+  width: auto;
+  height: auto;
+  float: none;
+}
