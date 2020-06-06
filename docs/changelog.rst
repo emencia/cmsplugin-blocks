@@ -3,10 +3,10 @@
 Changelog
 =========
 
-Version 0.7.0 - Unreleased
+Version 0.7.0 - 2020/06/06
 --------------------------
 
-Better plugin form ergonomy and documentation.
+Better plugin forms ergonomy and documentation.
 
 * Added new setting ``BLOCKS_ENABLED_PLUGINS`` which list plugins to enable
   for usage. Disabled plugins won't be visible but their models are still
