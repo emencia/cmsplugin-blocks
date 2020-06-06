@@ -1,7 +1,8 @@
 """
-Base Django settings for sandbox
+Django settings required application stack mostly required to introspect code
+with autodoc.
 
-WARNING: Keep file "docs/dummy_settings.py" synchronized with this one.
+This is a merge of base sandbox settings and demo sandbox settings.
 """
 import os
 
@@ -10,12 +11,10 @@ BASE_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
     "..",
 )
-DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+DATA_DIR = os.path.join(BASE_DIR, ".", "data")
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cLiI!d*X=(%#?HyW]0!v"T-DFRk>JaukodHalf]&BLO5qkwB}S-_2'
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = 'dummy-key'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -188,3 +187,6 @@ TEMPLATES[0]['OPTIONS']['context_processors'].extend([
 CMS_TEMPLATES = [
     ('pages/default.html', 'Default'),
 ]
+
+# Import required app default settings
+from cmsplugin_blocks.settings import *

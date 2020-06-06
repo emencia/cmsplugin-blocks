@@ -13,12 +13,10 @@
 import os
 import sys
 
-# Append repository directory to system paths to be able to reach sandbox
-# settings
-sys.path.append(os.path.abspath('../'))
+# Settings file required by Django
+sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dummy_settings')
 
-# Specify settings module
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sandbox.settings.tests')
 
 # Setup Django
 import django

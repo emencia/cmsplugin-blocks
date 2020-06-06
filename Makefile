@@ -1,7 +1,9 @@
 PYTHON_INTERPRETER=python3
 DEMO_DJANGO_SECRET_KEY=samplesecretfordev
 VENV_PATH=.venv
+PYTHON_BIN=$(VENV_PATH)/bin/python
 PIP=$(VENV_PATH)/bin/pip
+TWINE=$(VENV_PATH)/bin/twine
 BOUSSOLE=$(VENV_PATH)/bin/boussole
 DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
 FLAKE=$(VENV_PATH)/bin/flake8
@@ -32,6 +34,8 @@ help:
 	@echo "  flake               -- to launch Flake8 checking"
 	@echo "  tests               -- to launch tests using Pytest"
 	@echo "  quality             -- to launch Flake8 checking and Pytest"
+	@echo ""
+	@echo "  release             -- to release package for last version on PyPi (once release has been pushed to repository, require 'twine' to be installed)"
 	@echo
 
 clean-pycache:
@@ -50,6 +54,7 @@ clean-data:
 .PHONY: clean-data
 
 clean: clean-install clean-pycache clean-data
+	rm -Rf dist
 .PHONY: clean
 
 venv:
@@ -106,6 +111,12 @@ tests:
 	$(PYTEST) -vv tests/
 	rm -Rf data/media-tests/
 .PHONY: tests
+
+release:
+	rm -Rf dist
+	$(PYTHON_BIN) setup.py sdist
+	$(TWINE) upload dist/*
+.PHONY: release
 
 quality: tests flake
 .PHONY: quality

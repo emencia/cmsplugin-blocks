@@ -3,6 +3,17 @@
 Changelog
 =========
 
+Version 0.7.1 - 2020/06/06
+--------------------------
+
+Release fix for package and documentation publishing on ReadTheDoc.
+
+Manifest file was not accurate and package has been wrongly built
+and so was missing the templatetags modules.
+
+The resulting package was incorrect and ReadTheDoc could not build the
+documentation.
+
 Version 0.7.0 - 2020/06/06
 --------------------------
 
