@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+====
+Card
+====
+
+A card component with a title, image and content. Optionally there is a choice
+to define a direction for content and image.
+
+"""
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -16,7 +25,7 @@ from cmsplugin_blocks.utils import SmartFormatMixin
 
 class Card(SmartFormatMixin, CMSPlugin):
     """
-    A simple card object
+    Card component.
     """
     ALIGNMENT_CHOICES = [
         ("left", _("Content to the left, image to the right")),
@@ -30,6 +39,11 @@ class Card(SmartFormatMixin, CMSPlugin):
         blank=False,
         default="left",
     )
+    """
+    Content alignment choice, either content to the left and image to the right
+    or vice versa.
+    """
+
     template = models.CharField(
         _("Template"),
         blank=False,
@@ -38,6 +52,11 @@ class Card(SmartFormatMixin, CMSPlugin):
         default=get_card_default_template(),
         help_text=_("Used template for content look."),
     )
+    """
+    Template choice from available plugin templates in setting
+    ``BLOCKS_CARD_TEMPLATES``. Default to the first choice item.
+    """
+
     image = models.FileField(
         _("Image"),
         upload_to="blocks/card/%y/%m",
@@ -51,11 +70,19 @@ class Card(SmartFormatMixin, CMSPlugin):
             ),
         ]
     )
+    """
+    Optional image file, limited to enabled image formats from settings
+    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    """
+
     content = models.TextField(
         _(u"Content"),
         blank=False,
         default="",
     )
+    """
+    Required long text, it will be editable through CKeditor on plugin form.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

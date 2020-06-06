@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+====
+Hero
+====
+
+A hero component with an image (commonly for background) and a content.
+
+"""
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -16,7 +24,7 @@ from cmsplugin_blocks.utils import SmartFormatMixin
 
 class Hero(SmartFormatMixin, CMSPlugin):
     """
-    A simple hero content with image and HTML content
+    Hero component.
     """
     template = models.CharField(
         _("Template"),
@@ -26,6 +34,11 @@ class Hero(SmartFormatMixin, CMSPlugin):
         default=get_hero_default_template(),
         help_text=_("Used template for content look."),
     )
+    """
+    Template choice from available plugin templates in setting
+    ``BLOCKS_HERO_TEMPLATES``. Default to the first choice item.
+    """
+
     image = models.FileField(
         _("Image"),
         upload_to="blocks/hero/%y/%m",
@@ -39,11 +52,19 @@ class Hero(SmartFormatMixin, CMSPlugin):
             ),
         ]
     )
+    """
+    Optional image file, limited to enabled image formats from settings
+    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    """
+
     content = models.TextField(
         _(u"Content"),
         blank=False,
         default="",
     )
+    """
+    Required long text, it will be editable through CKeditor on plugin form.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

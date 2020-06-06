@@ -1,3 +1,7 @@
+.. PyCssStyleguide documentation master file, created by
+   sphinx-quickstart on Wed Apr  4 15:26:56 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 .. _DjangoCMS: https://www.django-cms.org/
 .. _sorl-thumbnail: https://github.com/mariocesar/sorl-thumbnail
 .. _djangocms-text-ckeditor: https://github.com/divio/djangocms-text-ckeditor
@@ -42,3 +46,22 @@ Application is tested against the following versions:
 * Python 3.4 to 3.6;
 * Django 2.0 to 3.0;
 * DjangoCMS 3.6 to 3.7;
+
+User’s Guide
+************
+
+.. toctree::
+   :maxdepth: 2
+
+   install.rst
+   plugins/index.rst
+   smart_format.rst
+
+Developer’s Guide
+*****************
+
+.. toctree::
+   :maxdepth: 1
+
+   development.rst
+   changelog.rst

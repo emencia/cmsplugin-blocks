@@ -2,15 +2,8 @@
 from django.conf import settings
 from django.core.files.storage import get_storage_class
 
-AVAILABLE_FORMATS = getattr(settings, "SMART_FORMAT_AVAILABLE_FORMATS", [
-    ("jpg", "JPEG"),
-    ("jpeg", "JPEG"),
-    ("png", "PNG"),
-    ("gif", "GIF"),
-    ("svg", "SVG"),
-])
 
-AVAILABLE_FORMAT_EXTENSIONS = [k for k, v in AVAILABLE_FORMATS]
+AVAILABLE_FORMAT_EXTENSIONS = [k for k, v in settings.SMART_FORMAT_AVAILABLE_FORMATS]
 
 
 class SmartFormatMixin(object):
@@ -51,7 +44,7 @@ class SmartFormatMixin(object):
         if mediafile:
             ext = mediafile.name.split(".")[-1].lower()
 
-            for fileext, formatname in AVAILABLE_FORMATS:
+            for fileext, formatname in settings.SMART_FORMAT_AVAILABLE_FORMATS:
                 if ext == fileext:
                     return formatname
 

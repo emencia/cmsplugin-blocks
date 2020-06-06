@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.forms.widgets import FileInput, NumberInput
+from django.forms.widgets import NumberInput
 
 from cmsplugin_blocks.models.album import Album, AlbumItem
 from cmsplugin_blocks.utils import (validate_file_size, validate_zip,

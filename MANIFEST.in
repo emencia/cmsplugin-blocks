@@ -3,6 +3,8 @@ include LICENCE.txt
 include README.rst
 include HISTORY.rst
 
+exclude sphinx_reload.py
+
 recursive-include cmsplugin_blocks/templates *
 recursive-include cmsplugin_blocks/static *
 recursive-include cmsplugin_blocks/locale *

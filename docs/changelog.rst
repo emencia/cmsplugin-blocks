@@ -1,3 +1,4 @@
+
 =========
 Changelog
 =========
@@ -5,7 +6,7 @@ Changelog
 Version 0.7.0 - Unreleased
 --------------------------
 
-Better plugin form ergonomy.
+Better plugin form ergonomy and documentation.
 
 * Added new setting ``BLOCKS_ENABLED_PLUGINS`` which list plugins to enable
   for usage. Disabled plugins won't be visible but their models are still
@@ -18,6 +19,8 @@ Better plugin form ergonomy.
 * Added Boussole to development requirement to build CSS from Sass sources;
 * Mute the ``RemovedInDjango40Warning`` warning until DjangoCMS has fixed its
   usage of ``ugettext_lazy``;
+* Added missing default settings ``SMART_FORMAT_AVAILABLE_FORMATS``;
+* Added documentation in ``docs`` with Sphinx and livereload;
 
 Version 0.6.0 - 2020/05/11
 --------------------------

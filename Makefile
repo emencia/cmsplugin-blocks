@@ -6,6 +6,7 @@ BOUSSOLE=$(VENV_PATH)/bin/boussole
 DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
 FLAKE=$(VENV_PATH)/bin/flake8
 PYTEST=$(VENV_PATH)/bin/pytest
+SPHINX_RELOAD=$(VENV_PATH)/bin/python sphinx_reload.py
 PACKAGE_NAME=cmsplugin_blocks
 
 help:
@@ -25,6 +26,8 @@ help:
 	@echo "  run                 -- to run Django development server"
 	@echo "  migrate             -- to apply demo database migrations"
 	@echo "  superuser           -- to create a superuser for Django admin"
+	@echo ""
+	@echo "  livedocs            -- to run livereload server to rebuild documentation on source changes"
 	@echo ""
 	@echo "  flake               -- to launch Flake8 checking"
 	@echo "  tests               -- to launch tests using Pytest"
@@ -90,6 +93,10 @@ run:
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
 	$(DJANGO_MANAGE) runserver 0.0.0.0:8001
 .PHONY: run
+
+livedocs:
+	$(SPHINX_RELOAD)
+.PHONY: livedocs
 
 flake:
 	$(FLAKE) --show-source $(PACKAGE_NAME)
