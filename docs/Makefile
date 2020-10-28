@@ -1,7 +1,6 @@
 # Minimal makefile for Sphinx documentation
 #
 VENV_PATH=../.venv
-PIP=$(VENV_PATH)/bin/pip
 
 # You can set these variables from the command line, and also
 # from the environment for the first two.

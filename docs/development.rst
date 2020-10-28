@@ -1,11 +1,11 @@
-.. _virtualenv: http://www.virtualenv.org
+.. _virtualenv: https://virtualenv.pypa.io
 .. _pip: https://pip.pypa.io
 .. _Pytest: http://pytest.org
 .. _Napoleon: https://sphinxcontrib-napoleon.readthedocs.org
 .. _Flake8: http://flake8.readthedocs.org
 .. _Sphinx: http://www.sphinx-doc.org
 .. _tox: http://tox.readthedocs.io
-.. _sphinx-autobuild: https://github.com/GaretJax/sphinx-autobuild
+.. _livereload: https://livereload.readthedocs.io
 
 ===========
 Development
@@ -21,13 +21,13 @@ cmsplugin-blocks is developed with:
 * `Sphinx`_ for documentation with enabled `Napoleon`_ extension (using
   *Google style*);
 
-Every requirement is available in package extras requirements in ``dev``
-section.
+Every requirement is available in package extra requirements in section
+``dev``.
 
 Install for development
 ***********************
 
-First ensure you have `pip`_ and ``python-venv`` package installed then type: ::
+First ensure you have `pip`_ and `virtualenv`_ package installed then type: ::
 
     git clone https://github.com/emencia/cmsplugin-blocks.git
     cd cmsplugin-blocks
