@@ -108,7 +108,7 @@ flake:
 .PHONY: flake
 
 tests:
-	$(PYTEST) -vv tests/
+	$(PYTEST) -vv --reuse-db tests/
 	rm -Rf data/media-tests/
 .PHONY: tests
 
