@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 import factory
+import faker
 
 from cmsplugin_blocks.choices_helpers import get_slider_default_template
 from cmsplugin_blocks.utils.factories import create_image_file
@@ -40,7 +41,8 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
         trigger = random.choice([True, False])
 
         if trigger:
-            return factory.Faker("url").generate({})
+            Faker = faker.Faker()
+            return Faker.url()
 
         return ""
 

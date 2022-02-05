@@ -5,6 +5,7 @@ import os
 
 import pytest
 import factory
+import faker
 
 from django.test.html import HTMLParseError, parse_html
 
@@ -19,8 +20,8 @@ def get_fake_words(length=1):
     Shortand to build a string of fake words depending given required count of
     words.
     """
-    words = factory.Faker("words", nb=length)
-    words = words.generate()
+    Faker = faker.Faker()
+    words = Faker.words(nb=length)
 
     return " ".join(words)
 
