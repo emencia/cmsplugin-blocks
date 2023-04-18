@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Sandbox management script
+Django management script for sandbox
 """
 import os
 

@@ -1,6 +1,5 @@
 # virtualenv
 .venv
-venv
 
 # Packaging
 build
@@ -16,11 +15,15 @@ __pycache__/
 *.py[cod]
 
 # Site media and builded statics
-/data/
+/var/
 /sandbox/static
+/sandbox/static-sources
 
 # Settings
 local.py
+
+# Node.js stuff
+/frontend/node_modules
 
 # Unit test / coverage reports
 htmlcov/

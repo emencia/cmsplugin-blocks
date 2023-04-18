@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
-CMS Plugin interface definitions
-"""
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
-from cmsplugin_blocks.admin.album import AlbumItemAdmin
-
-from cmsplugin_blocks.choices_helpers import get_album_default_template
-
-from cmsplugin_blocks.models.album import Album
-from cmsplugin_blocks.forms.album import AlbumForm
+from ..admin.album import AlbumItemAdmin
+from ..choices_helpers import (
+    get_album_feature_choices,
+    get_album_template_default,
+)
+from ..forms.album import AlbumForm
+from ..models.album import Album
 
 
 class AlbumPlugin(CMSPluginBase):
@@ -25,19 +22,35 @@ class AlbumPlugin(CMSPluginBase):
     model = Album
     form = AlbumForm
     inlines = (AlbumItemAdmin,)
-    render_template = get_album_default_template()
+    render_template = get_album_template_default()
     cache = True
-    fieldsets = (
-        (None, {
-            "fields": (
-                "title",
-                (
-                    "template",
-                    "mass_upload",
-                ),
-            ),
-        }),
-    )
+
+    def get_fieldsets(self, request, obj=None):
+        if len(get_album_feature_choices()) > 0:
+            fieldsets = (
+                (None, {
+                    "fields": (
+                        "title",
+                        (
+                            "template",
+                            "features",
+                        ),
+                        "mass_upload",
+                    ),
+                }),
+            )
+        else:
+            fieldsets = (
+                (None, {
+                    "fields": (
+                        "title",
+                        "template",
+                        "mass_upload",
+                    ),
+                }),
+            )
+
+        return fieldsets
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

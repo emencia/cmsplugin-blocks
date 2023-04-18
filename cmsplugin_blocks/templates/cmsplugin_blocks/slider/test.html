@@ -1,0 +1,26 @@
+{% load i18n smart_image %}{% spaceless %}
+    <div class="slider{% if instance.features %} {{ instance.get_features }}{% endif %}">
+        <p class="slider__title">{{ instance.title }}</p>
+
+        <div class="slider__items">
+            {% for item in slides %}
+                {% media_thumb item.image "1200x400" as thumb %}
+                <div class="slider__item{% if item.features %} {{ item.get_features }}{% endif %}"
+                     style="background-image: url({{ thumb.url }})">
+                    <p class="slider__item-title">{{ item.title }}</p>
+                    {% if item.content %}
+                        <div class="slider__item-content">{{ item.content|safe }}</div>
+                    {% endif %}
+
+                    {% if item.link_url %}
+                        <p class="slider__item-link">
+                            <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="_blank"{% endif %}>
+                                {% if item.link_name %}{{ item.link_name }}{% else %}{% trans "Read more" %}{% endif %}
+                            </a>
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endspaceless %}

@@ -19,52 +19,46 @@ server = Server()
 
 # Watch root documents
 server.watch(
-    'docs/*.rst',
+    "README.rst",
     shell(
-        'make html',
-        cwd='docs'
+        "make html",
+        cwd="docs"
     )
 )
-
-# Watch plugin documents
 server.watch(
-    'docs/plugins/*.rst',
+    "docs/*.rst",
     shell(
-        'make html',
-        cwd='docs'
+        "make html",
+        cwd="docs"
     )
 )
-
-# Watch plugin models since plugin documents use autodoc on them
 server.watch(
-    'cmsplugin_blocks/models/*.py',
+    "docs/*/**.rst",
     shell(
-        'make html',
-        cwd='docs'
+        "make html",
+        cwd="docs"
     )
 )
 
-# Watch app settings file used in install document
+# Watch Python modules for autodoc review
 server.watch(
-    'cmsplugin_blocks/settings.py',
+    "cmsplugin_blocks/*.py",
     shell(
-        'make html',
-        cwd='docs'
+        "make html",
+        cwd="docs"
     )
 )
-
-# Watch template tag file used in smart-format document
 server.watch(
-    'cmsplugin_blocks/templatetags/smart_format.py',
+    "cmsplugin_blocks/*/**.py",
     shell(
-        'make html',
-        cwd='docs'
+        "make html",
+        cwd="docs"
     )
 )
 
-# Serve the builded documentation
+# Serve built documentation
 server.serve(
-    root='docs/_build/html',
+    root="docs/_build/html",
     port=8002,
     host="0.0.0.0",
 )

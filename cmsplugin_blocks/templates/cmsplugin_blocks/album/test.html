@@ -1,0 +1,21 @@
+{% load smart_image %}{% spaceless %}
+    <div class="album{% if instance.features %} {{ instance.get_features }}{% endif %}">
+        <p class="album__title">{{ instance.title }}</p>
+
+        <div class="album__items">
+            {% for item in ressources %}
+                {% media_thumb item.image "250x200" as thumb %}
+                <div class="album__item{% if item.features %} {{ item.get_features }}{% endif %}">
+                    <a href="{{ item.image.url }}" target="blank">
+                        <img src="{{ thumb.url }}" alt="">
+                    </a>
+                    {% if item.title %}
+                    <p class="album__item-title">
+                        {{ item.title }}
+                    </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endspaceless %}

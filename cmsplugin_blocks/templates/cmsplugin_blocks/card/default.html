@@ -1,15 +1,1 @@
-{% load smart_format %}{% spaceless %}
-<div class="card{% if instance.alignment %} card--{{ instance.alignment }}{% endif %}">
-    {% if instance.image %}
-    <div class="card__media">
-        {% media_thumb instance.image "250x200" as thumb %}
-        <img src="{{ thumb.url }}" alt="">
-    </div>
-    {% endif %}
-    {% if instance.content %}
-    <div class="card__content">
-        {{ instance.content|safe }}
-    </div>
-    {% endif %}
-</div>
-{% endspaceless %}
+{% include "cmsplugin_blocks/card/test.html" %}

@@ -10,17 +10,20 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import datetime
 import os
 import sys
 
+
 # Settings file required by Django
-sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dummy_settings')
+sys.path.append(os.path.join(os.path.dirname(__file__), "."))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_settings")
 
 
 # Setup Django
 import django
 django.setup()
+
 
 # Get the module version
 from cmsplugin_blocks import __version__ as cmsplugin_blocks_version
@@ -28,14 +31,15 @@ from cmsplugin_blocks import __version__ as cmsplugin_blocks_version
 
 # -- Project information -----------------------------------------------------
 
-project = 'cmsplugin-blocks'
-copyright = '2020, David Thenon'
-author = 'David Thenon'
+now = datetime.date.today()
+project = "cmsplugin-blocks"
+copyright = "2017-{}, Emencia".format(now.year)
+author = "David Thenon"
 
 # The short X.Y version
 version = cmsplugin_blocks_version
 # The full version, including alpha/beta/rc tags
-release = cmsplugin_blocks_version
+release = version
 
 
 # -- General configuration ---------------------------------------------------
@@ -44,31 +48,32 @@ release = cmsplugin_blocks_version
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # Use index.rst as root content doc file
-master_doc = 'index'
+master_doc = "index"
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
+# a list of builtin themes. Default to builtin theme "alabaster" if sphinx rtd
+# is not available.
 #
-html_theme = 'alabaster'
+html_theme = "alabaster"
 try:
     import sphinx_rtd_theme
 except ImportError:
@@ -81,7 +86,7 @@ else:
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # -- Autodoc config---------- -------------------------------------------------
 

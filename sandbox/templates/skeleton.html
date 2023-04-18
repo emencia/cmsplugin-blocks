@@ -1,36 +1,59 @@
-{% load i18n static cms_tags sekizai_tags %}<!DOCTYPE html>
-<!--[if IE 8]> <html class="no-js lt-ie9" lang="{{ LANGUAGE_CODE }}"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ LANGUAGE_CODE }}"> <!--<![endif]-->
+{% load i18n static cms_tags menu_tags sekizai_tags %}{% get_current_language as LANGUAGE_CODE %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
 <head>{% spaceless %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block head_title %}Cmsplugin-blocks{% endblock head_title %}</title>
-    {% block head_base_links %}
-        {% comment %}<link rel="stylesheet" href="{% static "css/app.css" %}">{% endcomment %}
-    {% endblock head_base_links %}
+    {% block head_styles %}
+        <link rel="stylesheet" href="{% static "css/main.css" %}">
+    {% endblock head_styles %}
 {% endspaceless %}
     {% render_block "css" %}
 </head>
 
 <body>
-{% cms_toolbar %}
-{% spaceless %}
+    {% cms_toolbar %}
 
-    {% block header %}
-    <div id="header-container">
-        <h1>Cmsplugin-blocks</h1>
+    <div class="d-grid gap-3 p-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/{{ LANGUAGE_CODE }}/">{% trans "Cmsplugin-blocks" %}</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar-toggler" aria-controls="main-navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="main-navbar-toggler">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% show_menu 1 100 100 100 "menus/flat.html" %}
+                    </ul>
+
+                    <div class="d-flex">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Languages">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as languages %}
+                            {% for code, name in languages %}
+                            <a class="btn btn-primary{% if code == LANGUAGE_CODE %} active{% endif %}" href="/{{ code }}/">{{ name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-content container-xxl">
+            {% block base_content %}
+                {% block content %}
+                {% endblock %}
+            {% endblock %}
+        </div>
+
+        {% block footer %}{% endblock footer %}
     </div>
-    {% endblock header %}
 
-    {% block base_content %}
-        {% block content %}
-        {% endblock %}
-    {% endblock %}
-
-    {% block footer %}{% endblock footer %}
-
-{% endspaceless %}
-{% render_block "js" %}
-{% block foot_base_js %}{% endblock foot_base_js %}
+    {% render_block "js" %}
+    {% block javascript %}
+        <script src="{% static "js/main.js" %}"></script>
+    {% endblock javascript %}
 </body>
 </html>

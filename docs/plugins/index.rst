@@ -15,9 +15,10 @@ But finally, with respect to the required fiels, the plugin templates and their
 stylesheets will be the final controller for their layout.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    album.rst
    card.rst
+   container.rst
    hero.rst
    slider.rst

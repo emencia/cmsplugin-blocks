@@ -6,13 +6,16 @@
 .. _Sphinx: http://www.sphinx-doc.org
 .. _tox: http://tox.readthedocs.io
 .. _livereload: https://livereload.readthedocs.io
+.. _twine: https://twine.readthedocs.io
+
+.. _intro_development:
 
 ===========
 Development
 ===========
 
-Development requirement
-***********************
+Development requirements
+************************
 
 cmsplugin-blocks is developed with:
 
@@ -20,21 +23,29 @@ cmsplugin-blocks is developed with:
 * Respecting flake and pip8 rules using `Flake8`_;
 * `Sphinx`_ for documentation with enabled `Napoleon`_ extension (using
   *Google style*);
+* `tox`_ to run tests on various environments;
 
-Every requirement is available in package extra requirements in section
+Every requirements are available in package extra requirements in section
 ``dev``.
+
+.. _install_development:
 
 Install for development
 ***********************
 
-First ensure you have `pip`_ and `virtualenv`_ package installed then type: ::
+First ensure you have `pip`_ and `virtualenv`_ packages installed then type: ::
 
     git clone https://github.com/emencia/cmsplugin-blocks.git
     cd cmsplugin-blocks
     make install
 
-cmsplugin-blocks will be installed in editable mode from the last commit on
-master branch with some development tools.
+This will install the whole project in development mode with both backend and frontend
+which involves a Node.js stack and assets building.
+
+To reach the administration you may need a super user: ::
+
+    make superuser
+
 
 Unittests
 ---------
@@ -42,44 +53,63 @@ Unittests
 Unittests are made to works on `Pytest`_, a shortcut in Makefile is available
 to start them on your current development install: ::
 
-    make tests
+    make test
 
+.. Note::
+
+    Tests needs a special additional package requirement to be run on specific combo
+    Python3.8 and Django 3.2, you need to install it after base install and before
+    running test: ::
+
+        .venv/bin/pip install backports.zoneinfo
 
 Tox
 ---
 
 To ease development against multiple Python versions a tox configuration has
-been added. You are strongly encouraged to use it to test your pull requests.
+been added. You are encouraged to use it to test your pull requests to ensure about
+compatibility support.
 
-Before using it you will need to install tox, it is recommended to install it
-at your system level (tox dependancy is not in requirements): ::
+Just go in the ``cmsplugin-blocks`` directory and run the Tox task: ::
 
-    sudo pip install tox
+    make tox
 
-Then go in the ``cmsplugin-blocks`` package directory, where ``the setup.py``
-and ``tox.ini`` live and execute tox: ::
-
-    tox
 
 Documentation
 -------------
 
-Use the Makefile action ``livedocs`` to serve documentation and automatically
-rebuild it when you change documentation files.
+You can easily build the documentation from one Makefile action: ::
 
-When environnement is activated, you can use following command from ``docs/``
-directory: ::
+    make docs
+
+There is Makefile action ``livedocs`` to serve documentation and automatically
+rebuild it when you change documentation files: ::
 
     make livedocs
 
 And go on ``http://localhost:8002/`` or your server machine IP with port 8002.
+
+Note that you need to build the documentation at least once before using
+``livedocs``.
+
+
+Releasing
+---------
+
+When you have a release to do, after you have correctly push all your commits
+you can use the shortcut: ::
+
+    make release
+
+Which will build the package release and send it to Pypi with `twine`_.
+You may think to
+`configure your Pypi account <https://twine.readthedocs.io/en/latest/#configuration>`_
+on your machine to avoid to input it each time.
+
 
 Contribution
 ------------
 
 * Every new feature or changed behavior must pass tests, Flake8 code quality
   and must be documented.
-* New component should have feature(s) that cannot be implemented with another
-  component or implement a common layout object not already covered by
-  available components;
 * Every feature or behavior must be compatible for all supported environment.

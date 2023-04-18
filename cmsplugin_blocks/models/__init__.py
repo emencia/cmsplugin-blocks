@@ -1,12 +1,16 @@
-from cmsplugin_blocks.models.album import Album, AlbumItem
-from cmsplugin_blocks.models.hero import Hero
-from cmsplugin_blocks.models.card import Card
-from cmsplugin_blocks.models.slider import Slider, SlideItem
+from .album import Album, AlbumItem
+from .card import Card
+from .container import Container
+from .hero import Hero
+from .slider import Slider, SlideItem
 
 
 __all__ = [
-    'Album', 'AlbumItem',
-    'Hero',
-    'Card',
-    'Slider', 'SlideItem',
+    "Album",
+    "AlbumItem",
+    "Card",
+    "Container",
+    "Hero",
+    "Slider",
+    "SlideItem",
 ]

@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-Hero CMS Plugin interface definitions
-"""
 from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
-from cmsplugin_blocks.choices_helpers import get_hero_default_template
-
-from cmsplugin_blocks.models.hero import Hero
-from cmsplugin_blocks.forms.hero import HeroForm
+from ..choices_helpers import (
+    get_hero_feature_choices,
+    get_hero_template_default,
+)
+from ..forms.hero import HeroForm
+from ..models.hero import Hero
 
 
 class HeroPlugin(CMSPluginBase):
@@ -17,17 +15,33 @@ class HeroPlugin(CMSPluginBase):
     name = _("Hero")
     model = Hero
     form = HeroForm
-    render_template = get_hero_default_template()
+    render_template = get_hero_template_default()
     cache = True
-    fieldsets = (
-        (None, {
-            "fields": (
-                "template",
-                "image",
-                "content",
-            ),
-        }),
-    )
+
+    def get_fieldsets(self, request, obj=None):
+        if len(get_hero_feature_choices()) > 0:
+            fieldsets = (
+                (None, {
+                    "fields": (
+                        "template",
+                        "features",
+                        "image",
+                        "content",
+                    ),
+                }),
+            )
+        else:
+            fieldsets = (
+                (None, {
+                    "fields": (
+                        "template",
+                        "image",
+                        "content",
+                    ),
+                }),
+            )
+
+        return fieldsets
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

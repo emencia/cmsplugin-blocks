@@ -1,0 +1,30 @@
+{% load smart_image %}{% spaceless %}
+    {% if instance.link_url %}
+        <a href="{{ instance.link_url }}"
+           class="card{% if instance.features %} {{ instance.get_features }}{% endif %}"
+           {% if instance.link_open_blank %} target="_blank"{% endif %}>
+    {% else %}
+        <div class="card{% if instance.features %} {{ instance.get_features }}{% endif %}">
+    {% endif %}
+
+        {% if instance.title %}
+            <div class="card__title">{{ instance.title }}</div>
+        {% endif %}
+
+        {% if instance.image %}
+            <div class="card__media">
+                {% media_thumb instance.image "250x200" as thumb %}
+                <img src="{{ thumb.url }}" alt="">
+            </div>
+        {% endif %}
+
+        {% if instance.content %}
+            <div class="card__content">{{ instance.content|safe }}</div>
+        {% endif %}
+
+    {% if instance.link_url %}
+        </a>
+    {% else %}
+        </div>
+    {% endif %}
+{% endspaceless %}

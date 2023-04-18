@@ -1,9 +1,21 @@
-# -*- coding: utf-8 -*-
 import io
 
 from PIL import Image as PILimage
 
 from django.core.files import File
+
+import faker
+
+
+def get_fake_words(length=1):
+    """
+    Shortand to build a string of fake words depending given required count of
+    words.
+    """
+    Faker = faker.Faker()
+    words = Faker.words(nb=length)
+
+    return " ".join(words)
 
 
 def create_image_file(filename=None, size=(100, 100), color="blue",
@@ -46,7 +58,7 @@ def create_image_file(filename=None, size=(100, 100), color="blue",
         mode = "RGBA"
 
     # Create a SVG file
-    if format_name == 'SVG':
+    if format_name == "SVG":
         width, height = size
         html = (
             """<svg xmlns="http://www.w3.org/2000/svg" """

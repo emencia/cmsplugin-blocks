@@ -1,0 +1,62 @@
+#container_form .form-row {
+  box-sizing: border-box;
+}
+
+#container_form .form-row *,
+#container_form .form-row ::before,
+#container_form .form-row ::after {
+  box-sizing: inherit;
+}
+
+#container_form .form-row.field-image {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#container_form .form-row.field-image > div:not(.fieldBox) {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+#container_form .form-row.field-image .fieldBox {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+  width: auto;
+  margin: 0;
+  float: none;
+  border: 0;
+}
+
+@media (max-width: 639px) {
+  #container_form .form-row.field-image .fieldBox {
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  #container_form .form-row.field-image .fieldBox {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 50%;
+    max-width: 50%;
+    padding: 0 0.2rem;
+  }
+  #container_form .form-row.field-image .fieldBox:first-child {
+    padding-left: 0;
+  }
+  #container_form .form-row.field-image .fieldBox:last-child {
+    padding-right: 0;
+  }
+  #container_form .form-row.field-image .fieldBox select {
+    max-width: 99% !important;
+  }
+}
+
+#container_form .form-row.field-image .fieldBox .help {
+  padding-left: 0;
+  margin-left: 0;
+}

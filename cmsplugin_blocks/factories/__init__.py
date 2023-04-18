@@ -1,10 +1,18 @@
-from cmsplugin_blocks.factories.card import CardFactory
-from cmsplugin_blocks.factories.hero import HeroFactory
-from cmsplugin_blocks.factories.slider import SliderFactory
+from .album import AlbumFactory, AlbumItemFactory
+from .card import CardFactory
+from .container import ContainerFactory
+from .hero import HeroFactory
+from .slider import SliderFactory, SlideItemFactory
+from .user import UserFactory
 
 
 __all__ = [
-    'CardFactory',
-    'HeroFactory',
-    'SliderFactory',
+    "AlbumFactory",
+    "AlbumItemFactory",
+    "CardFactory",
+    "ContainerFactory",
+    "HeroFactory",
+    "SliderFactory",
+    "SlideItemFactory",
+    "UserFactory",
 ]

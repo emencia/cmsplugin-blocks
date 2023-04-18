@@ -1,18 +1,13 @@
-# -*- coding: utf-8 -*-
 import collections
 import logging
 
 from io import BytesIO
 
-# For Python 2/3 support
-try:
-    import Image as PILImage
-except ImportError:
-    from PIL import Image as PILImage
+from PIL import Image as PILimage
 
 from django.core.files.base import ContentFile
 
-from cmsplugin_blocks.utils.validators import is_valid_image_filename
+from .validators import is_valid_image_filename
 
 
 def store_images_from_zip(instance, zip_fileobject, item_model,
@@ -62,7 +57,7 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
     if zip_fileobject:
         for filename in sorted(zip_fileobject.namelist()):
             # Don't process invalid filename or directory
-            if filename.endswith('/') or not is_valid_image_filename(filename):
+            if filename.endswith("/") or not is_valid_image_filename(filename):
                 continue
 
             # Get archived file from ZIP
@@ -74,14 +69,14 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
                     # truncated JPEG, but it loads the entire image in memory,
                     # which is a DoS vector. See #3848 and #18520. verify()
                     # must be called immediately after the constructor.
-                    PILImage.open(BytesIO(data)).verify()
+                    PILimage.open(BytesIO(data)).verify()
                 except Exception as e:
                     # if a "bad" file is found we just skip it.
-                    msg = 'Error verifying image: {}'.format(str(e))
+                    msg = "Error verifying image: {}".format(str(e))
                     logger.error(msg)
                     continue
 
-                if hasattr(data, 'seek') and isinstance(data.seek,
+                if hasattr(data, "seek") and isinstance(data.seek,
                                                         collections.Callable):
                     data.seek(0)
 
@@ -101,7 +96,7 @@ def store_images_from_zip(instance, zip_fileobject, item_model,
                     if label_attrname:
                         setattr(item, label_attrname, filename)
                 except Exception as e:
-                    msg = 'Error creating item from file: {}'.format(str(e))
+                    msg = "Error creating item from file: {}".format(str(e))
                     logger.error(msg)
                 else:
                     # Store created item to be saved further in plugin

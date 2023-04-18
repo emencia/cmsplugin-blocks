@@ -1,0 +1,14 @@
+{% load menu_tags %}{% spaceless %}
+{% comment %}
+NOTE: A flat and single level only menu.
+{% endcomment %}
+{% for child in children %}
+<li class="nav-item nav-item-level-1{% if child.selected or child.ancestor %} nav-item-active{% endif %}">
+    <a class="nav-link{% if child.selected or child.ancestor %} active{% endif %}"
+       {% if child.selected or child.ancestor %} aria-current="page"{% endif %}
+       href="{{ child.get_absolute_url }}">
+        {{ child.get_menu_title }}
+    </a>
+</li>
+{% endfor %}
+{% endspaceless %}

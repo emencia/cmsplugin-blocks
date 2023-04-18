@@ -1,18 +1,37 @@
-# -*- coding: utf-8 -*-
 import random
-import factory
 
-from cmsplugin_blocks.choices_helpers import get_slider_default_template
-from cmsplugin_blocks.utils.factories import create_image_file
-from cmsplugin_blocks.models import Slider, SlideItem
+import factory
+import faker
+
+from ..choices_helpers import (
+    get_slider_feature_choices,
+    get_slideritem_feature_choices,
+    get_slider_template_default,
+)
+from ..utils.factories import create_image_file
+from ..models import Slider, SlideItem
 
 
 class SliderFactory(factory.django.DjangoModelFactory):
     """
     Factory to create instance of a Slider.
     """
-    template = get_slider_default_template()
+    template = get_slider_template_default()
     title = factory.Faker("text", max_nb_chars=20)
+
+    @factory.lazy_attribute
+    def features(self):
+        """
+        Build features value with an item from feature choices.
+
+        If there is no feature choices available, just return an empty string.
+        """
+        choices = get_slider_feature_choices()
+
+        if not choices:
+            return []
+
+        return [random.choice(choices)[0]]
 
     class Meta:
         model = Slider
@@ -33,16 +52,18 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
         model = SlideItem
 
     @factory.lazy_attribute
-    def link_url(self):
+    def features(self):
         """
-        Set a random url or nothing, randomly
+        Build features value with an item from feature choices.
+
+        If there is no feature choices available, just return an empty string.
         """
-        trigger = random.choice([True, False])
+        choices = get_slideritem_feature_choices()
 
-        if trigger:
-            return factory.Faker("url").generate({})
+        if not choices:
+            return []
 
-        return ""
+        return [random.choice(choices)[0]]
 
     @factory.lazy_attribute
     def image(self):
@@ -54,3 +75,11 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
         """
 
         return create_image_file()
+
+    @factory.lazy_attribute
+    def link_url(self):
+        """
+        Set a random url
+        """
+        Faker = faker.Faker()
+        return Faker.url()

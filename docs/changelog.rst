@@ -3,6 +3,37 @@
 Changelog
 =========
 
+Version 1.0.0 - 2023/04/26
+--------------------------
+
+Major release to upgrade to modern backend supports and some other improvements.
+Your project need to upgrade to the new requirements supports to be able to migrate to
+this version and further.
+
+* Removed support for Python less than 3.8;
+* Removed support for Django less than 3.2;
+* Removed support for DjangoCMS less than 3.11.x;
+* Added support for Python from 3.8 to 3.10;
+* Added support for Django from 3.2 to 4.1;
+* Added support for DjangoCMS from 3.11.x;
+* Added new field ``features`` on every block, this field won't be showed on default
+  installation since there is no defined features. User have to define them in
+  respective plugin settings;
+* Added new plugin ``container``;
+* Updated default plugin templates, it just inherits from the test one. User will have
+  to copy the respective plugin test template to create their own and define them in
+  settings;
+* Upgrade package setup, Makefile, documentation configuration, Tox configuration;
+* Removed included ``SmartMedia`` stuff in profit of ``django-smart-media``
+  requirement;
+* Rewrited tests;
+* Renamed default settings module from ``settings`` to ``defaults``;
+* Documentation has been updated for the new plugin ``Container`` and for installation
+  document. A next version should comes further to restructurate documentation for
+  improvements;
+* Added modern sandbox frontend with ``bootstrap=^5.1.3`` built with Node.js;
+
+
 Version 0.7.1 - 2020/06/06
 --------------------------
 

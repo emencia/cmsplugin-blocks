@@ -1,0 +1,34 @@
+#lotus-content {
+    // Article list
+    .article {
+        &.article--featured {
+            border-color: $black;
+            border-width: 2px;
+        }
+
+        &.article--not-yet,
+        &.article--passed,
+        &.article--draft {
+            opacity: 0.6;
+        }
+
+        .states {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 0.1rem;
+
+            .bi {
+                @include bi-icon();
+                background: $white;
+                padding: 0.2rem;
+                border-radius: $border-radius;
+
+                & + .bi {
+                    margin-left: 0.2rem;
+                }
+            }
+        }
+    }
+}
