@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 01:57+0000\n"
+"POT-Creation-Date: 2023-05-20 01:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/album.py:18 models/album.py:160 models/card.py:68
 #: models/container.py:57 models/hero.py:57 models/slider.py:142
@@ -25,35 +25,35 @@ msgstr ""
 
 #: admin/slider.py:18
 msgid "Slide"
-msgstr "Slider"
+msgstr ""
 
 #: forms/album.py:38
 msgid "Add items from a ZIP"
-msgstr "Importer depuis un fichier ZIP"
+msgstr ""
 
 #: forms/album.py:41
 msgid "Select a '*.zip' file of images to upload as new items."
-msgstr "Fichier '*.zip' contenant des images à ajouter."
+msgstr ""
 
 #: models/album.py:46 models/album.py:129 models/card.py:33
 #: models/container.py:34 models/slider.py:37 models/slider.py:120
 msgid "Title"
-msgstr "Titre"
+msgstr ""
 
 #: models/album.py:56 models/card.py:43 models/container.py:44
 #: models/hero.py:32 models/slider.py:47
 msgid "Template"
-msgstr "Gabarits"
+msgstr ""
 
 #: models/album.py:61
 msgid "Used template for content formatting."
-msgstr "Gabarit HTML spécifique pour la mise en forme."
+msgstr ""
 
 #: models/album.py:69 models/album.py:148 models/card.py:56
 #: models/container.py:79 models/hero.py:45 models/slider.py:60
 #: models/slider.py:130
 msgid "Layout features"
-msgstr "Fonctionnalités d'apparence"
+msgstr ""
 
 #: models/album.py:114 plugins/album.py:23
 msgid "Album"
@@ -65,37 +65,37 @@ msgstr ""
 
 #: models/album.py:139 models/slider.py:164
 msgid "Order"
-msgstr "Ordre"
+msgstr ""
 
 #: models/album.py:194
 msgid "Album item"
-msgstr "Élément d'album"
+msgstr ""
 
 #: models/album.py:195
 msgid "Album items"
-msgstr "Éléments de l'album"
+msgstr ""
 
 #: models/card.py:48 models/container.py:49 models/hero.py:37
 #: models/slider.py:52
 msgid "Used template for content look."
-msgstr "Gabarit HTML spécifique pour la mise en forme."
+msgstr ""
 
 #: models/card.py:81 models/container.py:70 models/hero.py:70
 #: models/slider.py:155
 msgid "Content"
-msgstr "Contenu"
+msgstr ""
 
 #: models/card.py:90
 msgid "Link url"
-msgstr "URL du lien"
+msgstr ""
 
 #: models/card.py:99
 msgid "Open in new window"
-msgstr "Ouvrir dans une nouvelle fenêtre"
+msgstr ""
 
 #: models/card.py:101
 msgid "If checked the link will be opened in a new window"
-msgstr "Si coché, le lien sera ouvert dans une nouvelle fenêtre"
+msgstr ""
 
 #: models/card.py:133 plugins/card.py:17
 msgid "Card"
@@ -107,11 +107,11 @@ msgstr ""
 
 #: models/container.py:116 plugins/container.py:17
 msgid "Container"
-msgstr "Conteneur"
+msgstr ""
 
 #: models/container.py:117
 msgid "Containers"
-msgstr "Conteneurs"
+msgstr ""
 
 #: models/hero.py:104 plugins/hero.py:17
 msgid "Hero"
@@ -131,56 +131,54 @@ msgstr ""
 
 #: models/slider.py:173
 msgid "link name"
-msgstr "Label du lien"
+msgstr ""
 
 #: models/slider.py:182
 msgid "link url"
-msgstr "URL du lien"
+msgstr ""
 
 #: models/slider.py:191
 msgid "open new window"
-msgstr "Nouvelle fenêtre ?"
+msgstr ""
 
 #: models/slider.py:193
 msgid "If checked the link will be open in a new window"
-msgstr "Si coché, le lien sera ouvert dans une nouvelle fenêtre"
+msgstr ""
 
 #: models/slider.py:221
 msgid "Slide item"
-msgstr "Élément d'un slider"
+msgstr ""
 
 #: models/slider.py:222
 msgid "Slide items"
-msgstr "Éléments de sliders"
+msgstr ""
 
 #: plugins/album.py:22 plugins/card.py:16 plugins/container.py:16
 #: plugins/hero.py:16 plugins/slider.py:20
 msgid "Blocks"
-msgstr "Blocs"
+msgstr ""
 
 #: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:20
 msgid "Delete?"
-msgstr "Supprimer?"
+msgstr ""
 
 #: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:34
 msgid "Change"
-msgstr "Changer"
+msgstr ""
 
 #: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:36
 msgid "View on site"
-msgstr "Voir sur le site"
+msgstr ""
 
 #: templates/cmsplugin_blocks/slider/test.html:18
 msgid "Read more"
-msgstr "Lire la suite"
+msgstr ""
 
 #: utils/validators.py:42
 msgid "Please keep filesize under {}. Current filesize {}"
 msgstr ""
-"Veuillez limiter la taille du fichier à {}. La taille de votre fichier "
-"envoyé est {}"
 
 #: utils/validators.py:121
 #, python-format
 msgid "'%(value)s' is not a valid CSS class name"
-msgstr "'%(value)s' n'est pas une classe CSS valide"
+msgstr ""

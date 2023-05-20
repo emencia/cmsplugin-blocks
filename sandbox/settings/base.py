@@ -45,6 +45,7 @@ LANGUAGE_CODE = "en"
 
 LANGUAGES = (
     ("en", "English"),
+    ("fr", "Français"),
 )
 
 # A tuple of directories where Django looks for translation files

@@ -9,6 +9,8 @@ Version 1.1.0 - Unreleased
 * Upgraded to ``django-smart-media>=0.3.0`` to fix plugin form layout on file inputs,
   close #20;
 * Cleaned Sass sources from old useless fileinput sources;
+* Updated PO and MO files, added missing blank locale for 'en';
+* Fixed plugin form to use the proper ``features`` field label;
 
 
 Version 1.0.0 - 2023/04/26

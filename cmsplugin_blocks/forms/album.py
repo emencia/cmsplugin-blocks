@@ -42,10 +42,34 @@ class AlbumForm(forms.ModelForm):
         widget=FileInputButtonBase,
     )
 
+    class Meta:
+        model = Album
+        exclude = []
+        fields = [
+            "title",
+            "template",
+            "features",
+            "mass_upload",
+        ]
+        widgets = {
+            "features": forms.SelectMultiple,
+            "order": NumberInput(attrs={"style": "width: 80px !important;"}),
+        }
+
+    class Media:
+        css = {
+            "all": ("cmsplugin_blocks/css/admin/album.css",),
+        }
+
     def __init__(self, *args, **kwargs):
         self.uploaded_zip = None
 
         super().__init__(*args, **kwargs)
+
+        # Get back original model field name onto the field
+        self.fields["features"].label = (
+            self._meta.model._meta.get_field("features").verbose_name
+        )
 
     def clean_mass_upload(self):
         """
@@ -74,25 +98,6 @@ class AlbumForm(forms.ModelForm):
         )
 
         return album
-
-    class Meta:
-        model = Album
-        exclude = []
-        fields = [
-            "title",
-            "template",
-            "features",
-            "mass_upload",
-        ]
-        widgets = {
-            "features": forms.SelectMultiple,
-            "order": NumberInput(attrs={"style": "width: 80px !important;"}),
-        }
-
-    class Media:
-        css = {
-            "all": ("cmsplugin_blocks/css/admin/album.css",),
-        }
 
 
 class AlbumItemForm(forms.ModelForm):

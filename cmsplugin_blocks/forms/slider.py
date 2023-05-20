@@ -34,6 +34,14 @@ class SliderForm(forms.ModelForm):
             "all": ("cmsplugin_blocks/css/admin/slider.css",),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Get back original model field name onto the field
+        self.fields["features"].label = (
+            self._meta.model._meta.get_field("features").verbose_name
+        )
+
 
 class SlideItemForm(forms.ModelForm):
     # Enforce the right field since ModelAdmin ignore the formfield defined in custom
@@ -61,3 +69,11 @@ class SlideItemForm(forms.ModelForm):
             "content": TextEditorWidget,
             "features": forms.SelectMultiple,
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Get back original model field name onto the field
+        self.fields["features"].label = (
+            self._meta.model._meta.get_field("features").verbose_name
+        )

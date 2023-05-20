@@ -5,14 +5,16 @@ FRONTEND_DIR=frontend
 SANDBOX_DIR=sandbox
 STATICFILES_DIR=$(SANDBOX_DIR)/static-sources
 
+DJANGO_MANAGE_PATH=$(SANDBOX_DIR)/manage.py
+
 PYTHON_BIN=$(VENV_PATH)/bin/python
-PIP=$(VENV_PATH)/bin/pip
-TOX=$(VENV_PATH)/bin/tox
-TWINE=$(VENV_PATH)/bin/twine
-DJANGO_MANAGE=$(VENV_PATH)/bin/python sandbox/manage.py
-FLAKE=$(VENV_PATH)/bin/flake8
-PYTEST=$(VENV_PATH)/bin/pytest
-SPHINX_RELOAD=$(PYTHON_BIN) sphinx_reload.py
+PIP_BIN=$(VENV_PATH)/bin/pip
+TOX_BIN=$(VENV_PATH)/bin/tox
+TWINE_BIN=$(VENV_PATH)/bin/twine
+DJANGO_MANAGE_BIN=$(PYTHON_BIN) $(DJANGO_MANAGE_PATH)
+FLAKE_BIN=$(VENV_PATH)/bin/flake8
+PYTEST_BIN=$(VENV_PATH)/bin/pytest
+SPHINX_RELOAD_BIN=$(PYTHON_BIN) sphinx_reload.py
 
 DEMO_DJANGO_SECRET_KEY=samplesecretfordev
 PACKAGE_NAME=cmsplugin-blocks
@@ -137,8 +139,8 @@ venv:
 	@echo ""
 	virtualenv -p $(PYTHON_INTERPRETER) $(VENV_PATH)
 	# This is required for those ones using old distribution
-	$(PIP) install --upgrade pip
-	$(PIP) install --upgrade setuptools
+	$(PIP_BIN) install --upgrade pip
+	$(PIP_BIN) install --upgrade setuptools
 .PHONY: venv
 
 create-var-dirs:
@@ -162,7 +164,7 @@ install-backend: venv create-var-dirs
 	@echo ""
 	@echo "==== Installing backend requirements ===="
 	@echo ""
-	$(PIP) install -e .[dev,quality,doc,release]
+	$(PIP_BIN) install -e .[dev,quality,doc,release]
 .PHONY: install
 
 install-frontend:
@@ -180,7 +182,7 @@ migrations:
 	@echo ""
 	@echo "==== Making application migrations for application ===="
 	@echo ""
-	$(DJANGO_MANAGE) makemigrations $(APPLICATION_NAME)
+	$(DJANGO_MANAGE_BIN) makemigrations $(APPLICATION_NAME)
 .PHONY: migrations
 
 migrate:
@@ -188,7 +190,7 @@ migrate:
 	@echo "==== Apply pending migrations ===="
 	@echo ""
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
-	$(DJANGO_MANAGE) migrate
+	$(DJANGO_MANAGE_BIN) migrate
 .PHONY: migrate
 
 superuser:
@@ -196,15 +198,37 @@ superuser:
 	@echo "==== Create new superuser ===="
 	@echo ""
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
-	$(DJANGO_MANAGE) createsuperuser
+	$(DJANGO_MANAGE_BIN) createsuperuser
 .PHONY: superuser
+
+po:
+	@echo ""
+	@echo "==== Updating PO from application ===="
+	@echo ""
+	@cd $(APPLICATION_NAME); ../$(PYTHON_BIN) ../$(DJANGO_MANAGE_PATH) makemessages -a --keep-pot --no-obsolete
+	@echo ""
+	@echo "==== Updating PO from sandbox ===="
+	@echo ""
+	@cd $(SANDBOX_DIR); ../$(PYTHON_BIN) ../$(DJANGO_MANAGE_PATH) makemessages -a --keep-pot --no-obsolete
+.PHONY: po
+
+mo:
+	@echo ""
+	@echo "==== Building MO from application ===="
+	@echo ""
+	@cd $(APPLICATION_NAME); ../$(PYTHON_BIN) ../$(DJANGO_MANAGE_PATH) compilemessages --verbosity 3
+	@echo ""
+	@echo "==== Building MO from sandbox ===="
+	@echo ""
+	@cd $(SANDBOX_DIR); ../$(PYTHON_BIN) ../$(DJANGO_MANAGE_PATH) compilemessages --verbosity 3
+.PHONY: mo
 
 run:
 	@echo ""
 	@echo "==== Running development server ===="
 	@echo ""
 	@DJANGO_SECRET_KEY=$(DEMO_DJANGO_SECRET_KEY) \
-	$(DJANGO_MANAGE) runserver 0.0.0.0:8001
+	$(DJANGO_MANAGE_BIN) runserver 0.0.0.0:8001
 .PHONY: run
 
 css:
@@ -266,35 +290,35 @@ livedocs:
 	@echo ""
 	@echo "==== Watching documentation sources ===="
 	@echo ""
-	$(SPHINX_RELOAD)
+	$(SPHINX_RELOAD_BIN)
 .PHONY: livedocs
 
 check-django:
 	@echo ""
 	@echo "==== Running Django System check framework ===="
 	@echo ""
-	$(DJANGO_MANAGE) check
+	$(DJANGO_MANAGE_BIN) check
 .PHONY: check-django
 
 check-migrations:
 	@echo ""
 	@echo "==== Checking for pending project applications models migrations ===="
 	@echo ""
-	$(DJANGO_MANAGE) makemigrations --check --dry-run -v 3
+	$(DJANGO_MANAGE_BIN) makemigrations --check --dry-run -v 3
 .PHONY: check-migrations
 
 flake:
 	@echo ""
 	@echo "==== Running Flake check ===="
 	@echo ""
-	$(FLAKE) --statistics --show-source $(APPLICATION_NAME) sandbox tests
+	$(FLAKE_BIN) --statistics --show-source $(APPLICATION_NAME) sandbox tests
 .PHONY: flake
 
 test:
 	@echo ""
 	@echo "==== Running Tests ===="
 	@echo ""
-	$(PYTEST) -vv --reuse-db tests/
+	$(PYTEST_BIN) -vv --reuse-db tests/
 	rm -Rf var/media-tests/
 .PHONY: test
 
@@ -302,7 +326,7 @@ test-initial:
 	@echo ""
 	@echo "==== Running Tests from zero ===="
 	@echo ""
-	$(PYTEST) -vv --reuse-db --create-db tests/
+	$(PYTEST_BIN) -vv --reuse-db --create-db tests/
 	rm -Rf var/media-tests/
 .PHONY: test-initial
 
@@ -317,7 +341,7 @@ tox:
 	@echo ""
 	@echo "==== Launching tests with Tox environments ===="
 	@echo ""
-	$(TOX)
+	$(TOX_BIN)
 .PHONY: tox
 
 build-package:
@@ -332,14 +356,14 @@ release: build-package
 	@echo ""
 	@echo "==== Releasing ===="
 	@echo ""
-	$(TWINE) upload dist/*
+	$(TWINE_BIN) upload dist/*
 .PHONY: release
 
 check-release: build-package
 	@echo ""
 	@echo "==== Checking package ===="
 	@echo ""
-	$(TWINE) check dist/*
+	$(TWINE_BIN) check dist/*
 .PHONY: check-release
 
 quality: flake check-migrations test-initial docs check-release freeze-dependencies

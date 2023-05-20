@@ -46,6 +46,3 @@ coverage.xml
 
 # Swap files
 *.sw[po]
-
-# Exported strings & generated translation templates
-*.pot
