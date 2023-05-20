@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
+from smart_media.admin import SmartAdminMixin
+
 from ..admin.album import AlbumItemAdmin
 from ..choices_helpers import (
     get_album_feature_choices,
@@ -11,7 +13,7 @@ from ..forms.album import AlbumForm
 from ..models.album import Album
 
 
-class AlbumPlugin(CMSPluginBase):
+class AlbumPlugin(SmartAdminMixin, CMSPluginBase):
     """
     Album interface is able to add/edit/remove items within inline forms.
 

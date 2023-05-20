@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
+from smart_media.admin import SmartAdminMixin
+
 from ..choices_helpers import (
     get_container_feature_choices,
     get_container_template_default,
@@ -10,7 +12,7 @@ from ..forms.container import ContainerForm
 from ..models.container import Container
 
 
-class ContainerPlugin(CMSPluginBase):
+class ContainerPlugin(SmartAdminMixin, CMSPluginBase):
     module = _("Blocks")
     name = _("Container")
     model = Container

@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
+from smart_media.admin import SmartAdminMixin
+
 from ..choices_helpers import (
     get_hero_feature_choices,
     get_hero_template_default,
@@ -10,7 +12,7 @@ from ..forms.hero import HeroForm
 from ..models.hero import Hero
 
 
-class HeroPlugin(CMSPluginBase):
+class HeroPlugin(SmartAdminMixin, CMSPluginBase):
     module = _("Blocks")
     name = _("Hero")
     model = Hero

@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 
+from smart_media.admin import SmartAdminMixin
+
 from ..admin.slider import SlideItemAdmin
 from ..choices_helpers import (
     get_slider_feature_choices,
@@ -11,7 +13,7 @@ from ..forms.slider import SliderForm
 from ..models.slider import Slider
 
 
-class SliderPlugin(CMSPluginBase):
+class SliderPlugin(SmartAdminMixin, CMSPluginBase):
     """
     Slider interface is able to add/edit/remove slide items as inline forms.
     """

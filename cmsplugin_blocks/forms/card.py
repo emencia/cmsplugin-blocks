@@ -2,6 +2,8 @@ from django import forms
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
+from smart_media.widgets import ClearableFileInputButton
+
 from ..choices_helpers import get_card_feature_choices
 from ..models.card import Card
 
@@ -28,6 +30,7 @@ class CardForm(forms.ModelForm):
         ]
         widgets = {
             "content": TextEditorWidget,
+            #"image": ClearableFileInputButton,
             "features": forms.SelectMultiple,
         }
 
