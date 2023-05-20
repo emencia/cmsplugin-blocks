@@ -8,7 +8,7 @@ depending from item object id).
 """
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_delete, pre_save
+from django.db.models.signals import pre_save
 from django.utils.html import strip_tags
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +17,7 @@ from cms.models.pluginmodel import CMSPlugin
 
 from smart_media.mixins import SmartFormatMixin
 from smart_media.modelfields import SmartMediaField
-from smart_media.signals import auto_purge_files_on_change, auto_purge_files_on_delete
+from smart_media.signals import auto_purge_files_on_change
 
 from ..choices_helpers import (
     get_slider_feature_choices,
@@ -222,12 +222,6 @@ class SlideItem(SmartFormatMixin, models.Model):
         verbose_name_plural = _("Slide items")
 
 
-post_delete.connect(
-    auto_purge_files_on_delete(["image"]),
-    dispatch_uid="block_slideitem_files_on_delete",
-    sender=SlideItem,
-    weak=False,
-)
 pre_save.connect(
     auto_purge_files_on_change(["image"]),
     dispatch_uid="block_slideitem_files_on_change",

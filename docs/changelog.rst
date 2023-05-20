@@ -11,6 +11,9 @@ Version 1.1.0 - Unreleased
 * Cleaned Sass sources from old useless fileinput sources;
 * Updated PO and MO files, added missing blank locale for 'en';
 * Fixed plugin form to use the proper ``features`` field label;
+* Removed all signal receiver ``auto_purge_files_on_change`` usage from all plugins to
+  remove a misbehavior with file purge and page publication. This means files related
+  to deleted plugin won't be automatically removed anymore, close #22;
 
 
 Version 1.0.0 - 2023/04/26
