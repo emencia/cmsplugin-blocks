@@ -46,9 +46,9 @@ Dependancies
 
 * Python>=3.8;
 * Django>=3.2;
-* `DjangoCMS`_ >= 3.11.0;
-* `djangocms-text-ckeditor`_;
-* `django-smart-media`_;
+* `DjangoCMS`_>=3.11.0;
+* `djangocms-text-ckeditor`_>=5.0.1;
+* `django-smart-media`_>=0.3.0;
 
 
 Links

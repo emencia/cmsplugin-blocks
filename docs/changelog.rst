@@ -3,7 +3,7 @@
 Changelog
 =========
 
-Version 1.1.0 - Unreleased
+Version 1.1.0 - 2023/05/21
 --------------------------
 
 * Upgraded to ``django-smart-media>=0.3.0`` to fix plugin form layout on file inputs,

@@ -1,4 +1,4 @@
-# Frozen requirement versions from '1.1.0rc3' installation
+# Frozen requirement versions from '1.1.0' installation
 django-cms==3.11.3
 django-smart-media==0.3.0
 djangocms-text-ckeditor==5.1.2
