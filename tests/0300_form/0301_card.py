@@ -19,8 +19,7 @@ class CardFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("template", form.errors)
-        self.assertIn("content", form.errors)
-        self.assertEqual(len(form.errors), 2)
+        self.assertEqual(len(form.errors), 1)
 
     def test_success(self):
         """

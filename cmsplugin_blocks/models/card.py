@@ -79,11 +79,11 @@ class Card(SmartFormatMixin, CMSPlugin):
 
     content = models.TextField(
         _("Content"),
-        blank=False,
+        blank=True,
         default="",
     )
     """
-    Required long text, it will be editable through CKeditor on plugin form.
+    Optional long text, it will be editable through CKeditor on plugin form.
     """
 
     link_url = models.CharField(
