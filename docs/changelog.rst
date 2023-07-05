@@ -3,6 +3,12 @@
 Changelog
 =========
 
+Version 1.2.0 - 2023/07/05
+--------------------------
+
+* ``Card.content`` field is no longer required to be filled and empty value is allowed;
+
+
 Version 1.1.0 - 2023/05/21
 --------------------------
 
