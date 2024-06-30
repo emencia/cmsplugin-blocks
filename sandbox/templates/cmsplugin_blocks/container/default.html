@@ -1,0 +1,37 @@
+{% load cms_tags smart_image %}{% spaceless %}
+    <div class="container mb-4{% if instance.features %} {{ instance.get_features }}{% endif %}">
+        {% if instance.title %}
+            <h2 class="container__title border-bottom border-3 text-center mb-3">{{ instance.title }}</h2>
+        {% endif %}
+
+        {% if instance.image %}
+            <div class="d-flex align-items-center mb-3">
+                <div class="container__media flex-shrink-0">
+                    {% media_thumb instance.image "200x200" as thumb %}
+                    <img src="{{ thumb.url }}" alt="">
+                </div>
+                {% if instance.content %}
+                    <div class="container__content flex-grow-1 ms-3">{{ instance.content|safe }}</div>
+                {% endif %}
+            </div>
+        {% else %}
+            {% if instance.content %}
+                <div class="container__content p-3 mb-3">{{ instance.content|safe }}</div>
+            {% endif %}
+        {% endif %}
+
+        {% if instance.child_plugin_instances %}
+            <div class="container__items">
+                <div class="row">
+                    {% for plugin in instance.child_plugin_instances %}
+                        <div class="col">
+                        {% with parent_features=instance.features %}
+                            {% render_plugin plugin %}
+                        {% endwith %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endspaceless %}

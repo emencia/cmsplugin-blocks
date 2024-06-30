@@ -10,6 +10,7 @@ Version 1.3.0 - Unreleased
 * Cleaned Tox config from some environment versions to only keep supported bounds (and
   speed up Tox suite);
 * Moved history changelog from documentation to root repository;
+* Added custom templates in sandbox for better demonstration using Bootstrap components;
 
 
 Version 1.2.1 - 2023/08/18
