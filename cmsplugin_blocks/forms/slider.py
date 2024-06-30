@@ -60,6 +60,7 @@ class SlideItemForm(forms.ModelForm):
             "features",
             "order",
             "image",
+            "image_alt",
             "content",
             "link_name",
             "link_url",

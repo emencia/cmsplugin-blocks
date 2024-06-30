@@ -28,9 +28,10 @@ class ContainerPlugin(SmartAdminMixin, CMSPluginBase):
                     "fields": (
                         "title",
                         "template",
+                        "features",
                         (
-                            "features",
                             "image",
+                            "image_alt",
                         ),
                         "content",
                     ),
@@ -42,7 +43,10 @@ class ContainerPlugin(SmartAdminMixin, CMSPluginBase):
                     "fields": (
                         "title",
                         "template",
-                        "image",
+                        (
+                            "image",
+                            "image_alt",
+                        ),
                         "content",
                     ),
                 }),

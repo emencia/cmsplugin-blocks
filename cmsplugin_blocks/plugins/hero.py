@@ -27,7 +27,10 @@ class HeroPlugin(SmartAdminMixin, CMSPluginBase):
                     "fields": (
                         "template",
                         "features",
-                        "image",
+                        (
+                            "image",
+                            "image_alt",
+                        ),
                         "content",
                     ),
                 }),
@@ -37,7 +40,10 @@ class HeroPlugin(SmartAdminMixin, CMSPluginBase):
                 (None, {
                     "fields": (
                         "template",
-                        "image",
+                        (
+                            "image",
+                            "image_alt",
+                        ),
                         "content",
                     ),
                 }),

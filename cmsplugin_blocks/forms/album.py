@@ -117,6 +117,7 @@ class AlbumItemForm(forms.ModelForm):
             "order",
             "features",
             "image",
+            "image_alt",
         ]
         widgets = {
             "features": forms.SelectMultiple,

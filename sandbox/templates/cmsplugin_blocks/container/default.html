@@ -8,7 +8,7 @@
             <div class="d-flex align-items-center mb-3">
                 <div class="container__media flex-shrink-0">
                     {% media_thumb instance.image "200x200" as thumb %}
-                    <img src="{{ thumb.url }}" alt="">
+                    <img src="{{ thumb.url }}" alt="{{ instance.image_alt }}">
                 </div>
                 {% if instance.content %}
                     <div class="container__content flex-grow-1 ms-3">{{ instance.content|safe }}</div>

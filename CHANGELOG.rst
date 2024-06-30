@@ -11,6 +11,10 @@ Version 1.3.0 - Unreleased
   speed up Tox suite);
 * Moved history changelog from documentation to root repository;
 * Added custom templates in sandbox for better demonstration using Bootstrap components;
+* Added a new field ``image_alt`` on every plugin model that have a ``image`` field.
+  This is to improve SEO and accessibility. Note than some shipped default template
+  like for Hero are not using this new field since they embed image as a background
+  without a ``<img/>`` tag;
 
 
 Version 1.2.1 - 2023/08/18

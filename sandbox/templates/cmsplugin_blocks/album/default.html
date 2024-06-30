@@ -7,7 +7,7 @@
                 {% media_thumb item.image "250x200" as thumb %}
                 <div class="album__item{% if item.features %} {{ item.get_features }}{% endif %}">
                     <a href="{{ item.image.url }}" target="blank">
-                        <img src="{{ thumb.url }}" class="img-thumbnail" alt="">
+                        <img src="{{ thumb.url }}" class="img-thumbnail" alt="{{ item.image_alt }}">
                     </a>
                     {% if item.title %}
                     <p class="album__item-title">

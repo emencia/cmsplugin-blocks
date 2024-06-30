@@ -17,6 +17,7 @@ class ContainerFactory(factory.django.DjangoModelFactory):
     title = factory.Faker("text", max_nb_chars=20)
     template = get_container_template_default()
     content = factory.Faker("text", max_nb_chars=42)
+    image_alt = factory.Faker("text", max_nb_chars=10)
 
     class Meta:
         model = Container

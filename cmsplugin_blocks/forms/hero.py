@@ -21,6 +21,7 @@ class HeroForm(forms.ModelForm):
             "template",
             "features",
             "image",
+            "image_alt",
             "content",
         ]
         widgets = {

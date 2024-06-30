@@ -19,7 +19,7 @@
         <div class="carousel-inner">
             <div class="carousel-item{% if forloop.first %} active{% endif %}{% if item.features %} {{ item.get_features }}{% endif %}">
                 {% media_thumb item.image "1200x400" as thumb %}
-                <img src="{{ thumb.url }}" class="d-block w-100" alt="">
+                <img src="{{ thumb.url }}" class="d-block w-100" alt="{{ item.image_alt }}">
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="bg-light p-2" style="--bs-bg-opacity: .5;">{{ item.title }}</h5>
                     {% if item.content %}

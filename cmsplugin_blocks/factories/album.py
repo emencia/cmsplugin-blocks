@@ -43,6 +43,7 @@ class AlbumItemFactory(factory.django.DjangoModelFactory):
     album = factory.SubFactory(AlbumFactory)
     title = factory.Faker("text", max_nb_chars=20)
     order = factory.Sequence(lambda n: 10 * n)
+    image_alt = factory.Faker("text", max_nb_chars=10)
 
     class Meta:
         model = AlbumItem

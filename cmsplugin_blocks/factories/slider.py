@@ -47,6 +47,7 @@ class SlideItemFactory(factory.django.DjangoModelFactory):
     order = factory.Sequence(lambda n: 10 * n)
     link_name = factory.Faker("text", max_nb_chars=10)
     link_open_blank = factory.Faker("pybool")
+    image_alt = factory.Faker("text", max_nb_chars=10)
 
     class Meta:
         model = SlideItem

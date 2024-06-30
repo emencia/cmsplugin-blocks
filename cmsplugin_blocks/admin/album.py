@@ -30,6 +30,7 @@ class AlbumItemAdmin(admin.TabularInline):
                         "order",
                         "features",
                         "image",
+                        "image_alt",
                     ),
                 }),
             )
@@ -41,6 +42,7 @@ class AlbumItemAdmin(admin.TabularInline):
                         "title",
                         "order",
                         "image",
+                        "image_alt",
                     ),
                 }),
             )

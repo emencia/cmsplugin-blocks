@@ -169,6 +169,16 @@ class AlbumItem(SmartFormatMixin, models.Model):
     ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
     """
 
+    image_alt = models.CharField(
+        _("Alternative image text"),
+        blank=True,
+        max_length=125,
+        default="",
+    )
+    """
+    An optional text string for alternative image text.
+    """
+
     def __str__(self):
         return Truncator(strip_tags(self.title)).words(
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,

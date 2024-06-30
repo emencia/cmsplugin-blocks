@@ -66,6 +66,16 @@ class Hero(SmartFormatMixin, CMSPlugin):
     ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
     """
 
+    image_alt = models.CharField(
+        _("Alternative image text"),
+        blank=True,
+        max_length=125,
+        default="",
+    )
+    """
+    An optional text string for alternative image text.
+    """
+
     content = models.TextField(
         _(u"Content"),
         blank=False,

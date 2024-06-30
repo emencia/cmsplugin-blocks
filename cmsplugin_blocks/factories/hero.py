@@ -16,6 +16,7 @@ class HeroFactory(factory.django.DjangoModelFactory):
     """
     template = get_hero_template_default()
     content = factory.Faker("text", max_nb_chars=42)
+    image_alt = factory.Faker("text", max_nb_chars=10)
 
     class Meta:
         model = Hero

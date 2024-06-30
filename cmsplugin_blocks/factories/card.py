@@ -19,6 +19,7 @@ class CardFactory(factory.django.DjangoModelFactory):
     template = get_card_template_default()
     content = factory.Faker("text", max_nb_chars=42)
     link_open_blank = factory.Faker("pybool")
+    image_alt = factory.Faker("text", max_nb_chars=10)
 
     class Meta:
         model = Card

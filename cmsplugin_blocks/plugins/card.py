@@ -27,9 +27,10 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
                     "fields": (
                         "title",
                         "template",
+                        "features",
                         (
-                            "features",
                             "image",
+                            "image_alt",
                         ),
                         (
                             "link_url",
@@ -45,7 +46,10 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
                     "fields": (
                         "title",
                         "template",
-                        "image",
+                        (
+                            "image",
+                            "image_alt",
+                        ),
                         (
                             "link_url",
                             "link_open_blank",

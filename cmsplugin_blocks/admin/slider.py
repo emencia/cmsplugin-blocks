@@ -28,6 +28,9 @@ class SlideItemAdmin(admin.StackedInline):
                         "title",
                         (
                             "image",
+                            "image_alt",
+                        ),
+                        (
                             "order",
                             "features",
                         ),
@@ -48,6 +51,7 @@ class SlideItemAdmin(admin.StackedInline):
                         "title",
                         (
                             "image",
+                            "image_alt",
                             "order",
                         ),
                         "content",

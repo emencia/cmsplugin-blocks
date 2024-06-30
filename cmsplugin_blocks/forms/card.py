@@ -22,6 +22,7 @@ class CardForm(forms.ModelForm):
             "template",
             "features",
             "image",
+            "image_alt",
             "content",
             "link_url",
             "link_open_blank",
