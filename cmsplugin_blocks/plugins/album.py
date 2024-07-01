@@ -28,31 +28,36 @@ class AlbumPlugin(SmartAdminMixin, CMSPluginBase):
     cache = True
 
     def get_fieldsets(self, request, obj=None):
-        if len(get_album_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        (
-                            "template",
-                            "features",
-                        ),
-                        "mass_upload",
-                    ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                        "mass_upload",
-                    ),
-                }),
-            )
+        """
+        Define plugin form fieldsets depending features are enabled or not (when there
+        is no defined feature choices).
+        """
+        fieldsets = [
+            (None, {
+                "fields": (
+                    "template",
+                ),
+            }),
+            (_("Content"), {
+                "fields": (
+                    "title",
+                ),
+            }),
+            (_("Options"), {
+                "fields": (
+                    "mass_upload",
+                ),
+            }),
+        ]
 
-        return fieldsets
+        if len(get_album_feature_choices()) > 0:
+            fieldsets.append((_("Features"), {
+                "fields": (
+                    "features",
+                ),
+            }))
+
+        return tuple(fieldsets)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

@@ -26,27 +26,31 @@ class SliderPlugin(SmartAdminMixin, CMSPluginBase):
     cache = True
 
     def get_fieldsets(self, request, obj=None):
-        if len(get_slider_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                        "features",
-                    ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                    ),
-                }),
-            )
+        """
+        Define plugin form fieldsets depending features are enabled or not (when there
+        is no defined feature choices).
+        """
+        fieldsets = [
+            (None, {
+                "fields": (
+                    "template",
+                ),
+            }),
+            (_("Content"), {
+                "fields": (
+                    "title",
+                ),
+            }),
+        ]
 
-        return fieldsets
+        if len(get_slider_feature_choices()) > 0:
+            fieldsets.append((_("Features"), {
+                "fields": (
+                    "features",
+                ),
+            }))
+
+        return tuple(fieldsets)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
@@ -12,6 +13,7 @@ class ContainerForm(forms.ModelForm):
     features = forms.MultipleChoiceField(
         choices=get_container_feature_choices(),
         required=False,
+        widget=FilteredSelectMultiple(verbose_name=None, is_stacked=False),
     )
 
     class Meta:
@@ -27,7 +29,6 @@ class ContainerForm(forms.ModelForm):
         ]
         widgets = {
             "content": TextEditorWidget,
-            "features": forms.SelectMultiple,
         }
 
     class Media:

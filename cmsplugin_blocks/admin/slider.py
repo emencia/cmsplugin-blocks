@@ -20,48 +20,40 @@ class SlideItemAdmin(admin.StackedInline):
     formfield_overrides = SmartModelAdmin.formfield_overrides
 
     def get_fieldsets(self, request, obj=None):
-        if len(get_slideritem_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "slider",
-                        "title",
-                        (
-                            "image",
-                            "image_alt",
-                        ),
-                        (
-                            "order",
-                            "features",
-                        ),
-                        "content",
-                        (
-                            "link_name",
-                            "link_url",
-                        ),
-                        "link_open_blank",
+        """
+        Define plugin form fieldsets depending features are enabled or not (when there
+        is no defined feature choices).
+        """
+        fieldsets = [
+            (None, {
+                "fields": (
+                    "slider",
+                ),
+            }),
+            (_("Content"), {
+                "fields": (
+                    "title",
+                    "image",
+                    (
+                        "link_name",
+                        "link_url",
                     ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "slider",
-                        "title",
-                        (
-                            "image",
-                            "image_alt",
-                            "order",
-                        ),
-                        "content",
-                        (
-                            "link_name",
-                            "link_url",
-                        ),
-                        "link_open_blank",
-                    ),
-                }),
-            )
+                ),
+            }),
+            (_("Options"), {
+                "fields": (
+                    "order",
+                    "image_alt",
+                    "link_open_blank",
+                ),
+            }),
+        ]
 
-        return fieldsets
+        if len(get_slideritem_feature_choices()) > 0:
+            fieldsets.append((_("Features"), {
+                "fields": (
+                    "features",
+                ),
+            }))
+
+        return tuple(fieldsets)

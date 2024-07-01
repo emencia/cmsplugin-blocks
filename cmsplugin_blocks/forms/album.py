@@ -1,6 +1,7 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import NumberInput
+from django.utils.translation import gettext_lazy as _
 
 from smart_media.widgets import FileInputButtonBase
 
@@ -32,6 +33,7 @@ class AlbumForm(forms.ModelForm):
     features = forms.MultipleChoiceField(
         choices=get_album_feature_choices(),
         required=False,
+        widget=FilteredSelectMultiple(verbose_name=None, is_stacked=False),
     )
 
     mass_upload = forms.FileField(
@@ -52,7 +54,6 @@ class AlbumForm(forms.ModelForm):
             "mass_upload",
         ]
         widgets = {
-            "features": forms.SelectMultiple,
             "order": NumberInput(attrs={"style": "width: 80px !important;"}),
         }
 
@@ -106,6 +107,7 @@ class AlbumItemForm(forms.ModelForm):
     features = forms.MultipleChoiceField(
         choices=get_albumitem_feature_choices(),
         required=False,
+        widget=forms.SelectMultiple,
     )
 
     class Meta:
@@ -120,6 +122,5 @@ class AlbumItemForm(forms.ModelForm):
             "image_alt",
         ]
         widgets = {
-            "features": forms.SelectMultiple,
             "order": NumberInput(attrs={"style": "width: 80px !important;"}),
         }

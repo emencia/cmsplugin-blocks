@@ -14,6 +14,12 @@ class CommaSeparatedStringsField(models.CharField):
     Words are separated with a comma so comma in a word is forbidden, you may need
     to define a validator to avoid it from choice values.
 
+    This field is compatible with widgets:
+
+    * ``django.forms.SelectMultiple`` (default)
+    * ``django.forms.CheckboxSelectMultiple``
+    * ``django.contrib.admin.widgets.FilteredSelectMultiple``
+
     .. NOTE::
         Grouped choices are not supported.
 
@@ -53,7 +59,8 @@ class CommaSeparatedStringsField(models.CharField):
         Define the right formfield to use.
 
         .. NOTE::
-            This is ignored from ModelAdmin, you will need to enforce it in its form.
+            This is ignored from ModelAdmin, you will need to enforce it in your admin
+            form.
         """
         defaults = {"form_class": MultipleChoiceField}
         defaults.update(kwargs)

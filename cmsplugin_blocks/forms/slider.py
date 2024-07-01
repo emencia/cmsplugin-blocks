@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from djangocms_text_ckeditor.widgets import TextEditorWidget
 
@@ -15,6 +16,7 @@ class SliderForm(forms.ModelForm):
     features = forms.MultipleChoiceField(
         choices=get_slider_feature_choices(),
         required=False,
+        widget=FilteredSelectMultiple(verbose_name=None, is_stacked=False),
     )
 
     class Meta:
@@ -49,6 +51,7 @@ class SlideItemForm(forms.ModelForm):
     features = forms.MultipleChoiceField(
         choices=get_slideritem_feature_choices(),
         required=False,
+        widget=forms.SelectMultiple,
     )
 
     class Meta:
@@ -68,7 +71,6 @@ class SlideItemForm(forms.ModelForm):
         ]
         widgets = {
             "content": TextEditorWidget,
-            "features": forms.SelectMultiple,
         }
 
     def __init__(self, *args, **kwargs):

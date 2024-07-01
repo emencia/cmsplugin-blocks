@@ -21,30 +21,18 @@ class AlbumItemAdmin(admin.TabularInline):
     formfield_overrides = SmartModelAdmin.formfield_overrides
 
     def get_fieldsets(self, request, obj=None):
+        fields = [
+            "album",
+            "title",
+            "order",
+            "image",
+            "image_alt",
+        ]
         if len(get_albumitem_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "album",
-                        "title",
-                        "order",
-                        "features",
-                        "image",
-                        "image_alt",
-                    ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "album",
-                        "title",
-                        "order",
-                        "image",
-                        "image_alt",
-                    ),
-                }),
-            )
+            fields.append("features")
 
-        return fieldsets
+        return (
+            (None, {
+                "fields": tuple(fields),
+            }),
+        )

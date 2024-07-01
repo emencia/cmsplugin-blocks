@@ -21,45 +21,41 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
     cache = True
 
     def get_fieldsets(self, request, obj=None):
+        """
+        Define plugin form fieldsets depending features are enabled or not (when there
+        is no defined feature choices).
+        """
+        fieldsets = [
+            (None, {
+                "fields": (
+                    "template",
+                ),
+            }),
+            (_("Content"), {
+                "fields": (
+                    "title",
+                    "image",
+                    "content",
+                ),
+            }),
+            (_("Options"), {
+                "fields": (
+                    (
+                        "link_url",
+                        "link_open_blank",
+                    ),
+                    "image_alt",
+                ),
+            }),
+        ]
         if len(get_card_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                        "features",
-                        (
-                            "image",
-                            "image_alt",
-                        ),
-                        (
-                            "link_url",
-                            "link_open_blank",
-                        ),
-                        "content",
-                    ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                        (
-                            "image",
-                            "image_alt",
-                        ),
-                        (
-                            "link_url",
-                            "link_open_blank",
-                        ),
-                        "content",
-                    ),
-                }),
-            )
+            fieldsets.append((_("Features"), {
+                "fields": (
+                    "features",
+                ),
+            }))
 
-        return fieldsets
+        return tuple(fieldsets)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)

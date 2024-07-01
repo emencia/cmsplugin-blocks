@@ -22,37 +22,40 @@ class ContainerPlugin(SmartAdminMixin, CMSPluginBase):
     cache = True
 
     def get_fieldsets(self, request, obj=None):
+        """
+        Define plugin form fieldsets depending features are enabled or not (when there
+        is no defined feature choices).
+        """
+        fieldsets = [
+            (None, {
+                "fields": (
+                    "template",
+                ),
+            }),
+            (_("Content"), {
+                "fields": (
+                    "title",
+                    "image",
+                    "content",
+                ),
+            }),
+            (_("Options"), {
+                "fields": (
+                    "image_alt",
+                ),
+            }),
+        ]
+
         if len(get_container_feature_choices()) > 0:
-            fieldsets = (
-                (None, {
+            fieldsets.append(
+                (_("Features"), {
                     "fields": (
-                        "title",
-                        "template",
                         "features",
-                        (
-                            "image",
-                            "image_alt",
-                        ),
-                        "content",
-                    ),
-                }),
-            )
-        else:
-            fieldsets = (
-                (None, {
-                    "fields": (
-                        "title",
-                        "template",
-                        (
-                            "image",
-                            "image_alt",
-                        ),
-                        "content",
                     ),
                 }),
             )
 
-        return fieldsets
+        return tuple(fieldsets)
 
     def render(self, context, instance, placeholder):
         context = super().render(context, instance, placeholder)
