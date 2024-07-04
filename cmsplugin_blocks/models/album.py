@@ -85,11 +85,11 @@ class Album(CMSPlugin):
 
     def copy_relations(self, oldinstance):
         """
-        Copy FK relations when plugin object is copied as another object
+        Copy all relations when plugin object is copied as another object.
 
         See:
 
-        http://docs.django-cms.org/en/latest/how_to/custom_plugins.html#for-foreign-key-relations-from-other-objects
+        https://docs.django-cms.org/en/latest/how_to/09-custom_plugins.html#relations-between-plugins
         """
         self.album_item.all().delete()
 

@@ -51,7 +51,9 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
         if len(get_card_feature_choices()) > 0:
             fieldsets.append((_("Features"), {
                 "fields": (
-                    "features",
+                    "size_features",
+                    "color_features",
+                    "extra_features",
                 ),
             }))
 

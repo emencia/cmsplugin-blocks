@@ -1,70 +1,72 @@
-from django.test import override_settings
-
-from cmsplugin_blocks.factories import CardFactory
+from cmsplugin_blocks.factories import CardFactory, FeatureFactory
 from cmsplugin_blocks.forms import CardForm
-from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
+from cmsplugin_blocks.models import Card
+from cmsplugin_blocks.utils.tests import build_post_data_from_object
 
-from tests.utils import FixturesTestCaseMixin
 
-
-class CardFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
+def test_empty(db, client, settings):
     """
-    Card form tests case
+    Form should not be valid with missing required fields.
     """
-    def test_empty(self):
-        """
-        Form should not be valid with missing required fields.
-        """
-        form = CardForm({})
+    form = CardForm({})
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("template", form.errors)
-        self.assertEqual(len(form.errors), 1)
+    assert form.is_valid() is False
+    assert "template" in form.errors
+    assert len(form.errors) == 1
 
-    def test_success(self):
-        """
-        Form should be valid with factory datas.
-        """
-        card = CardFactory()
 
-        form = CardForm({
-            "template": card.template,
-            "features": card.features,
-            "image": card.image,
-            "content": card.content,
-        })
+def test_success(db, client, settings):
+    """
+    Form should be valid with factory datas.
+    """
+    feature = FeatureFactory(scope="size", plugins=["Card"])
+    card = CardFactory(fill_size_features=[feature])
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+    data = build_post_data_from_object(
+        Card,
+        card,
+        ignore=[
+            "id", "cmsplugin", "size_features", "color_features", "extra_features",
+        ]
+    )
+    data["size_features"] = card.size_features.all()
 
-        # Checked saved values are the same from factory, ignore the image to
-        # avoid playing with file
-        self.assertEqual(instance.template, card.template)
-        self.assertEqual(instance.features, card.features)
-        self.assertEqual(instance.content, card.content)
+    form = CardForm(data)
+    assert form.is_valid() is True
+    instance = form.save()
 
-    @override_settings(BLOCKS_CARD_FEATURES=[])
-    def test_empty_feature_choices(self):
-        """
-        When feature choices are empty, form should still continue to work correctly.
-        """
-        card = CardFactory()
+    # Checked saved values are the same from factory, ignore the image to
+    # avoid playing with file
+    assert instance.template == card.template
+    assert instance.size_features.count() == card.size_features.count()
+    assert instance.size_features.count() == 1
+    assert instance.content == card.content
 
-        form = CardForm({
-            "template": card.template,
-            "features": card.features,
-            "image": card.image,
-            "content": card.content,
-        })
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+def test_empty_feature_choices(db, client, settings):
+    """
+    When feature choices are empty, form should still continue to work correctly.
+    """
+    settings.BLOCKS_FEATURE_PLUGINS = []
 
-        # Ensure test runned with empty choices
-        self.assertEqual(instance.features, [])
+    card = CardFactory()
 
-        # Checked saved values are the same from factory, ignore the image to
-        # avoid playing with file
-        self.assertEqual(instance.template, card.template)
-        self.assertEqual(instance.features, card.features)
-        self.assertEqual(instance.content, card.content)
+    form = CardForm({
+        "template": card.template,
+        "image": card.image,
+        "content": card.content,
+    })
+
+    # import json
+    # print(json.dumps(excinfo.value.message_dict, indent=4))
+    assert form.is_valid() is True
+    instance = form.save()
+
+    # Ensure test runned with empty choices
+    assert instance.size_features.count() == 0
+
+    # Checked saved values are the same from factory, ignore the image to
+    # avoid playing with file
+    assert instance.template == card.template
+    assert instance.size_features.count() == card.size_features.count()
+    assert instance.content == card.content

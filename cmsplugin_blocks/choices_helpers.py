@@ -76,3 +76,11 @@ def get_slider_template_choices():
 
 def get_slider_template_default():
     return settings.BLOCKS_SLIDER_TEMPLATES[0][0]
+
+
+def get_feature_plugin_choices():
+    return settings.BLOCKS_FEATURE_PLUGINS
+
+
+def get_feature_plugin_default():
+    return settings.BLOCKS_FEATURE_PLUGINS[0][0]

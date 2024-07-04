@@ -193,7 +193,9 @@ def compact_form_errors(form):
     Build a compact dict of field errors without messages.
 
     This is a helper for errors, keeping it more easy to test since messages
-    may be too long and can be translated which is more difficult to test.
+    may be too long and can be translated which is more difficult to test. You need to
+    execute form validation before using this, by example with Form's ``is_valid()``
+    method.
 
     Arguments:
         form (django.forms.Form): A bounded form.
@@ -208,6 +210,79 @@ def compact_form_errors(form):
         errors[name] = [item.code for item in validationerror]
 
     return errors
+
+
+def flatten_form_errors(form):
+    """
+    Build a dict of list for field errors messages.
+
+    This is a helper for errors to quickly get all field errors. You need to execute
+    form validation before using this, by example with Form's ``is_valid()`` method.
+
+    Arguments:
+        form (django.forms.Form): A bounded form.
+
+    Returns:
+        dict: A dict of invalid fields, each item is indexed by field name and
+        value is a list of error messages.
+    """
+    errors = {}
+
+    for name, validationerror in form.errors.as_data().items():
+        errors[name] = []
+        for item in validationerror:
+            errors[name].extend(item.messages)
+
+    return errors
+
+
+def build_post_data_from_object(model, obj, ignore=["id"], extra=None):
+    """
+    Build a payload suitable to a POST request from given object data.
+
+    This helps to quickly post something from a factory object.
+
+    Sample usage (omit most Article fields and care only about ones specified in
+    following build): ::
+
+        foo = ArticleFactory.build(name="Foo", language="fr", relations="whatever")
+        data = build_post_data_from_object(
+            Article, foo, ignore=["id", "relations"], extra={"ping": "pong"}
+        )
+        >>> {"name": "Foo", "language": "fr", "ping": "pong"}
+
+    Arguments:
+        model (django.db.models.Model): A model object used to find object
+            attributes to extract values.
+        obj (object): A instance of given model or a dict (like the one returned
+            by a factory ``build()`` method.
+
+    Keyword Arguments:
+        ignore (list): List of field name to ignore for value extraction. Default to
+            "id" but it will not be enough for any field with foreign keys, automatic
+            primary keys, etc.. so you will have to specify them yourself.
+        extra (dict): A dictionnary of items to extend the built payload.
+
+    Returns:
+        dict: Payload data to use in POST request.
+    """
+    data = {}
+
+    fields = [
+        f.name for f in model._meta.get_fields()
+        if f.name not in ignore
+    ]
+
+    for name in fields:
+        if obj is dict:
+            data[name] = obj.get(name)
+        else:
+            data[name] = getattr(obj, name)
+
+    if extra:
+        data.update(extra)
+
+    return data
 
 
 def sum_file_object(fileobj):

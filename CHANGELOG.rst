@@ -6,6 +6,7 @@ Changelog
 Version 1.3.0 - Unreleased
 --------------------------
 
+
 * Pinned DjangoCMS to ``<4.0`` since we don't support DjangoCMS 4.X for now;
 * Cleaned Tox config from some environment versions to only keep supported bounds (and
   speed up Tox suite);
@@ -15,6 +16,22 @@ Version 1.3.0 - Unreleased
   This is to improve SEO and accessibility. Note than some shipped default template
   like for Hero are not using this new field since they embed image as a background
   without a ``<img/>`` tag;
+* Backward incompatible: Added a new way to manage features:
+
+  * They are splitted into three scopes: size, color and extra;
+  * Each scope has its own select input;
+  * Features management is centralized in a single model with a scope (size, color and
+    extra) and a list of allowed plugins;
+  * Allowed plugins for a feature can select it in the proper scope;
+  * Plugin model method 'get_features' merge all feature scopes in a single string;
+* New features system is currently experimental, everything is working but some tests
+  has been temporiraly disabled, there will need some new ones, model migration file
+  will change and for now only the following models implement it:
+
+  * Card;
+
+* Previous features system will be totally removed and there is no way to migrate
+  their data, you will need to create again your features;
 
 
 Version 1.2.1 - 2023/08/18

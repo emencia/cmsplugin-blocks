@@ -12,6 +12,9 @@
         ]
 
 """
+from django.utils.translation import gettext_lazy as _
+
+
 BLOCKS_ENABLED_PLUGINS = [
     "AlbumPlugin",
     "CardPlugin",
@@ -57,6 +60,19 @@ Available feature classes for Slider model.
 BLOCKS_SLIDERITEM_FEATURES = []
 """
 Available feature classes for SliderItem model.
+"""
+
+BLOCKS_FEATURE_PLUGINS = [
+    ("AlbumMain", _("Album")),
+    ("AlbumItem", _("Album item")),
+    ("CardMain", _("Card")),
+    ("HeroMain", _("Hero")),
+    ("ContainerMain", _("Container")),
+    ("SliderMain", _("Slider")),
+    ("SliderItem", _("Slider item")),
+]
+"""
+Available plugins to allow on Features.
 """
 
 BLOCKS_ALBUM_TEMPLATES = [

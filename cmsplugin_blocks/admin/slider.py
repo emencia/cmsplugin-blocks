@@ -38,6 +38,7 @@ class SlideItemAdmin(admin.StackedInline):
                         "link_name",
                         "link_url",
                     ),
+                    "content",
                 ),
             }),
             (_("Options"), {

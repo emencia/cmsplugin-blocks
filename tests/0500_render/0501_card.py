@@ -1,7 +1,7 @@
 import logging
 
 from cmsplugin_blocks.cms_plugins import CardPlugin
-from cmsplugin_blocks.factories import CardFactory
+from cmsplugin_blocks.factories import CardFactory, FeatureFactory
 from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -23,9 +23,9 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             CardPlugin,
             title=card.title,
             template=card.template,
-            features=card.features,
             image=card.image,
             content=card.content,
+            copy_relations_from=card,
         )
 
         # Parse resulting plugin HTML render
@@ -100,8 +100,20 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         When card has features, their classes should be in .card 'class' attribute
         without duplicates.
         """
+        feature_foo = FeatureFactory(
+            value="foo",
+            scope="size",
+            plugins=["Card", "Album"],
+        )
+        feature_bar = FeatureFactory(
+            value="bar",
+            scope="color",
+            plugins=["Card"]
+        )
+
         card = CardFactory(
-            features=["foo", "blob", "foo"]
+            fill_size_features=[feature_foo],
+            fill_color_features=[feature_bar],
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
@@ -109,15 +121,18 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             template=card.template,
             image=card.image,
             content=card.content,
-            features=card.features,
+            copy_relations_from=card,
         )
 
         dom = html_pyquery(html)
-
-        assert ["foo", "blob"] == [
+        features_classnames = [
             item
             for item in dom.attr("class").split()
             if item != "card"
+        ]
+        assert features_classnames == [
+            "bar",
+            "foo",
         ]
 
     def test_link(self):
@@ -131,7 +146,6 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         placeholder, model_instance, context, html = self.create_basic_render(
             CardPlugin,
             template=card.template,
-            features=card.features,
         )
         dom = html_pyquery(html)
         assert html.strip().startswith("<div") is True
@@ -141,7 +155,6 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         placeholder, model_instance, context, html = self.create_basic_render(
             CardPlugin,
             template=card.template,
-            features=card.features,
             link_url=card.link_url,
             link_open_blank=True,
         )
