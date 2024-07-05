@@ -4,7 +4,7 @@ from cmsplugin_blocks.models import Card
 from cmsplugin_blocks.utils.tests import build_post_data_from_object
 
 
-def test_empty(db, client, settings):
+def test_empty(db, settings):
     """
     Form should not be valid with missing required fields.
     """
@@ -15,7 +15,7 @@ def test_empty(db, client, settings):
     assert len(form.errors) == 1
 
 
-def test_success(db, client, settings):
+def test_success(db, settings):
     """
     Form should be valid with factory datas.
     """
@@ -43,7 +43,7 @@ def test_success(db, client, settings):
     assert instance.content == card.content
 
 
-def test_empty_feature_choices(db, client, settings):
+def test_empty_feature_choices(db, settings):
     """
     When feature choices are empty, form should still continue to work correctly.
     """

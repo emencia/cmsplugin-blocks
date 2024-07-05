@@ -1,16 +1,10 @@
-from django.conf import settings
-from django.contrib import admin
-from django.http import JsonResponse
-from django.utils.translation import gettext_lazy as _
 import datetime
 
+from django.http import JsonResponse
 from django.views.generic import View
 
 from .. import __version__
 from ..models import Feature
-# from ..forms import FeatureImportForm
-
-from .admin_mixins import CustomAdminContext
 
 
 class FeatureExportAdminView(View):
@@ -36,7 +30,7 @@ class FeatureExportAdminView(View):
     http_method_names = ["get", "head", "options", "trace"]
 
     def get_queryset(self):
-        return self.model.objects.all().order_by("scope")
+        return self.model.objects.all().order_by("scope", "title")
 
     def get_items(self):
         return list(self.get_queryset().values(
