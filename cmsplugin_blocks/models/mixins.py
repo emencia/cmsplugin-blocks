@@ -1,7 +1,36 @@
 
 class FeatureMixinModel:
     """
+    A mixin to inherit in model which implement features.
 
+    This is not a abstract model, the related fields will have to be in your model: ::
+
+        size_features = models.ManyToManyField(
+            "cmsplugin_blocks.Feature",
+            verbose_name=_("size features"),
+            related_name="%(app_label)s_%(class)s_size_related",
+            blank=True,
+            limit_choices_to={"scope": "size", "plugins__contains": "PLUGIN NAME"},
+        )
+
+        color_features = models.ManyToManyField(
+            "cmsplugin_blocks.Feature",
+            verbose_name=_("color features"),
+            related_name="%(app_label)s_%(class)s_color_related",
+            blank=True,
+            limit_choices_to={"scope": "color", "plugins__contains": "PLUGIN NAME"},
+        )
+
+        extra_features = models.ManyToManyField(
+            "cmsplugin_blocks.Feature",
+            verbose_name=_("extra features"),
+            related_name="%(app_label)s_%(class)s_extra_related",
+            blank=True,
+            limit_choices_to={"scope": "extra", "plugins__contains": "PLUGIN NAME"},
+        )
+
+    Where ``PLUGIN NAME`` is the key name to use to limit choices, this name must
+    exists in ``settings.BLOCKS_FEATURE_PLUGINS``.
     """
 
     def get_size_features(self):

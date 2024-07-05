@@ -16,7 +16,7 @@ Version 1.3.0 - Unreleased
   This is to improve SEO and accessibility. Note than some shipped default template
   like for Hero are not using this new field since they embed image as a background
   without a ``<img/>`` tag;
-* Backward incompatible: Added a new way to manage features:
+* **Backward incompatible** Added a new way to manage features:
 
   * They are splitted into three scopes: size, color and extra;
   * Each scope has its own select input;

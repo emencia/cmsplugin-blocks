@@ -72,7 +72,10 @@ BLOCKS_FEATURE_PLUGINS = [
     ("SliderItem", _("Slider item")),
 ]
 """
-Available plugins to allow on Features.
+Available plugins to allow on Features. Be aware when naming keys here, since we use
+a basic ``contains`` lookup expression on comma separated string, key names must be
+unique and can not be matched with a part of another key. Like ``Slider`` could match
+``SliderMain`` or ``SliderItem``.
 """
 
 BLOCKS_ALBUM_TEMPLATES = [
