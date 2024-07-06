@@ -1,0 +1,31 @@
+{% extends "admin/base_site.html" %}{% load i18n %}{% spaceless %}
+{% comment %}Customized template to include import view content{% endcomment %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+        &rsaquo; <a href="{% url 'admin:cmsplugin_blocks_feature_changelist' %}">CMS Blocks</a>
+        &rsaquo; {{ title }}
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    {% block object-tools %}{% endblock %}
+    {% if not success %}
+    <form method="post" enctype="multipart/form-data"
+          action="{% url 'admin:cmsplugin_blocks_feature_import' %}"
+          id="cmsplugin_blocks-import-form">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+            <input type="submit" value="{% trans "Confirm" %}">
+        </div>
+    </form>
+    {% else %}
+    <h2>Submit success!</h2>
+    {% endif %}
+{% endblock %}
+
+{% endspaceless %}

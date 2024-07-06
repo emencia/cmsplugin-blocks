@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from ..choices_helpers import get_feature_plugin_choices
 from ..modelfields import CommaSeparatedStringsField
 from ..utils.validators import validate_css_classname
+from ..managers import FeatureManager
 
 
 class Feature(models.Model):
@@ -64,6 +65,8 @@ class Feature(models.Model):
     """
     Optional string of plugin models names divided by a single comma.
     """
+
+    objects = FeatureManager()
 
     def __str__(self):
         return self.title

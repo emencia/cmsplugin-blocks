@@ -1,51 +1,110 @@
 import datetime
 
+from django.contrib import messages
 from django.http import JsonResponse
-from django.views.generic import View
+from django.views.generic import View, FormView
+from django.utils.translation import gettext_lazy as _
 
 from .. import __version__
 from ..models import Feature
+from ..forms import FeatureImportForm
+from .admin_mixins import CustomAdminContext
 
 
 class FeatureExportAdminView(View):
     """
-    Mixin to display a form to select a language to translate an object to.
+    View to export all existing features into a JSON dump.
 
-    The form does not perform a POST request. Instead it will make a GET to the object
-    create form with some URL argument so the create form will know it will have to
-    prefill fields "language" and "original", the user still have to fill everything
-    else.
+    This is a basic view with a simple JSON response that would look like this: ::
 
-    Form only displays the language which are still available (not in original and
-    its possible translations).
+        {
+            "version": "1.3.0",
+            "date": "2024-07-05T15:04:21",
+            "items": [
+                {
+                    "title": "DANGER",
+                    "value": "bg-danger",
+                    "scope": "color",
+                    "plugins": [
+                        "AlbumMain",
+                        "CardMain"
+                    ]
+                }
+            ]
+        }
 
-    Given ID is used to retrieve an object and get its original if its
-    translation. Finally the form will always redirect to an original object.
+    Items ``version`` and ``items`` are required, ``date`` is optional but may be
+    useful when storing some common dump.
 
-    Despite inheriting from DetailView, this is not a ready to use view, you need
-    inherit it to define the ``mode`` and ``template_name`` attributes correctly.
+    Item ``version`` is currently not used but may be so in future version to manage
+    possible incompatibility.
+
+    Item ``items`` is a list of dictionnary for feature items to load. All feature item
+    fields are required and must not be empty.
     """
     model = Feature
-    context_object_name = "requested_object"
     http_method_names = ["get", "head", "options", "trace"]
 
     def get_queryset(self):
         return self.model.objects.all().order_by("scope", "title")
 
-    def get_items(self):
-        return list(self.get_queryset().values(
-            "title",
-            "value",
-            "scope",
-            "plugins",
-        ))
-
     def get(self, request):
+        """
+        Return built JSON content from features.
+        """
         return JsonResponse(
             {
                 "version":  __version__,
                 "date": datetime.datetime.now().isoformat(timespec="seconds"),
-                "items": self.get_items(),
+                "items": self.get_queryset().get_payload(),
             },
             json_dumps_params={"indent": 4},
         )
+
+
+class FeatureImportAdminView(CustomAdminContext, FormView):
+    """
+    View to import Feature items from a JSON file.
+
+    Expected JSON format is the same as described in ``FeatureExportAdminView``.
+    """
+    model = Feature
+    form_class = FeatureImportForm
+    template_name = "admin/cmsplugin_blocks/feature/import.html"
+    title = _("Import features")
+
+    def form_valid(self, form):
+        results = form.save()
+
+        success_message = self.get_success_message(results)
+        if success_message:
+            messages.success(self.request, success_message)
+
+        return self.render_to_response(self.get_context_data(form=form, success=True))
+
+    def get_success_message(self, results):
+        parts = []
+
+        created_msg = _("{count} items have been created")
+        ignored_msg = _("{count} items have been ignored from scopes ({scopes})")
+        duplicates_msg = _("{count} items were duplicated titles")
+
+        if len(results["created"]) > 0:
+            parts.append(
+                created_msg.format(count=len(results["created"]))
+            )
+
+        if len(results["ignored"]) > 0:
+            parts.append(
+                ignored_msg.format(
+                    count=len(results["ignored"]),
+                    scopes=", ".join(results["disallowed_scopes"]),
+                )
+            )
+
+        if len(results["duplicates"]) > 0:
+            parts.append(
+                duplicates_msg.format(count=len(results["duplicates"]))
+            )
+
+        return ". ".join(parts)

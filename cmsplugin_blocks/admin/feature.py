@@ -4,11 +4,14 @@ from django.urls import path
 
 from ..models import Feature
 from ..forms import FeatureForm
-from ..views.feature import FeatureExportAdminView
+from ..views.feature import FeatureExportAdminView, FeatureImportAdminView
 
 
 @admin.register(Feature)
 class FeatureAdmin(admin.ModelAdmin):
+    """
+    Define all Feature model admin options with some additional internal views.
+    """
     form = FeatureForm
     change_list_template = "admin/cmsplugin_blocks/feature/change_list.html"
     list_display = (
@@ -39,9 +42,16 @@ class FeatureAdmin(admin.ModelAdmin):
                 self.admin_site.admin_view(
                     FeatureExportAdminView.as_view(),
                 ),
-                # {"model_admin": self},
                 name="cmsplugin_blocks_feature_export",
-            )
+            ),
+            path(
+                "import/",
+                self.admin_site.admin_view(
+                    FeatureImportAdminView.as_view(),
+                ),
+                {"model_admin": self},
+                name="cmsplugin_blocks_feature_import",
+            ),
         ]
 
         return extra_urls + urls

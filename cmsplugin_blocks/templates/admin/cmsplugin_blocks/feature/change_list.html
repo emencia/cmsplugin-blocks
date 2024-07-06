@@ -1,6 +1,10 @@
-{% extends "admin/change_list.html" %} {% load i18n %}
+{% extends "admin/change_list.html" %}{% load i18n %}
+{% comment %}Overriden template to include import/export links{% endcomment %}
 {% block object-tools-items %}
     {{ block.super }}
+    <li>
+        <a class="historylink" href="{% url 'admin:cmsplugin_blocks_feature_import' %}">Import</a>
+    </li>
     <li>
         <a class="historylink" target="_blank" href="{% url 'admin:cmsplugin_blocks_feature_export' %}">Export</a>
     </li>
