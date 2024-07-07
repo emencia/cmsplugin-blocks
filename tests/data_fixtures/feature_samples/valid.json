@@ -26,8 +26,8 @@
             ]
         },
         {
-            "title": "Flex grid column two slots large",
-            "value": "col-lg-2",
+            "title": "Flex grid column four slots large",
+            "value": "col-lg-4",
             "scope": "size",
             "plugins": [
                 "CardMain",

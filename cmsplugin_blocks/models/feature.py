@@ -10,8 +10,6 @@ from ..managers import FeatureManager
 class Feature(models.Model):
     """
     Feature model.
-
-    TODO: title should be unique amongst its scope.
     """
 
     SIZING = "size"
@@ -68,9 +66,15 @@ class Feature(models.Model):
 
     objects = FeatureManager()
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = _("Layout feature")
         verbose_name_plural = _("Layout Features")
+        constraints = [
+            models.UniqueConstraint(
+                name="blocks_unique_feature_title",
+                fields=["scope", "title"],
+            ),
+        ]
+
+    def __str__(self):
+        return "{}:{}".format(self.get_scope_display(), self.title)

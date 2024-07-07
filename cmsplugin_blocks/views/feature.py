@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.generic import View, FormView
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 
 from .. import __version__
 from ..models import Feature
@@ -72,17 +73,33 @@ class FeatureImportAdminView(CustomAdminContext, FormView):
     form_class = FeatureImportForm
     template_name = "admin/cmsplugin_blocks/feature/import.html"
     title = _("Import features")
+    success_url = reverse_lazy("admin:cmsplugin_blocks_feature_changelist")
 
     def form_valid(self, form):
+        """
+        When form validation has succeeded, save dump items, save a success
+        notification then redirect to change list.
+        """
         results = form.save()
 
         success_message = self.get_success_message(results)
         if success_message:
             messages.success(self.request, success_message)
 
-        return self.render_to_response(self.get_context_data(form=form, success=True))
+        return super().form_valid(form)
 
     def get_success_message(self, results):
+        """
+        Build success message from result stats.
+
+        Arguments:
+            results (dict): Dictionnary of results stats as returned from
+                ``FeatureImportForm.save()``.
+
+        Returns:
+            string: The success message may be composed of created, ignored per scope
+            and ignored duplicates parts, depending they are empty or not.
+        """
         parts = []
 
         created_msg = _("{count} items have been created")

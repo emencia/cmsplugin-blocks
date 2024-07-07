@@ -32,8 +32,24 @@ def test_import_empty(db):
         ["JSON is missing 'items' item for the feature data"],
     ),
     (
+        "items_not_a_list.json",
+        ["Item 'items' must be a list"],
+    ),
+    (
         "some_items_errors.json",
-        ["Some item are invalid: 2 ,3 ,4"],
+        ["Some item are invalid: 2, 3, 4"],
+    ),
+    (
+        "not_unique.json",
+        ["Some item are invalid: 2"],
+    ),
+    (
+        "invalid_scopes.json",
+        ["Some item are invalid: 1"],
+    ),
+    (
+        "invalid_plugins.json",
+        ["Some item are invalid: 2, 3"],
     ),
 ])
 def test_import_dump_validation_errors(db, settings, tests_settings, dump, expected):
@@ -45,7 +61,7 @@ def test_import_dump_validation_errors(db, settings, tests_settings, dump, expec
     filepath = tests_settings.fixtures_path / "feature_samples" / dump
 
     dump = SimpleUploadedFile(
-        "wrong.json",
+        "dump.json",
         filepath.read_bytes(),
         content_type="application/json"
     )
@@ -68,7 +84,7 @@ def test_import_dump_save(db, tests_settings):
     filepath = tests_settings.fixtures_path / "feature_samples" / "valid.json"
 
     dump = SimpleUploadedFile(
-        "right.json",
+        "dump.json",
         filepath.read_bytes(),
         content_type="application/json"
     )
@@ -111,7 +127,7 @@ def test_import_dump_scoped_save(db, tests_settings):
     filepath = tests_settings.fixtures_path / "feature_samples" / "valid.json"
 
     dump = SimpleUploadedFile(
-        "right.json",
+        "dump.json",
         filepath.read_bytes(),
         content_type="application/json"
     )

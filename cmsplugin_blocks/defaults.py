@@ -62,6 +62,27 @@ BLOCKS_SLIDERITEM_FEATURES = []
 Available feature classes for SliderItem model.
 """
 
+BLOCKS_KNOWED_FEATURES_PLUGINS = [
+    "AlbumMain",
+    "AlbumItem",
+    "CardMain",
+    "HeroMain",
+    "ContainerMain",
+    "SliderMain",
+    "SliderItem",
+]
+"""
+List of knowed plugin names where to enable features.
+
+.. Warning::
+    You should not change this setting since they are used internally. Developpers
+    that would want to implement features on their own plugins may add them here but
+    carefully.
+
+    If you just want to removed some allowed cmsplugin-blocks plugins from features,
+    see ``BLOCKS_FEATURE_PLUGINS``.
+"""
+
 BLOCKS_FEATURE_PLUGINS = [
     ("AlbumMain", _("Album")),
     ("AlbumItem", _("Album item")),
@@ -72,10 +93,12 @@ BLOCKS_FEATURE_PLUGINS = [
     ("SliderItem", _("Slider item")),
 ]
 """
-Available plugins to allow on Features. Be aware when naming keys here, since we use
-a basic ``contains`` lookup expression on comma separated string, key names must be
-unique and can not be matched with a part of another key. Like ``Slider`` could match
-``SliderMain`` or ``SliderItem``.
+Available plugins to allow on Features.
+
+Developers should be aware when naming keys here, since we use a basic ``contains``
+lookup expression on comma separated string, key names must be unique and can not be
+matched with a part of another key. Like ``Slider`` could match ``SliderMain`` or
+``SliderItem``.
 """
 
 BLOCKS_ALBUM_TEMPLATES = [

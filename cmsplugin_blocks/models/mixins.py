@@ -62,16 +62,19 @@ class FeatureMixinModel:
 
     def get_features(self):
         """
-        Merge feature kinds items into a single string with a comma divider.
+        Merge features items into a single string with a whitespace divider.
 
         Returns:
-            string: Feature items divided by a comma.
+            string: Feature items divided by a whitespace. This enforce classnames
+            uniqueness.
         """
         sizes = self.get_size_features()
         colors = self.get_color_features()
         extras = self.get_extra_features()
-
-        return " ".join(extras.union(sizes, colors))
+        # Join results from queryset unions
+        parts = " ".join(extras.union(sizes, colors))
+        # Split again classnames to remove duplicate and reorder
+        return " ".join(sorted(set(parts.split())))
 
     def copy_relations(self, oldinstance):
         """

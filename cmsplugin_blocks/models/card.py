@@ -126,6 +126,9 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         blank=True,
         limit_choices_to={"scope": "extra", "plugins__contains": "Card"},
     )
+    """
+    Optional related extra features.
+    """
 
     class Meta:
         verbose_name = _("Card")

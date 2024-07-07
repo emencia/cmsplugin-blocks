@@ -1,0 +1,22 @@
+{
+    "version": "1.3.0",
+    "date": "2024-07-05T15:04:21",
+    "items": [
+        {
+            "title": "Nope",
+            "value": "nope",
+            "scope": "nope",
+            "plugins": [
+                "CardMain"
+            ]
+        },
+        {
+            "title": "Zip",
+            "value": "zip",
+            "scope": "size",
+            "plugins": [
+                "CardMain"
+            ]
+        }
+    ]
+}

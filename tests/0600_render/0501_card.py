@@ -110,10 +110,16 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             scope="color",
             plugins=["Card"]
         )
+        feature_foobis = FeatureFactory(
+            value="foo",
+            scope="extra",
+            plugins=["Card", "Album"],
+        )
 
         card = CardFactory(
             fill_size_features=[feature_foo],
             fill_color_features=[feature_bar],
+            fill_extra_features=[feature_foobis],
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
