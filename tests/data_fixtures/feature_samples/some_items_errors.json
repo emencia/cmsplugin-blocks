@@ -1,0 +1,38 @@
+{
+    "version": "1.3.0",
+    "date": "2024-07-05T15:04:21",
+    "items": [
+        {
+            "title": "DANGER",
+            "value": "bg-danger",
+            "scope": "color",
+            "plugins": [
+                "AlbumMain",
+                "CardMain"
+            ]
+        },
+        {
+            "title": "WARNING",
+            "scope": "color",
+            "plugins": [
+                "AlbumMain",
+                "CardMain"
+            ]
+        },
+        {
+            "title": "CAREFUL",
+            "value": "",
+            "scope": "color",
+            "plugins": [
+                "AlbumMain",
+                "CardMain"
+            ]
+        },
+        {
+            "title": "NOTHERE",
+            "value": "nothere",
+            "scope": "color",
+            "plugins": []
+        }
+    ]
+}

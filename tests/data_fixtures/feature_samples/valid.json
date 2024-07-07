@@ -1,0 +1,75 @@
+{
+    "version": "1.3.0",
+    "date": "2024-07-05T15:04:21",
+    "items": [
+        {
+            "title": "Box shadow",
+            "value": "shadow",
+            "scope": "extra",
+            "plugins": [
+                "AlbumMain",
+                "AlbumItem",
+                "CardMain",
+                "ContainerMain",
+                "HeroMain",
+                "SliderMain",
+                "SliderItem"
+            ]
+        },
+        {
+            "title": "Flex grid column two slots large",
+            "value": "col-lg-2",
+            "scope": "size",
+            "plugins": [
+                "CardMain",
+                "HeroMain"
+            ]
+        },
+        {
+            "title": "Flex grid column two slots large",
+            "value": "col-lg-2",
+            "scope": "size",
+            "plugins": [
+                "CardMain",
+                "HeroMain"
+            ]
+        },
+        {
+            "title": "SUCCESS",
+            "value": "bg-success",
+            "scope": "color",
+            "plugins": [
+                "ContainerMain"
+            ]
+        },
+        {
+            "title": "SUCCESS",
+            "value": "extra-success",
+            "scope": "extra",
+            "plugins": [
+                "ContainerMain"
+            ]
+        },
+        {
+            "title": "WARNING",
+            "value": "bg-warning",
+            "scope": "color",
+            "plugins": [
+                "AlbumMain",
+                "AlbumItem",
+                "CardMain",
+                "HeroMain",
+                "SliderMain",
+                "SliderItem"
+            ]
+        },
+        {
+            "title": "Colonne 99%",
+            "value": "cell-99",
+            "scope": "size",
+            "plugins": [
+                "SliderItem"
+            ]
+        }
+    ]
+}

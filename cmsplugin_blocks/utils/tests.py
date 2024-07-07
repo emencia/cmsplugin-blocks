@@ -197,6 +197,10 @@ def compact_form_errors(form):
     execute form validation before using this, by example with Form's ``is_valid()``
     method.
 
+    .. Warning::
+        Since this only store error code, this will only work well with validation
+        error which carry a code, all the other ones will be stated with a None value.
+
     Arguments:
         form (django.forms.Form): A bounded form.
 

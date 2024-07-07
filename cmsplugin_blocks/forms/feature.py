@@ -54,6 +54,8 @@ class FeatureImportForm(forms.Form):
     def clean_json_file(self):
         """
         Open file to validate it as JSON and return its content.
+
+        NOTE: This could have been done more robustly with Python library "schema".
         """
         data = self.cleaned_data["json_file"]
 
@@ -71,7 +73,7 @@ class FeatureImportForm(forms.Form):
 
             if "items" not in payload:
                 raise ValidationError(
-                    "JSON is missing 'items' item for the feature data."
+                    "JSON is missing 'items' item for the feature data"
                 )
 
             # Get missing field or empty values from loaded items

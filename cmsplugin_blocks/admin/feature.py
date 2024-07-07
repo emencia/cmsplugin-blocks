@@ -14,12 +14,9 @@ class FeatureAdmin(admin.ModelAdmin):
     """
     form = FeatureForm
     change_list_template = "admin/cmsplugin_blocks/feature/change_list.html"
-    list_display = (
-        "title",
-        "scope",
-        "allowed_plugin_display",
-    )
+    list_display = ("id", "title", "scope", "value", "allowed_plugin_display")
     list_filter = ("scope", "plugins")
+    list_editable = ("title", "value")
 
     @admin.display(empty_value="None")
     def allowed_plugin_display(self, obj):
