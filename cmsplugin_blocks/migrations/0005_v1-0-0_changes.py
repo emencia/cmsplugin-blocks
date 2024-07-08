@@ -5,7 +5,6 @@ import cmsplugin_blocks.utils.validators
 from cmsplugin_blocks.choices_helpers import (
     get_album_feature_choices,
     get_albumitem_feature_choices,
-    get_container_feature_choices,
     get_container_template_choices,
     get_container_template_default,
     get_slider_feature_choices,
@@ -75,7 +74,7 @@ class Migration(migrations.Migration):
                     "features",
                     cmsplugin_blocks.modelfields.CommaSeparatedStringsField(
                         blank=True,
-                        choices=get_container_feature_choices(),
+                        choices=[],
                         default="",
                         max_length=255,
                         validators=[

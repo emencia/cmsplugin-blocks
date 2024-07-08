@@ -1,70 +1,63 @@
-from django.test import override_settings
-
 from cmsplugin_blocks.factories import ContainerFactory
 from cmsplugin_blocks.forms import ContainerForm
-from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
-
-from tests.utils import FixturesTestCaseMixin
 
 
-class ContainerFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
+def test_empty(db):
     """
-    Container form tests case
+    Form should not be valid with missing required fields.
     """
-    def test_empty(self):
-        """
-        Form should not be valid with missing required fields.
-        """
-        form = ContainerForm({})
+    form = ContainerForm({})
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("template", form.errors)
-        self.assertEqual(len(form.errors), 1)
+    assert form.is_valid() is False
+    assert "template" in form.errors
+    assert len(form.errors) == 1
 
-    def test_success(self):
-        """
-        Form should be valid with factory datas.
-        """
-        container = ContainerFactory()
 
-        form = ContainerForm({
-            "template": container.template,
-            "features": container.features,
-            "image": container.image,
-            "content": container.content,
-        })
+def test_success(db):
+    """
+    Form should be valid with factory datas.
+    """
+    container = ContainerFactory()
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+    form = ContainerForm({
+        "template": container.template,
+        "image": container.image,
+        "content": container.content,
+    })
 
-        # Checked saved values are the same from factory, ignore the image to
-        # avoid playing with file
-        self.assertEqual(instance.template, container.template)
-        self.assertEqual(instance.features, container.features)
-        self.assertEqual(instance.content, container.content)
+    assert form.is_valid() is True
+    instance = form.save()
 
-    @override_settings(BLOCKS_CONTAINER_FEATURES=[])
-    def test_empty_feature_choices(self):
-        """
-        When feature choices are empty, form should still continue to work correctly.
-        """
-        container = ContainerFactory()
+    # Checked saved values are the same from factory, ignore the image to
+    # avoid playing with file
+    assert instance.template == container.template
+    assert instance.content == container.content
 
-        form = ContainerForm({
-            "template": container.template,
-            "features": container.features,
-            "image": container.image,
-            "content": container.content,
-        })
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+def test_empty_feature_choices(db, settings):
+    """
+    When feature choices are empty, form should still continue to work correctly.
+    """
+    settings.BLOCKS_FEATURE_PLUGINS = []
 
-        # Ensure test runned with empty choices
-        self.assertEqual(instance.features, [])
+    container = ContainerFactory()
 
-        # Checked saved values are the same from factory, ignore the image to
-        # avoid playing with file
-        self.assertEqual(instance.template, container.template)
-        self.assertEqual(instance.features, container.features)
-        self.assertEqual(instance.content, container.content)
+    form = ContainerForm({
+        "template": container.template,
+        "image": container.image,
+        "content": container.content,
+    })
+
+    # import json
+    # print(json.dumps(excinfo.value.message_dict, indent=4))
+    assert form.is_valid() is True
+    instance = form.save()
+
+    # Ensure test runned with empty choices
+    assert instance.size_features.count() == 0
+
+    # Checked saved values are the same from factory, ignore the image to
+    # avoid playing with file
+    assert instance.template == container.template
+    assert instance.size_features.count() == container.size_features.count()
+    assert instance.content == container.content

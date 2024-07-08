@@ -1,13 +1,10 @@
-import random
-
 import factory
 
-from ..choices_helpers import (
-    get_container_feature_choices,
-    get_container_template_default,
-)
+from ..choices_helpers import get_container_template_default
 from ..utils.factories import create_image_file
 from ..models import Container
+
+from .feature import FeatureFactory
 
 
 class ContainerFactory(factory.django.DjangoModelFactory):
@@ -21,20 +18,7 @@ class ContainerFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Container
-
-    @factory.lazy_attribute
-    def features(self):
-        """
-        Build features value with an item from feature choices.
-
-        If there is no feature choices available, just return an empty string.
-        """
-        choices = get_container_feature_choices()
-
-        if not choices:
-            return []
-
-        return [random.choice(choices)[0]]
+        skip_postgeneration_save = True
 
     @factory.lazy_attribute
     def image(self):
@@ -46,3 +30,81 @@ class ContainerFactory(factory.django.DjangoModelFactory):
         """
 
         return create_image_file()
+
+    @factory.post_generation
+    def fill_size_features(self, create, extracted, **kwargs):
+        """
+        Add size features.
+
+        Arguments:
+            create (bool): True for create strategy, False for build strategy.
+            extracted (object): If ``True``, will add a new random feature
+                object. If a list assume it's a list of Author objects to add.
+                Else if empty don't do anything.
+        """
+        # Do nothing for build strategy
+        if not create or not extracted:
+            return []
+
+        # Create a new random feature
+        if extracted is True:
+            features = [FeatureFactory(scope="size", plugins=["ContainerMain"])]
+        # Take given feature objects
+        else:
+            features = extracted
+
+        # Add features
+        for feature in features:
+            self.size_features.add(feature)
+
+    @factory.post_generation
+    def fill_color_features(self, create, extracted, **kwargs):
+        """
+        Add color features.
+
+        Arguments:
+            create (bool): True for create strategy, False for build strategy.
+            extracted (object): If ``True``, will add a new random feature
+                object. If a list assume it's a list of Author objects to add.
+                Else if empty don't do anything.
+        """
+        # Do nothing for build strategy
+        if not create or not extracted:
+            return []
+
+        # Create a new random feature
+        if extracted is True:
+            features = [FeatureFactory(scope="color", plugins=["ContainerMain"])]
+        # Take given feature objects
+        else:
+            features = extracted
+
+        # Add features
+        for feature in features:
+            self.color_features.add(feature)
+
+    @factory.post_generation
+    def fill_extra_features(self, create, extracted, **kwargs):
+        """
+        Add extra features.
+
+        Arguments:
+            create (bool): True for create strategy, False for build strategy.
+            extracted (object): If ``True``, will add a new random feature
+                object. If a list assume it's a list of Author objects to add.
+                Else if empty don't do anything.
+        """
+        # Do nothing for build strategy
+        if not create or not extracted:
+            return []
+
+        # Create a new random feature
+        if extracted is True:
+            features = [FeatureFactory(scope="extra", plugins=["ContainerMain"])]
+        # Take given feature objects
+        else:
+            features = extracted
+
+        # Add features
+        for feature in features:
+            self.extra_features.add(feature)

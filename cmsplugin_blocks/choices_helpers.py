@@ -34,10 +34,6 @@ def get_card_template_default():
     return settings.BLOCKS_CARD_TEMPLATES[0][0]
 
 
-def get_container_feature_choices():
-    return settings.BLOCKS_CONTAINER_FEATURES
-
-
 def get_container_template_choices():
     return settings.BLOCKS_CONTAINER_TEMPLATES
 

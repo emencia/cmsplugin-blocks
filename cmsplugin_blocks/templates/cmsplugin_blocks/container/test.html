@@ -1,28 +1,30 @@
 {% load cms_tags smart_image %}{% spaceless %}
-    <div class="container{% if instance.features %} {{ instance.get_features }}{% endif %}">
-        {% if instance.title %}
-            <div class="container__title">{{ instance.title }}</div>
-        {% endif %}
+    {% with features=instance.get_features %}
+        <div class="container{% if features %} {{ features }}{% endif %}">
+            {% if instance.title %}
+                <div class="container__title">{{ instance.title }}</div>
+            {% endif %}
 
-        {% if instance.image %}
-            <div class="container__media">
-                {% media_thumb instance.image "250x200" as thumb %}
-                <img src="{{ thumb.url }}" alt="{{ instance.image_alt }}">
-            </div>
-        {% endif %}
+            {% if instance.image %}
+                <div class="container__media">
+                    {% media_thumb instance.image "250x200" as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ instance.image_alt }}">
+                </div>
+            {% endif %}
 
-        {% if instance.content %}
-            <div class="container__content">{{ instance.content|safe }}</div>
-        {% endif %}
+            {% if instance.content %}
+                <div class="container__content">{{ instance.content|safe }}</div>
+            {% endif %}
 
-        {% if instance.child_plugin_instances %}
-            <div class="container__items">
-                {% for plugin in instance.child_plugin_instances %}
-                    {% with parent_features=instance.features %}
-                        {% render_plugin plugin %}
-                    {% endwith %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
+            {% if instance.child_plugin_instances %}
+                <div class="container__items">
+                    {% for plugin in instance.child_plugin_instances %}
+                        {% with parent_features=features %}
+                            {% render_plugin plugin %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endwith %}
 {% endspaceless %}

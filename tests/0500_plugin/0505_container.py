@@ -1,164 +1,119 @@
-from django.conf import settings
-from django.test import override_settings
-
 from cms.api import create_page, add_plugin
 from cms.utils.urlutils import admin_reverse
 
 from cmsplugin_blocks.cms_plugins import ContainerPlugin
 from cmsplugin_blocks.factories import ContainerFactory, UserFactory
-from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
-from tests.utils import FixturesTestCaseMixin
 
-
-class ContainerCMSPluginsTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
+def test_form_view_add(db, client, settings):
     """
-    Container plugin tests case
+    Plugin creation form should return a success status code and every
+    expected field should be present in HTML.
     """
+    client.force_login(UserFactory(is_staff=True, is_superuser=True))
 
-    def test_form_view_add(self):
-        """
-        Plugin creation form should return a success status code and every
-        expected field should be present in HTML.
-        """
-        self.client.force_login(
-            UserFactory(is_staff=True, is_superuser=True)
-        )
+    # Create dummy page
+    page = create_page(
+        language="en",
+        title="Dummy",
+        slug="dummy",
+        template=settings.TEST_PAGE_TEMPLATES,
+    )
 
-        # Create dummy page
-        page = create_page(
-            language="en",
-            title="Dummy",
-            slug="dummy",
-            template=settings.TEST_PAGE_TEMPLATES,
-        )
+    # Get placeholder
+    placeholder = page.placeholders.get(slot="content")
 
-        # Get placeholder
-        placeholder = page.placeholders.get(slot="content")
+    # Get the edition plugin form url and open it
+    url = admin_reverse("cms_page_add_plugin")
+    response = client.get(url, {
+        "plugin_type": "ContainerPlugin",
+        "placeholder_id": placeholder.pk,
+        "target_language": "en",
+        "plugin_language": "en",
+    })
 
-        # Get the edition plugin form url and open it
-        url = admin_reverse('cms_page_add_plugin')
-        response = self.client.get(url, {
-            'plugin_type': 'ContainerPlugin',
-            'placeholder_id': placeholder.pk,
-            'target_language': 'en',
-            'plugin_language': 'en',
-        })
+    # Expected http success status
+    assert response.status_code == 200
 
-        # Expected http success status
-        self.assertEqual(response.status_code, 200)
+    # Parse resulting plugin fields
+    dom = html_pyquery(response)
 
-        # Parse resulting plugin fields
-        dom = html_pyquery(response)
+    title_field = dom.find("input#id_title")
+    assert len(title_field) == 1
 
-        title_field = dom.find("input#id_title")
-        assert len(title_field) == 1
+    template_field = dom.find("select#id_template")
+    assert len(template_field) == 1
 
-        template_field = dom.find("select#id_template")
-        assert len(template_field) == 1
+    image_field = dom.find("input#id_image")
+    assert len(image_field) == 1
 
-        image_field = dom.find("input#id_image")
-        assert len(image_field) == 1
+    content_field = dom.find("textarea#id_content")
+    assert len(content_field) == 1
 
-        content_field = dom.find("textarea#id_content")
-        assert len(content_field) == 1
+    size_features_field = dom.find("a#add_id_size_features")
+    assert len(size_features_field) == 1
 
-        features_field = dom.find("select#id_features")
-        assert len(features_field) == 1
+    color_features_field = dom.find("a#add_id_color_features")
+    assert len(color_features_field) == 1
 
-    @override_settings(BLOCKS_CONTAINER_FEATURES=[])
-    def test_form_view_empty_features(self):
-        """
-        Plugin should not display 'features' field when there is no feature choices
-        available from settings.
-        """
-        self.client.force_login(
-            UserFactory(is_staff=True, is_superuser=True)
-        )
+    extra_features_field = dom.find("a#add_id_extra_features")
+    assert len(extra_features_field) == 1
 
-        # Create dummy page
-        page = create_page(
-            language="en",
-            title="Dummy",
-            slug="dummy",
-            template=settings.TEST_PAGE_TEMPLATES,
-        )
 
-        # Get placeholder
-        placeholder = page.placeholders.get(slot="content")
+def test_form_view_edit(db, client, settings):
+    """
+    Plugin edition form should return a success status code and every
+    expected field should be present in HTML.
+    """
+    client.force_login(UserFactory(is_staff=True, is_superuser=True))
 
-        # Get the edition plugin form url and open it
-        url = admin_reverse('cms_page_add_plugin')
-        response = self.client.get(url, {
-            'plugin_type': 'ContainerPlugin',
-            'placeholder_id': placeholder.pk,
-            'target_language': 'en',
-            'plugin_language': 'en',
-        })
+    # Create random values for parameters with a factory
+    container = ContainerFactory(content="<p>Lorem ipsum dolore</p>")
 
-        # Expected http success status
-        self.assertEqual(response.status_code, 200)
+    # Create dummy page
+    page = create_page(
+        language="en",
+        title="Dummy",
+        slug="dummy",
+        template=settings.TEST_PAGE_TEMPLATES,
+    )
 
-        # Parse resulting plugin fields
-        dom = html_pyquery(response)
+    # Add container plugin to placeholder
+    placeholder = page.placeholders.get(slot="content")
+    model_instance = add_plugin(
+        placeholder,
+        ContainerPlugin,
+        "en",
+        template=container.template,
+        image=container.image,
+        content=container.content,
+    )
 
-        image_field = dom.find("input#id_image")
-        assert len(image_field) == 1
+    # Get the edition plugin form url and open it
+    url = admin_reverse("cms_page_edit_plugin", args=[model_instance.id])
+    response = client.get(url)
 
-        features_field = dom.find("select#id_features")
-        assert len(features_field) == 0
+    # Parse resulting plugin fields
+    dom = html_pyquery(response)
 
-    def test_form_view_edit(self):
-        """
-        Plugin edition form should return a success status code and every
-        expected field should be present in HTML.
-        """
-        self.client.force_login(
-            UserFactory(is_staff=True, is_superuser=True)
-        )
+    title_field = dom.find("input#id_title")
+    assert len(title_field) == 1
 
-        # Create random values for parameters with a factory
-        container = ContainerFactory(content="<p>Lorem ipsum dolore</p>")
+    template_field = dom.find("select#id_template")
+    assert len(template_field) == 1
 
-        # Create dummy page
-        page = create_page(
-            language="en",
-            title="Dummy",
-            slug="dummy",
-            template=settings.TEST_PAGE_TEMPLATES,
-        )
+    image_field = dom.find("input#id_image")
+    assert len(image_field) == 1
 
-        # Add container plugin to placeholder
-        placeholder = page.placeholders.get(slot="content")
-        model_instance = add_plugin(
-            placeholder,
-            ContainerPlugin,
-            "en",
-            template=container.template,
-            features=container.features,
-            image=container.image,
-            content=container.content,
-        )
+    content_field = dom.find("textarea#id_content")
+    assert len(content_field) == 1
 
-        # Get the edition plugin form url and open it
-        url = admin_reverse('cms_page_edit_plugin', args=[model_instance.id])
-        response = self.client.get(url)
+    size_features_field = dom.find("a#add_id_size_features")
+    assert len(size_features_field) == 1
 
-        # Parse resulting plugin fields
-        dom = html_pyquery(response)
+    color_features_field = dom.find("a#add_id_color_features")
+    assert len(color_features_field) == 1
 
-        title_field = dom.find("input#id_title")
-        assert len(title_field) == 1
-
-        template_field = dom.find("select#id_template")
-        assert len(template_field) == 1
-
-        image_field = dom.find("input#id_image")
-        assert len(image_field) == 1
-
-        content_field = dom.find("textarea#id_content")
-        assert len(content_field) == 1
-
-        features_field = dom.find("select#id_features")
-        assert len(features_field) == 1
+    extra_features_field = dom.find("a#add_id_extra_features")
+    assert len(extra_features_field) == 1

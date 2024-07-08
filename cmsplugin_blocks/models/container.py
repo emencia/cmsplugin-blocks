@@ -1,6 +1,6 @@
 """
-A container component with a title, image, features, content and able to include other
-plugins.
+A container component with a title, image, features, content and able to include
+children plugins.
 """
 from django.conf import settings
 from django.db import models
@@ -17,15 +17,13 @@ from smart_media.modelfields import SmartMediaField
 from smart_media.signals import auto_purge_files_on_change
 
 from ..choices_helpers import (
-    get_container_feature_choices,
     get_container_template_choices,
     get_container_template_default,
 )
-from ..modelfields import CommaSeparatedStringsField
-from ..utils.validators import validate_css_classnames
+from .mixins import FeatureMixinModel
 
 
-class Container(SmartFormatMixin, CMSPlugin):
+class Container(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
     """
     Container component.
     """
@@ -85,16 +83,37 @@ class Container(SmartFormatMixin, CMSPlugin):
     Required long text, it will be editable through CKeditor on plugin form.
     """
 
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_container_feature_choices(),
+    size_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("size features"),
+        related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
+        limit_choices_to={"scope": "size", "plugins__contains": "ContainerMain"},
     )
     """
-    Optional string of CSS class names divided by a single comma.
+    Optional related size features.
+    """
+
+    color_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("color features"),
+        related_name="%(app_label)s_%(class)s_color_related",
+        blank=True,
+        limit_choices_to={"scope": "color", "plugins__contains": "ContainerMain"},
+    )
+    """
+    Optional related color features.
+    """
+
+    extra_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("extra features"),
+        related_name="%(app_label)s_%(class)s_extra_related",
+        blank=True,
+        limit_choices_to={"scope": "extra", "plugins__contains": "ContainerMain"},
+    )
+    """
+    Optional related extra features.
     """
 
     def __init__(self, *args, **kwargs):
@@ -109,18 +128,6 @@ class Container(SmartFormatMixin, CMSPlugin):
 
     def get_image_format(self):
         return self.media_format(self.image)
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a space divider.
-
-        Returns:
-            string: Feature items divided by a comma. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
-        )
 
     class Meta:
         verbose_name = _("Container")

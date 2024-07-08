@@ -4,10 +4,7 @@ from cms.plugin_base import CMSPluginBase
 
 from smart_media.admin import SmartAdminMixin
 
-from ..choices_helpers import (
-    get_container_feature_choices,
-    get_container_template_default,
-)
+from ..choices_helpers import get_container_template_default
 from ..forms.container import ContainerForm
 from ..models.container import Container
 
@@ -46,14 +43,15 @@ class ContainerPlugin(SmartAdminMixin, CMSPluginBase):
             }),
         ]
 
-        if len(get_container_feature_choices()) > 0:
-            fieldsets.append(
-                (_("Features"), {
-                    "fields": (
-                        "features",
-                    ),
-                }),
-            )
+        display_features = True
+        if display_features:
+            fieldsets.append((_("Features"), {
+                "fields": (
+                    "size_features",
+                    "color_features",
+                    "extra_features",
+                ),
+            }))
 
         return tuple(fieldsets)
 

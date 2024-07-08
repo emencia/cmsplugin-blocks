@@ -1,7 +1,12 @@
 import logging
 
 from cmsplugin_blocks.cms_plugins import CardPlugin, ContainerPlugin, HeroPlugin
-from cmsplugin_blocks.factories import CardFactory, ContainerFactory, HeroFactory
+from cmsplugin_blocks.factories import (
+    CardFactory,
+    ContainerFactory,
+    HeroFactory,
+    FeatureFactory,
+)
 from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -23,9 +28,9 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             ContainerPlugin,
             title=container.title,
             template=container.template,
-            features=container.features,
             image=container.image,
             content=container.content,
+            copy_relations_from=container,
         )
 
         # Parse resulting plugin HTML render
@@ -62,7 +67,6 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         placeholder, model_instance, context, html = self.create_basic_render(
             ContainerPlugin,
             template=container.template,
-            features=container.features,
             image=container.image,
             content=container.content,
         )
@@ -103,8 +107,26 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         When container has features, their classes should be in .container 'class'
         attribute without duplicates.
         """
+        feature_foo = FeatureFactory(
+            value="foo",
+            scope="size",
+            plugins=["CardMain", "AlbumMain"],
+        )
+        feature_bar = FeatureFactory(
+            value="bar",
+            scope="color",
+            plugins=["CardMain"]
+        )
+        feature_foobis = FeatureFactory(
+            value="foo",
+            scope="extra",
+            plugins=["CardMain", "AlbumMain"],
+        )
+
         container = ContainerFactory(
-            features=["foo", "blob", "foo"]
+            fill_size_features=[feature_foo],
+            fill_color_features=[feature_bar],
+            fill_extra_features=[feature_foobis],
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
@@ -112,15 +134,18 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             template=container.template,
             image=container.image,
             content=container.content,
-            features=container.features,
+            copy_relations_from=container,
         )
 
         dom = html_pyquery(html)
-
-        assert ["foo", "blob"] == [
+        features_classnames = [
             item
             for item in dom.attr("class").split()
             if item != "container"
+        ]
+        assert features_classnames == [
+            "bar",
+            "foo",
         ]
 
     def test_children(self):
@@ -135,7 +160,6 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             ContainerPlugin,
             template=container.template,
             title=container.title,
-            features=container.features,
             children=[
                 (
                     CardPlugin,
@@ -152,6 +176,7 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
                     }
                 ),
             ],
+            copy_relations_from=container,
         )
 
         dom = html_pyquery(html)

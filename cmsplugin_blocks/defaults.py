@@ -37,11 +37,6 @@ BLOCKS_ALBUMITEM_FEATURES = []
 Available feature classes for AlbumItem model.
 """
 
-BLOCKS_CONTAINER_FEATURES = []
-"""
-Available feature classes for Container model.
-"""
-
 BLOCKS_SLIDER_FEATURES = []
 """
 Available feature classes for Slider model.
