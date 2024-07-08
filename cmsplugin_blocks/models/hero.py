@@ -15,16 +15,11 @@ from smart_media.mixins import SmartFormatMixin
 from smart_media.modelfields import SmartMediaField
 from smart_media.signals import auto_purge_files_on_change
 
-from ..choices_helpers import (
-    get_hero_feature_choices,
-    get_hero_template_choices,
-    get_hero_template_default,
-)
-from ..modelfields import CommaSeparatedStringsField
-from ..utils.validators import validate_css_classnames
+from ..choices_helpers import get_hero_template_choices, get_hero_template_default
+from .mixins import FeatureMixinModel
 
 
-class Hero(SmartFormatMixin, CMSPlugin):
+class Hero(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
     """
     Hero component.
     """
@@ -39,18 +34,6 @@ class Hero(SmartFormatMixin, CMSPlugin):
     """
     Template choice from available plugin templates in setting
     ``BLOCKS_HERO_TEMPLATES``. Default to the first choice item.
-    """
-
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_hero_feature_choices(),
-        blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
-    )
-    """
-    Optional string of CSS class names divided by a single comma.
     """
 
     image = SmartMediaField(
@@ -85,6 +68,39 @@ class Hero(SmartFormatMixin, CMSPlugin):
     Required long text, it will be editable through CKeditor on plugin form.
     """
 
+    size_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("size features"),
+        related_name="%(app_label)s_%(class)s_size_related",
+        blank=True,
+        limit_choices_to={"scope": "size", "plugins__contains": "HeroMain"},
+    )
+    """
+    Optional related size features.
+    """
+
+    color_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("color features"),
+        related_name="%(app_label)s_%(class)s_color_related",
+        blank=True,
+        limit_choices_to={"scope": "color", "plugins__contains": "HeroMain"},
+    )
+    """
+    Optional related color features.
+    """
+
+    extra_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("extra features"),
+        related_name="%(app_label)s_%(class)s_extra_related",
+        blank=True,
+        limit_choices_to={"scope": "extra", "plugins__contains": "HeroMain"},
+    )
+    """
+    Optional related extra features.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.content = force_str(self.content)
@@ -93,18 +109,6 @@ class Hero(SmartFormatMixin, CMSPlugin):
         return Truncator(strip_tags(self.content)).words(
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
-        )
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a comma divider.
-
-        Returns:
-            string: Feature items divided by a comma. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
         )
 
     def get_image_format(self):

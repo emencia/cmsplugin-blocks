@@ -148,7 +148,6 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
                     HeroPlugin,
                     {
                         "template": hero.template,
-                        "features": hero.features,
                         "content": hero.content,
                     }
                 ),

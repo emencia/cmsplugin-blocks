@@ -4,10 +4,7 @@ from cms.plugin_base import CMSPluginBase
 
 from smart_media.admin import SmartAdminMixin
 
-from ..choices_helpers import (
-    get_card_feature_choices,
-    get_card_template_default,
-)
+from ..choices_helpers import get_card_template_default
 from ..forms.card import CardForm
 from ..models.card import Card
 
@@ -48,7 +45,9 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
                 ),
             }),
         ]
-        if len(get_card_feature_choices()) > 0:
+
+        display_features = True
+        if display_features:
             fieldsets.append((_("Features"), {
                 "fields": (
                     "size_features",

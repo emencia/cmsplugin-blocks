@@ -1,5 +1,7 @@
-from cmsplugin_blocks.factories import HeroFactory
+from cmsplugin_blocks.factories import HeroFactory, FeatureFactory
 from cmsplugin_blocks.forms import HeroForm
+from cmsplugin_blocks.models import Hero
+from cmsplugin_blocks.utils.tests import build_post_data_from_object
 
 
 def test_empty(db, settings):
@@ -18,14 +20,19 @@ def test_success(db, settings):
     """
     Form should be valid with factory datas.
     """
-    hero = HeroFactory()
+    feature = FeatureFactory(scope="size", plugins=["HeroMain"])
+    hero = HeroFactory(fill_size_features=[feature])
 
-    form = HeroForm({
-        "template": hero.template,
-        "features": hero.features,
-        "image": hero.image,
-        "content": hero.content,
-    })
+    data = build_post_data_from_object(
+        Hero,
+        hero,
+        ignore=[
+            "id", "cmsplugin", "size_features", "color_features", "extra_features",
+        ]
+    )
+    data["size_features"] = hero.size_features.all()
+
+    form = HeroForm(data)
 
     assert form.is_valid() is True
     instance = form.save()
@@ -33,7 +40,8 @@ def test_success(db, settings):
     # Checked saved values are the same from factory, ignore the image to
     # avoid playing with file
     assert instance.template == hero.template
-    assert instance.features == hero.features
+    assert instance.size_features.count() == hero.size_features.count()
+    assert instance.size_features.count() == 1
     assert instance.content == hero.content
 
 
@@ -41,12 +49,12 @@ def test_empty_feature_choices(db, settings):
     """
     When feature choices are empty, form should still continue to work correctly.
     """
-    settings.BLOCKS_HERO_FEATURES = []
+    settings.BLOCKS_FEATURE_PLUGINS = []
+
     hero = HeroFactory()
 
     form = HeroForm({
         "template": hero.template,
-        "features": hero.features,
         "image": hero.image,
         "content": hero.content,
     })
@@ -55,10 +63,10 @@ def test_empty_feature_choices(db, settings):
     instance = form.save()
 
     # Ensure test runned with empty choices
-    assert instance.features == []
+    assert instance.size_features.count() == 0
 
     # Checked saved values are the same from factory, ignore the image to
     # avoid playing with file
     assert instance.template == hero.template
-    assert instance.features == hero.features
+    assert instance.size_features.count() == hero.size_features.count()
     assert instance.content == hero.content

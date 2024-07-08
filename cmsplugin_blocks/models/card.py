@@ -93,16 +93,16 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         default=False,
         help_text=_("If checked the link will be opened in a new window"),
     )
-
     """
     Checkbox to enable opening link URL in a new window/tab.
     """
+
     size_features = models.ManyToManyField(
         "cmsplugin_blocks.Feature",
         verbose_name=_("size features"),
         related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        limit_choices_to={"scope": "size", "plugins__contains": "Card"},
+        limit_choices_to={"scope": "size", "plugins__contains": "CardMain"},
     )
     """
     Optional related size features.
@@ -113,7 +113,7 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("color features"),
         related_name="%(app_label)s_%(class)s_color_related",
         blank=True,
-        limit_choices_to={"scope": "color", "plugins__contains": "Card"},
+        limit_choices_to={"scope": "color", "plugins__contains": "CardMain"},
     )
     """
     Optional related color features.
@@ -124,7 +124,7 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("extra features"),
         related_name="%(app_label)s_%(class)s_extra_related",
         blank=True,
-        limit_choices_to={"scope": "extra", "plugins__contains": "Card"},
+        limit_choices_to={"scope": "extra", "plugins__contains": "CardMain"},
     )
     """
     Optional related extra features.

@@ -1,8 +1,8 @@
 from cms.api import create_page, add_plugin
 from cms.utils.urlutils import admin_reverse
 
-from cmsplugin_blocks.cms_plugins import CardPlugin
-from cmsplugin_blocks.factories import CardFactory, UserFactory
+from cmsplugin_blocks.cms_plugins import HeroPlugin
+from cmsplugin_blocks.factories import HeroFactory, UserFactory
 
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -30,7 +30,7 @@ def test_form_view_add(db, client, settings):
     # Get the edition plugin form url and open it
     url = admin_reverse('cms_page_add_plugin')
     response = client.get(url, {
-        'plugin_type': 'CardPlugin',
+        'plugin_type': 'HeroPlugin',
         'placeholder_id': placeholder.pk,
         'target_language': 'en',
         'plugin_language': 'en',
@@ -41,9 +41,6 @@ def test_form_view_add(db, client, settings):
 
     # Parse resulting plugin fields
     dom = html_pyquery(response)
-
-    title_field = dom.find("input#id_title")
-    assert len(title_field) == 1
 
     template_field = dom.find("select#id_template")
     assert len(template_field) == 1
@@ -74,7 +71,7 @@ def test_form_view_edit(db, client, settings):
     )
 
     # Create random values for parameters with a factory
-    card = CardFactory(content="<p>Lorem ipsum dolore</p>")
+    hero = HeroFactory(content="<p>Lorem ipsum dolore</p>")
 
     # Create dummy page
     page = create_page(
@@ -84,15 +81,15 @@ def test_form_view_edit(db, client, settings):
         template=settings.TEST_PAGE_TEMPLATES,
     )
 
-    # Add card plugin to placeholder
+    # Add hero plugin to placeholder
     placeholder = page.placeholders.get(slot="content")
     model_instance = add_plugin(
         placeholder,
-        CardPlugin,
+        HeroPlugin,
         "en",
-        template=card.template,
-        image=card.image,
-        content=card.content,
+        template=hero.template,
+        image=hero.image,
+        content=hero.content,
     )
 
     # Get the edition plugin form url and open it
@@ -105,9 +102,6 @@ def test_form_view_edit(db, client, settings):
     # Parse resulting plugin fields
     dom = html_pyquery(response)
 
-    title_field = dom.find("input#id_title")
-    assert len(title_field) == 1
-
     template_field = dom.find("select#id_template")
     assert len(template_field) == 1
 
@@ -119,3 +113,9 @@ def test_form_view_edit(db, client, settings):
 
     size_features_field = dom.find("a#add_id_size_features")
     assert len(size_features_field) == 1
+
+    color_features_field = dom.find("a#add_id_color_features")
+    assert len(color_features_field) == 1
+
+    extra_features_field = dom.find("a#add_id_extra_features")
+    assert len(extra_features_field) == 1

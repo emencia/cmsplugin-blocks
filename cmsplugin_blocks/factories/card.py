@@ -58,7 +58,7 @@ class CardFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="size", plugins=["Card"])]
+            features = [FeatureFactory(scope="size", plugins=["CardMain"])]
         # Take given feature objects
         else:
             features = extracted
@@ -84,7 +84,7 @@ class CardFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="color", plugins=["Card"])]
+            features = [FeatureFactory(scope="color", plugins=["CardMain"])]
         # Take given feature objects
         else:
             features = extracted
@@ -110,7 +110,7 @@ class CardFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="extra", plugins=["Card"])]
+            features = [FeatureFactory(scope="extra", plugins=["CardMain"])]
         # Take given feature objects
         else:
             features = extracted

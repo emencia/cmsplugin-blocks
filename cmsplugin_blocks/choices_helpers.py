@@ -26,10 +26,6 @@ def get_album_template_default():
     return settings.BLOCKS_ALBUM_TEMPLATES[0][0]
 
 
-def get_card_feature_choices():
-    return settings.BLOCKS_CARD_FEATURES
-
-
 def get_card_template_choices():
     return settings.BLOCKS_CARD_TEMPLATES
 
@@ -48,10 +44,6 @@ def get_container_template_choices():
 
 def get_container_template_default():
     return settings.BLOCKS_CONTAINER_TEMPLATES[0][0]
-
-
-def get_hero_feature_choices():
-    return settings.BLOCKS_HERO_FEATURES
 
 
 def get_hero_template_choices():

@@ -1,7 +1,7 @@
 import logging
 
 from cmsplugin_blocks.cms_plugins import HeroPlugin
-from cmsplugin_blocks.factories import HeroFactory
+from cmsplugin_blocks.factories import HeroFactory, FeatureFactory
 from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -22,9 +22,9 @@ class HeroRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         placeholder, model_instance, context, html = self.create_basic_render(
             HeroPlugin,
             template=hero.template,
-            features=hero.features,
             image=hero.image,
             content=hero.content,
+            copy_relations_from=hero,
         )
 
         # Parse resulting plugin HTML render
@@ -49,8 +49,26 @@ class HeroRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         When hero has features, their classes should be in .hero 'class' attribute
         without duplicates.
         """
+        feature_foo = FeatureFactory(
+            value="foo",
+            scope="size",
+            plugins=["HeroMain", "AlbumMain"],
+        )
+        feature_bar = FeatureFactory(
+            value="bar",
+            scope="color",
+            plugins=["HeroMain"]
+        )
+        feature_foobis = FeatureFactory(
+            value="foo",
+            scope="extra",
+            plugins=["HeroMain", "AlbumMain"],
+        )
+
         hero = HeroFactory(
-            features=["foo", "blob", "foo"]
+            fill_size_features=[feature_foo],
+            fill_color_features=[feature_bar],
+            fill_extra_features=[feature_foobis],
         )
 
         placeholder, model_instance, context, html = self.create_basic_render(
@@ -58,15 +76,18 @@ class HeroRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
             template=hero.template,
             image=hero.image,
             content=hero.content,
-            features=hero.features,
+            copy_relations_from=hero,
         )
 
         dom = html_pyquery(html)
-
-        assert ["foo", "blob"] == [
+        features_classnames = [
             item
             for item in dom.attr("class").split()
             if item != "hero"
+        ]
+        assert features_classnames == [
+            "bar",
+            "foo",
         ]
 
     def test_no_content(self):
