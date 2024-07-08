@@ -26,6 +26,13 @@ server.watch(
     )
 )
 server.watch(
+    "CHANGELOG.rst",
+    shell(
+        "make html",
+        cwd="docs"
+    )
+)
+server.watch(
     "docs/*.rst",
     shell(
         "make html",

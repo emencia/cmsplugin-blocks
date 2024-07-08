@@ -3,11 +3,14 @@
 Changelog
 =========
 
-Version 1.3.0 - Unreleased
+Version 1.3.0 - 2024/07/08
 --------------------------
 
+This is an early release for the new Feature system, a new 1.3.x release will come soon
+to implement it on every plugin and totally drop the old one.
 
-* Pinned DjangoCMS to ``<4.0`` since we don't support DjangoCMS 4.X for now;
+* Added support for Django 5.0;
+* Pinned DjangoCMS to ``<4.0`` since we don't support DjangoCMS 4.X yet;
 * Cleaned Tox config from some environment versions to only keep supported bounds (and
   speed up Tox suite);
 * Moved history changelog from documentation to root repository;
@@ -23,13 +26,15 @@ Version 1.3.0 - Unreleased
   * Features management is centralized in a single model with a scope (size, color and
     extra) and a list of allowed plugins;
   * Allowed plugins for a feature can select it in the proper scope;
-  * Plugin model method 'get_features' merge all feature scopes in a single string;
-* New features system is currently experimental, everything is working but some tests
-  has been temporiraly disabled, there will need some new ones, model migration file
-  will change and for now only the following models implement it:
+  * Plugin model method 'get_features' merge all feature scopes in a single string
+    without duplicate classname;
+
+* New features system has currently been implemented for the following plugins:
 
   * Card;
+  * Hero;
 
+* The other plugins are still using the old feature system for now;
 * Previous features system will be totally removed and there is no way to migrate
   their data, you will need to create again your features;
 
