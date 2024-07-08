@@ -1,14 +1,9 @@
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import NumberInput
 from django.utils.translation import gettext_lazy as _
 
 from smart_media.widgets import FileInputButtonBase
 
-from ..choices_helpers import (
-    get_album_feature_choices,
-    get_albumitem_feature_choices,
-)
 from ..models.album import Album, AlbumItem
 from ..utils import (
     validate_file_size,
@@ -27,15 +22,6 @@ class AlbumForm(forms.ModelForm):
     perform final save. If you use this form without the CMS plugin edit
     workflow, you will need to reproduce it.
     """
-
-    # Enforce the right field since ModelAdmin ignore the formfield defined in custom
-    # modelfield. Option have to fit to the modelfield ones.
-    features = forms.MultipleChoiceField(
-        choices=get_album_feature_choices(),
-        required=False,
-        widget=FilteredSelectMultiple(verbose_name=None, is_stacked=False),
-    )
-
     mass_upload = forms.FileField(
         label=_("Add items from a ZIP"),
         max_length=100,
@@ -50,11 +36,16 @@ class AlbumForm(forms.ModelForm):
         fields = [
             "title",
             "template",
-            "features",
             "mass_upload",
+            "size_features",
+            "color_features",
+            "extra_features",
         ]
         widgets = {
             "order": NumberInput(attrs={"style": "width: 80px !important;"}),
+            "size_features": forms.CheckboxSelectMultiple,
+            "color_features": forms.CheckboxSelectMultiple,
+            "extra_features": forms.CheckboxSelectMultiple,
         }
 
     class Media:
@@ -66,11 +57,6 @@ class AlbumForm(forms.ModelForm):
         self.uploaded_zip = None
 
         super().__init__(*args, **kwargs)
-
-        # Get back original model field name onto the field
-        self.fields["features"].label = (
-            self._meta.model._meta.get_field("features").verbose_name
-        )
 
     def clean_mass_upload(self):
         """
@@ -102,14 +88,6 @@ class AlbumForm(forms.ModelForm):
 
 
 class AlbumItemForm(forms.ModelForm):
-    # Enforce the right field since ModelAdmin ignore the formfield defined in custom
-    # modelfield. Option have to fit to the modelfield ones.
-    features = forms.MultipleChoiceField(
-        choices=get_albumitem_feature_choices(),
-        required=False,
-        widget=forms.SelectMultiple,
-    )
-
     class Meta:
         model = AlbumItem
         exclude = []
@@ -117,7 +95,6 @@ class AlbumItemForm(forms.ModelForm):
             "album",
             "title",
             "order",
-            "features",
             "image",
             "image_alt",
         ]

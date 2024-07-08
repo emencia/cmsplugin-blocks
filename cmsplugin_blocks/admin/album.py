@@ -28,8 +28,6 @@ class AlbumItemAdmin(admin.TabularInline):
             "image",
             "image_alt",
         ]
-        if len(get_albumitem_feature_choices()) > 0:
-            fields.append("features")
 
         return (
             (None, {

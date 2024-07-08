@@ -5,10 +5,7 @@ from cms.plugin_base import CMSPluginBase
 from smart_media.admin import SmartAdminMixin
 
 from ..admin.album import AlbumItemAdmin
-from ..choices_helpers import (
-    get_album_feature_choices,
-    get_album_template_default,
-)
+from ..choices_helpers import get_album_template_default
 from ..forms.album import AlbumForm
 from ..models.album import Album
 
@@ -50,10 +47,13 @@ class AlbumPlugin(SmartAdminMixin, CMSPluginBase):
             }),
         ]
 
-        if len(get_album_feature_choices()) > 0:
+        display_features = True
+        if display_features:
             fieldsets.append((_("Features"), {
                 "fields": (
-                    "features",
+                    "size_features",
+                    "color_features",
+                    "extra_features",
                 ),
             }))
 

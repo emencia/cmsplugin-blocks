@@ -28,17 +28,11 @@ from smart_media.mixins import SmartFormatMixin
 from smart_media.modelfields import SmartMediaField
 from smart_media.signals import auto_purge_files_on_change
 
-from ..choices_helpers import (
-    get_album_feature_choices,
-    get_albumitem_feature_choices,
-    get_album_template_choices,
-    get_album_template_default,
-)
-from ..modelfields import CommaSeparatedStringsField
-from ..utils.validators import validate_css_classnames
+from ..choices_helpers import get_album_template_choices, get_album_template_default
+from .mixins import FeatureMixinModel
 
 
-class Album(CMSPlugin):
+class Album(FeatureMixinModel, CMSPlugin):
     """
     Album container for items.
     """
@@ -65,16 +59,37 @@ class Album(CMSPlugin):
     ``BLOCKS_ALBUM_TEMPLATES``. Default to the first choice item.
     """
 
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_album_feature_choices(),
+    size_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("size features"),
+        related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
+        limit_choices_to={"scope": "size", "plugins__contains": "AlbumMain"},
     )
     """
-    Optional string of CSS class names divided by a single comma.
+    Optional related size features.
+    """
+
+    color_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("color features"),
+        related_name="%(app_label)s_%(class)s_color_related",
+        blank=True,
+        limit_choices_to={"scope": "color", "plugins__contains": "AlbumMain"},
+    )
+    """
+    Optional related color features.
+    """
+
+    extra_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("extra features"),
+        related_name="%(app_label)s_%(class)s_extra_related",
+        blank=True,
+        limit_choices_to={"scope": "extra", "plugins__contains": "AlbumMain"},
+    )
+    """
+    Optional related extra features.
     """
 
     def __str__(self):
@@ -91,24 +106,14 @@ class Album(CMSPlugin):
 
         https://docs.django-cms.org/en/latest/how_to/09-custom_plugins.html#relations-between-plugins
         """
+        super().copy_relations(oldinstance)
+
         self.album_item.all().delete()
 
         for album_item in oldinstance.album_item.all():
             album_item.pk = None
             album_item.album = self
             album_item.save()
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a space divider.
-
-        Returns:
-            string: Feature items divided by a space. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
-        )
 
     class Meta:
         verbose_name = _("Album")
@@ -144,18 +149,6 @@ class AlbumItem(SmartFormatMixin, models.Model):
     Number for order position in item list.
     """
 
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_albumitem_feature_choices(),
-        blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
-    )
-    """
-    Optional string of CSS class names divided by a single comma.
-    """
-
     image = SmartMediaField(
         _("Image"),
         max_length=255,
@@ -183,18 +176,6 @@ class AlbumItem(SmartFormatMixin, models.Model):
         return Truncator(strip_tags(self.title)).words(
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
-        )
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a space divider.
-
-        Returns:
-            string: Feature items divided by a space. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
         )
 
     def get_image_format(self):

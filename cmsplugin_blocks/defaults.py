@@ -27,16 +27,6 @@ Enabled plugins to register. Unregistered plugin models are still created but
 not available anymore in DjangoCMS.
 """
 
-BLOCKS_ALBUM_FEATURES = []
-"""
-Available feature classes for Album model.
-"""
-
-BLOCKS_ALBUMITEM_FEATURES = []
-"""
-Available feature classes for AlbumItem model.
-"""
-
 BLOCKS_SLIDER_FEATURES = []
 """
 Available feature classes for Slider model.
