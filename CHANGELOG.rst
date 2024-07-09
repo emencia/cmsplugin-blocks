@@ -3,6 +3,14 @@
 Changelog
 =========
 
+Version 1.3.2 - Unreleased
+--------------------------
+
+* Updated documentation to a new theme;
+* Added logo from SVG Repo;
+* Improved Makefile;
+
+
 Version 1.3.1 - 2024/09/08
 --------------------------
 
