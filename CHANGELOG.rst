@@ -3,10 +3,14 @@
 Changelog
 =========
 
-Version 1.3.1 - Unreleased
+Version 1.3.1 - 2024/09/08
 --------------------------
 
-TODO
+This finalize transition to the new Feature system.
+
+* Implemented new feature system on Album, Container and Slider;
+* Album item and Slider item no longer have features;
+* Old feature is definitively removed from code and data;
 
 
 Version 1.3.0 - 2024/07/08
