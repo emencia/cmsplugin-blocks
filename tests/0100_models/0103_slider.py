@@ -28,38 +28,6 @@ def test_basic(db, settings):
     assert [item] == list(slider.slide_item.all())
 
 
-def test_features_multiple(db, settings):
-    """
-    Demonstrate how to add multiple feature items
-    """
-    instance = Slider(
-        title="Foo",
-        template="Dummy",
-        features=["foo", "bar"],
-    )
-    instance.save()
-
-    created = Slider.objects.get(pk=instance.id)
-
-    assert ["foo", "bar"] == created.features
-
-
-def test_features_wrong(db, settings):
-    """
-    Demonstrate that giving a string to feature does not work as it could be expected.
-    """
-    instance = Slider(
-        title="Foo",
-        template="Dummy",
-        features="foo",
-    )
-    instance.save()
-
-    created = Slider.objects.get(pk=instance.id)
-
-    assert ["f", "o", "o"] == created.features
-
-
 def test_str_truncation_under_limit(db, settings):
     """
     Model str should be equal to saved string when under the limit.

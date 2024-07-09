@@ -6,7 +6,7 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from cmsplugin_blocks.models import Album
-from cmsplugin_blocks.factories import AlbumFactory, AlbumItemFactory
+from cmsplugin_blocks.factories import AlbumFactory, AlbumItemFactory, FeatureFactory
 from cmsplugin_blocks.forms import AlbumForm, AlbumItemForm
 from cmsplugin_blocks.utils.tests import build_post_data_from_object
 
@@ -40,7 +40,8 @@ def test_album_success(db, client, tests_settings, settings):
     """
     Form should be valid with factory datas.
     """
-    album = AlbumFactory()
+    feature = FeatureFactory(scope="size", plugins=["AlbumMain"])
+    album = AlbumFactory(fill_size_features=[feature])
 
     data = build_post_data_from_object(
         Album,
@@ -57,6 +58,8 @@ def test_album_success(db, client, tests_settings, settings):
 
     # Checked saved values are the same from factory
     assert instance.title == album.title
+    assert instance.size_features.count() == album.size_features.count()
+    assert instance.size_features.count() == 1
     assert instance.template == album.template
 
 

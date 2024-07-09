@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from smart_media.admin import SmartModelAdmin
 
-from ..choices_helpers import get_slideritem_feature_choices
 from ..models.slider import SlideItem
 from ..forms.slider import SlideItemForm
 
@@ -49,12 +48,5 @@ class SlideItemAdmin(admin.StackedInline):
                 ),
             }),
         ]
-
-        if len(get_slideritem_feature_choices()) > 0:
-            fieldsets.append((_("Features"), {
-                "fields": (
-                    "features",
-                ),
-            }))
 
         return tuple(fieldsets)

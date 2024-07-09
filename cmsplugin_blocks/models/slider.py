@@ -19,17 +19,11 @@ from smart_media.mixins import SmartFormatMixin
 from smart_media.modelfields import SmartMediaField
 from smart_media.signals import auto_purge_files_on_change
 
-from ..choices_helpers import (
-    get_slider_feature_choices,
-    get_slideritem_feature_choices,
-    get_slider_template_choices,
-    get_slider_template_default,
-)
-from ..modelfields import CommaSeparatedStringsField
-from ..utils.validators import validate_css_classnames
+from ..choices_helpers import get_slider_template_choices, get_slider_template_default
+from .mixins import FeatureMixinModel
 
 
-class Slider(CMSPlugin):
+class Slider(FeatureMixinModel, CMSPlugin):
     """
     Slide container for items.
     """
@@ -56,16 +50,37 @@ class Slider(CMSPlugin):
     ``BLOCKS_SLIDER_TEMPLATES``. Default to the first choice item.
     """
 
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_slider_feature_choices(),
+    size_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("size features"),
+        related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
+        limit_choices_to={"scope": "size", "plugins__contains": "SliderMain"},
     )
     """
-    Optional string of CSS class names divided by a single comma.
+    Optional related size features.
+    """
+
+    color_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("color features"),
+        related_name="%(app_label)s_%(class)s_color_related",
+        blank=True,
+        limit_choices_to={"scope": "color", "plugins__contains": "SliderMain"},
+    )
+    """
+    Optional related color features.
+    """
+
+    extra_features = models.ManyToManyField(
+        "cmsplugin_blocks.Feature",
+        verbose_name=_("extra features"),
+        related_name="%(app_label)s_%(class)s_extra_related",
+        blank=True,
+        limit_choices_to={"scope": "extra", "plugins__contains": "SliderMain"},
+    )
+    """
+    Optional related extra features.
     """
 
     def __str__(self):
@@ -82,24 +97,14 @@ class Slider(CMSPlugin):
 
         http://docs.django-cms.org/en/latest/how_to/custom_plugins.html#for-foreign-key-relations-from-other-objects
         """
+        super().copy_relations(oldinstance)
+
         self.slide_item.all().delete()
 
         for slide_item in oldinstance.slide_item.all():
             slide_item.pk = None
             slide_item.slider = self
             slide_item.save()
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a space divider.
-
-        Returns:
-            string: Feature items divided by a space. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
-        )
 
     class Meta:
         verbose_name = _("Slider")
@@ -124,18 +129,6 @@ class SlideItem(SmartFormatMixin, models.Model):
     )
     """
     Required title string.
-    """
-
-    features = CommaSeparatedStringsField(
-        _("Layout features"),
-        choices=get_slideritem_feature_choices(),
-        blank=True,
-        default="",
-        max_length=255,
-        validators=[validate_css_classnames],
-    )
-    """
-    Optional string of CSS class names divided by a single comma.
     """
 
     image = SmartMediaField(
@@ -210,18 +203,6 @@ class SlideItem(SmartFormatMixin, models.Model):
         return Truncator(strip_tags(self.title)).words(
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
-        )
-
-    def get_features(self):
-        """
-        Merge feature items into a string with a space divider.
-
-        Returns:
-            string: Feature items divided by a space. Duplicate items are removed
-            and original order is preserved.
-        """
-        return " ".join(
-            list(dict.fromkeys(self.features))
         )
 
     def get_image_format(self):

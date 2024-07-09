@@ -8,12 +8,10 @@
             "scope": "extra",
             "plugins": [
                 "AlbumMain",
-                "AlbumItem",
                 "CardMain",
                 "ContainerMain",
                 "HeroMain",
-                "SliderMain",
-                "SliderItem"
+                "SliderMain"
             ]
         },
         {
@@ -56,11 +54,9 @@
             "scope": "color",
             "plugins": [
                 "AlbumMain",
-                "AlbumItem",
                 "CardMain",
                 "HeroMain",
-                "SliderMain",
-                "SliderItem"
+                "SliderMain"
             ]
         },
         {
@@ -68,7 +64,7 @@
             "value": "cell-99",
             "scope": "size",
             "plugins": [
-                "SliderItem"
+                "SliderMain"
             ]
         }
     ]

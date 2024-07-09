@@ -1,17 +1,3 @@
-"""
-
-.. HINT::
-
-    All feature choices are list of tuple. First choice item is a valid CSS class name
-    (not a selector, only alphanumeric, ``-`` and ``_``), second item is the label for
-    select option. As an exemple: ::
-
-        BLOCKS_ALBUM_FEATURES = [
-            ("foo", "Foo"),
-            ("text-center", "Centered text"),
-        ]
-
-"""
 from django.utils.translation import gettext_lazy as _
 
 
@@ -27,24 +13,12 @@ Enabled plugins to register. Unregistered plugin models are still created but
 not available anymore in DjangoCMS.
 """
 
-BLOCKS_SLIDER_FEATURES = []
-"""
-Available feature classes for Slider model.
-"""
-
-BLOCKS_SLIDERITEM_FEATURES = []
-"""
-Available feature classes for SliderItem model.
-"""
-
 BLOCKS_KNOWED_FEATURES_PLUGINS = [
     "AlbumMain",
-    "AlbumItem",
     "CardMain",
     "HeroMain",
     "ContainerMain",
     "SliderMain",
-    "SliderItem",
 ]
 """
 List of knowed plugin names where to enable features.
@@ -60,12 +34,10 @@ List of knowed plugin names where to enable features.
 
 BLOCKS_FEATURE_PLUGINS = [
     ("AlbumMain", _("Album")),
-    ("AlbumItem", _("Album item")),
     ("CardMain", _("Card")),
     ("HeroMain", _("Hero")),
     ("ContainerMain", _("Container")),
     ("SliderMain", _("Slider")),
-    ("SliderItem", _("Slider item")),
 ]
 """
 Available plugins to allow on Features.

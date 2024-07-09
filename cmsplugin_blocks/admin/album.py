@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from smart_media.admin import SmartModelAdmin
 
-from ..choices_helpers import get_albumitem_feature_choices
 from ..models.album import AlbumItem
 from ..forms.album import AlbumItemForm
 

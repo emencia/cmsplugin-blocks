@@ -10,14 +10,6 @@ return a tuple of choice tuples. None of them accept any argument.
 from django.conf import settings
 
 
-def get_album_feature_choices():
-    return settings.BLOCKS_ALBUM_FEATURES
-
-
-def get_albumitem_feature_choices():
-    return settings.BLOCKS_ALBUMITEM_FEATURES
-
-
 def get_album_template_choices():
     return settings.BLOCKS_ALBUM_TEMPLATES
 
@@ -48,14 +40,6 @@ def get_hero_template_choices():
 
 def get_hero_template_default():
     return settings.BLOCKS_HERO_TEMPLATES[0][0]
-
-
-def get_slider_feature_choices():
-    return settings.BLOCKS_SLIDER_FEATURES
-
-
-def get_slideritem_feature_choices():
-    return settings.BLOCKS_SLIDERITEM_FEATURES
 
 
 def get_slider_template_choices():

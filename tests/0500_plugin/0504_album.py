@@ -7,7 +7,7 @@ from cmsplugin_blocks.factories import AlbumFactory, AlbumItemFactory, UserFacto
 from cmsplugin_blocks.utils.tests import html_pyquery
 
 
-def test_queryset_items_order(db, client, tests_settings, settings):
+def test_queryset_items_order(db, client, settings):
     """
     Item order should be respected
     """
@@ -35,9 +35,10 @@ def test_queryset_items_order(db, client, tests_settings, settings):
     context = plugin_instance.render({}, model_instance, None)
     items = [(item.title, item.order) for item in context["ressources"]]
 
-    assert items == [('1', 1), ('2', 2), ('3', 3), ('4', 4)]
+    assert items == [("1", 1), ("2", 2), ("3", 3), ("4", 4)]
 
-def test_form_view_add(db, client, tests_settings, settings):
+
+def test_form_view_add(db, client, settings):
     """
     Plugin creation form should return a success status code and every
     expected field should be present in HTML.
@@ -56,12 +57,12 @@ def test_form_view_add(db, client, tests_settings, settings):
     placeholder = page.placeholders.get(slot="content")
 
     # Get the edition plugin form url and open it
-    url = admin_reverse('cms_page_add_plugin')
+    url = admin_reverse("cms_page_add_plugin")
     response = client.get(url, {
-        'plugin_type': 'AlbumPlugin',
-        'placeholder_id': placeholder.pk,
-        'target_language': 'en',
-        'plugin_language': 'en',
+        "plugin_type": "AlbumPlugin",
+        "placeholder_id": placeholder.pk,
+        "target_language": "en",
+        "plugin_language": "en",
     })
 
     # Expected http success status
@@ -102,7 +103,8 @@ def test_form_view_add(db, client, tests_settings, settings):
     item_order_field = dom.find("input#id_album_item-0-order")
     assert len(item_order_field) == 0
 
-def test_form_view_edit(db, client, tests_settings, settings):
+
+def test_form_view_edit(db, client, settings):
     """
     Plugin edition form should return a success status code and every
     expected field should be present in HTML.
@@ -135,7 +137,7 @@ def test_form_view_edit(db, client, tests_settings, settings):
     model_instance.copy_relations(album)
 
     # Get the edition plugin form url and open it
-    url = admin_reverse('cms_page_edit_plugin', args=[model_instance.id])
+    url = admin_reverse("cms_page_edit_plugin", args=[model_instance.id])
     response = client.get(url)
 
     # Expected http success status

@@ -1,135 +1,107 @@
-from django.test import override_settings
-
-from cmsplugin_blocks.factories import SliderFactory, SlideItemFactory
+from cmsplugin_blocks.factories import SliderFactory, SlideItemFactory, FeatureFactory
 from cmsplugin_blocks.forms import SliderForm, SlideItemForm
-from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
+from cmsplugin_blocks.utils.tests import build_post_data_from_object
+from cmsplugin_blocks.models import Slider
 
-from tests.utils import FixturesTestCaseMixin
 
-
-class SliderFormTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
+def test_slider_empty(db, client, settings):
     """
-    Slider form tests case
+    Container form should not be valid with missing required fields.
     """
+    form = SliderForm({})
 
-    def test_slider_empty(self):
-        """
-        Container form should not be valid with missing required fields.
-        """
-        form = SliderForm({})
+    assert form.is_valid() is False
+    assert "title" in form.errors
+    assert "template" in form.errors
+    assert len(form.errors) == 2
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("title", form.errors)
-        self.assertIn("template", form.errors)
-        self.assertEqual(len(form.errors), 2)
 
-    def test_item_empty(self):
-        """
-        Item form should not be valid with missing required fields.
-        """
-        form = SlideItemForm({})
+def test_item_empty(db, client, settings):
+    """
+    Item form should not be valid with missing required fields.
+    """
+    form = SlideItemForm({})
 
-        self.assertFalse(form.is_valid())
-        self.assertIn("slider", form.errors)
-        self.assertIn("title", form.errors)
-        self.assertIn("order", form.errors)
-        self.assertIn("image", form.errors)
-        self.assertEqual(len(form.errors), 4)
+    assert form.is_valid() is False
+    assert "slider" in form.errors
+    assert "title" in form.errors
+    assert "order" in form.errors
+    assert "image" in form.errors
+    assert len(form.errors) == 4
 
-    def test_slider_success(self):
-        """
-        Form should be valid with factory datas.
-        """
-        slider = SliderFactory()
 
-        form = SliderForm({
-            "title": slider.title,
-            "template": slider.template,
-            "features": slider.features,
-        })
+def test_slider_success(db, client, settings):
+    """
+    Form should be valid with factory datas.
+    """
+    feature = FeatureFactory(scope="size", plugins=["SliderMain"])
+    slider = SliderFactory(fill_size_features=[feature])
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+    data = build_post_data_from_object(
+        Slider,
+        slider,
+        ignore=[
+            "id", "cmsplugin", "size_features", "color_features", "extra_features",
+        ]
+    )
+    data["size_features"] = slider.size_features.all()
 
-        # Checked saved values are the same from factory
-        self.assertEqual(instance.title, slider.title)
-        self.assertEqual(instance.features, slider.features)
-        self.assertEqual(instance.template, slider.template)
+    form = SliderForm(data)
 
-    @override_settings(BLOCKS_SLIDER_FEATURES=[])
-    def test_slider_empty_feature_choices(self):
-        """
-        When feature choices are empty, form should still continue to work correctly.
-        """
-        slider = SliderFactory()
+    assert form.is_valid() is True
+    instance = form.save()
 
-        form = SliderForm({
-            "title": slider.title,
-            "template": slider.template,
-            "features": slider.features,
-        })
+    # Checked saved values are the same from factory
+    assert instance.title == slider.title
+    assert instance.size_features.count() == slider.size_features.count()
+    assert instance.size_features.count() == 1
+    assert instance.template == slider.template
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
 
-        # Ensure test runned with empty choices
-        self.assertEqual(instance.features, [])
+def test_slider_empty_feature_choices(db, client, settings):
+    """
+    When feature choices are empty, form should still continue to work correctly.
+    """
+    settings.BLOCKS_FEATURE_PLUGINS = []
 
-        # Checked saved values are the same from factory
-        self.assertEqual(instance.title, slider.title)
-        self.assertEqual(instance.features, slider.features)
-        self.assertEqual(instance.template, slider.template)
+    slider = SliderFactory()
 
-    def test_item_success(self):
-        """
-        Item form should be valid with factory datas.
-        """
-        slider = SliderFactory()
-        item = SlideItemFactory(slider=slider)
+    form = SliderForm({
+        "title": slider.title,
+        "template": slider.template,
+    })
 
-        form = SlideItemForm({
-            "slider": item.slider,
-            "title": item.title,
-            "order": item.order,
-            "features": item.features,
-        }, {
-            "image": item.image,
-        })
+    assert form.is_valid() is True
+    instance = form.save()
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+    # Ensure test runned with empty choices
+    assert instance.size_features.count() == 0
 
-        # Checked saved values are the same from factory
-        self.assertEqual(instance.slider, slider)
-        self.assertEqual(instance.order, item.order)
-        self.assertEqual(instance.features, item.features)
-        self.assertEqual(instance.image, item.image)
+    # Checked saved values are the same from factory
+    assert instance.title == slider.title
+    assert instance.size_features.count() == slider.size_features.count()
+    assert instance.template == slider.template
 
-    @override_settings(BLOCKS_SLIDERITEM_FEATURES=[])
-    def test_item_empty_feature_choices(self):
-        """
-        When feature choices are empty, form should still continue to work correctly.
-        """
-        slider = SliderFactory()
-        item = SlideItemFactory(slider=slider)
 
-        form = SlideItemForm({
-            "slider": item.slider,
-            "title": item.title,
-            "order": item.order,
-            "features": item.features,
-        }, {
-            "image": item.image,
-        })
+def test_item_success(db, client, settings):
+    """
+    Item form should be valid with factory datas.
+    """
+    slider = SliderFactory()
+    item = SlideItemFactory(slider=slider)
 
-        self.assertTrue(form.is_valid())
-        instance = form.save()
+    form = SlideItemForm({
+        "slider": item.slider,
+        "title": item.title,
+        "order": item.order,
+    }, {
+        "image": item.image,
+    })
 
-        # Ensure test runned with empty choices
-        self.assertEqual(instance.features, [])
+    assert form.is_valid() is True
+    instance = form.save()
 
-        # Checked saved values are the same from factory
-        self.assertEqual(instance.slider, slider)
-        self.assertEqual(instance.order, item.order)
-        self.assertEqual(instance.features, item.features)
-        self.assertEqual(instance.image, item.image)
+    # Checked saved values are the same from factory
+    assert instance.slider == slider
+    assert instance.order == item.order
+    assert instance.image == item.image

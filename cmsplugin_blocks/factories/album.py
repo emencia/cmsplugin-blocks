@@ -35,7 +35,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="size", plugins=["CardMain"])]
+            features = [FeatureFactory(scope="size", plugins=["AlbumMain"])]
         # Take given feature objects
         else:
             features = extracted
@@ -61,7 +61,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="color", plugins=["CardMain"])]
+            features = [FeatureFactory(scope="color", plugins=["AlbumMain"])]
         # Take given feature objects
         else:
             features = extracted
@@ -87,7 +87,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
         # Create a new random feature
         if extracted is True:
-            features = [FeatureFactory(scope="extra", plugins=["CardMain"])]
+            features = [FeatureFactory(scope="extra", plugins=["AlbumMain"])]
         # Take given feature objects
         else:
             features = extracted
