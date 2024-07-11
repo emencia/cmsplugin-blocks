@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 01:57+0000\n"
+"POT-Creation-Date: 2024-07-11 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,159 +18,257 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin/album.py:18 models/album.py:160 models/card.py:68
-#: models/container.py:57 models/hero.py:57 models/slider.py:142
+#: admin/album.py:17 models/album.py:153 models/card.py:51
+#: models/container.py:55 models/hero.py:40 models/slider.py:135
 msgid "Image"
 msgstr ""
 
-#: admin/slider.py:18
+#: admin/slider.py:17
 msgid "Slide"
 msgstr "Slider"
 
-#: forms/album.py:38
-msgid "Add items from a ZIP"
-msgstr "Importer depuis un fichier ZIP"
-
-#: forms/album.py:41
-msgid "Select a '*.zip' file of images to upload as new items."
-msgstr "Fichier '*.zip' contenant des images à ajouter."
-
-#: models/album.py:46 models/album.py:129 models/card.py:33
-#: models/container.py:34 models/slider.py:37 models/slider.py:120
-msgid "Title"
-msgstr "Titre"
-
-#: models/album.py:56 models/card.py:43 models/container.py:44
-#: models/hero.py:32 models/slider.py:47
-msgid "Template"
-msgstr "Gabarits"
-
-#: models/album.py:61
-msgid "Used template for content formatting."
-msgstr "Gabarit HTML spécifique pour la mise en forme."
-
-#: models/album.py:69 models/album.py:148 models/card.py:56
-#: models/container.py:79 models/hero.py:45 models/slider.py:60
-#: models/slider.py:130
-msgid "Layout features"
-msgstr "Fonctionnalités d'apparence"
-
-#: models/album.py:114 plugins/album.py:23
-msgid "Album"
-msgstr ""
-
-#: models/album.py:115
-msgid "Albums"
-msgstr ""
-
-#: models/album.py:139 models/slider.py:164
-msgid "Order"
-msgstr "Ordre"
-
-#: models/album.py:194
-msgid "Album item"
-msgstr "Élément d'album"
-
-#: models/album.py:195
-msgid "Album items"
-msgstr "Éléments de l'album"
-
-#: models/card.py:48 models/container.py:49 models/hero.py:37
-#: models/slider.py:52
-msgid "Used template for content look."
-msgstr "Gabarit HTML spécifique pour la mise en forme."
-
-#: models/card.py:81 models/container.py:70 models/hero.py:70
-#: models/slider.py:155
+#: admin/slider.py:32 models/card.py:73 models/container.py:77
+#: models/hero.py:62 models/slider.py:157 plugins/album.py:38
+#: plugins/card.py:31 plugins/container.py:32 plugins/hero.py:31
+#: plugins/slider.py:36
 msgid "Content"
 msgstr "Contenu"
 
-#: models/card.py:90
+#: admin/slider.py:43 plugins/album.py:43 plugins/card.py:38
+#: plugins/container.py:39 plugins/hero.py:37
+msgid "Options"
+msgstr ""
+
+#: defaults.py:43 models/album.py:119 plugins/album.py:20
+msgid "Album"
+msgstr ""
+
+#: defaults.py:44 models/card.py:133 plugins/card.py:14
+msgid "Card"
+msgstr ""
+
+#: defaults.py:45 models/hero.py:117 plugins/hero.py:14
+msgid "Hero"
+msgstr ""
+
+#: defaults.py:46 models/container.py:132 plugins/container.py:14
+msgid "Container"
+msgstr "Conteneur"
+
+#: defaults.py:47 models/slider.py:110 plugins/slider.py:18
+msgid "Slider"
+msgstr ""
+
+#: forms/album.py:26
+msgid "Add items from a ZIP"
+msgstr "Importer depuis un fichier ZIP"
+
+#: forms/album.py:29
+msgid "Select a '*.zip' file of images to upload as new items."
+msgstr "Fichier '*.zip' contenant des images à ajouter."
+
+#: forms/feature.py:41
+msgid ""
+"Selected scopes will be ignored from loaded JSON items and won't be created "
+"as Feature objects."
+msgstr ""
+"Les périmètres séléctionnés seront ignorés lors de l'import des éléments du "
+"JSON et ne seront pas créés comme objets de fonctionnalités."
+
+#: forms/feature.py:47
+msgid "A valid feature JSON file."
+msgstr "Un fichier JSON valide de fonctionnalités."
+
+#: forms/feature.py:68
+msgid "File is not valid JSON: {}"
+msgstr "Le fichier n'est pas du JSON valide."
+
+#: forms/feature.py:73
+msgid "JSON should be a dictionnary not a: {}"
+msgstr "Le JSON doit être du type 'dict' et non pas: {}"
+
+#: forms/feature.py:81
+msgid "JSON is missing 'items' item for the feature data"
+msgstr "Il manque l'élément 'items' pour les éléments de fonctionnalité"
+
+#: forms/feature.py:86
+msgid "Item 'items' must be a list"
+msgstr "L'élément 'items' doit être du type 'list'"
+
+#: forms/feature.py:118
+msgid "Some item are invalid: {}"
+msgstr "Quelques éléments sont invalides: {}"
+
+#: models/album.py:40 models/album.py:134 models/card.py:28
+#: models/container.py:32 models/slider.py:31 models/slider.py:125
+msgid "Title"
+msgstr "Titre"
+
+#: models/album.py:50 models/card.py:38 models/container.py:42
+#: models/hero.py:27 models/slider.py:41
+msgid "Template"
+msgstr "Gabarits"
+
+#: models/album.py:55
+msgid "Used template for content formatting."
+msgstr "Gabarit HTML spécifique pour la mise en forme."
+
+#: models/album.py:64 models/card.py:101 models/container.py:87
+#: models/hero.py:72 models/slider.py:55
+msgid "size features"
+msgstr "fonctionnalités de taille"
+
+#: models/album.py:75 models/card.py:112 models/container.py:98
+#: models/hero.py:83 models/slider.py:66
+msgid "color features"
+msgstr "fonctionnalités de couleur"
+
+#: models/album.py:86 models/card.py:123 models/container.py:109
+#: models/hero.py:94 models/slider.py:77
+msgid "extra features"
+msgstr "fonctionnalités diverses"
+
+#: models/album.py:120
+msgid "Albums"
+msgstr ""
+
+#: models/album.py:144 models/slider.py:166
+msgid "Order"
+msgstr "Ordre"
+
+#: models/album.py:165 models/card.py:63 models/container.py:67
+#: models/hero.py:52 models/slider.py:147
+msgid "Alternative image text"
+msgstr "Texte alternatif d'image"
+
+#: models/album.py:184
+msgid "Album item"
+msgstr "Élément d'album"
+
+#: models/album.py:185
+msgid "Album items"
+msgstr "Éléments de l'album"
+
+#: models/card.py:43 models/container.py:47 models/hero.py:32
+#: models/slider.py:46
+msgid "Used template for content look."
+msgstr "Gabarit HTML spécifique pour la mise en forme."
+
+#: models/card.py:82
 msgid "Link url"
 msgstr "URL du lien"
 
-#: models/card.py:99
+#: models/card.py:91
 msgid "Open in new window"
 msgstr "Ouvrir dans une nouvelle fenêtre"
 
-#: models/card.py:101
+#: models/card.py:93
 msgid "If checked the link will be opened in a new window"
 msgstr "Si coché, le lien sera ouvert dans une nouvelle fenêtre"
-
-#: models/card.py:133 plugins/card.py:17
-msgid "Card"
-msgstr ""
 
 #: models/card.py:134
 msgid "Cards"
 msgstr ""
 
-#: models/container.py:116 plugins/container.py:17
-msgid "Container"
-msgstr "Conteneur"
-
-#: models/container.py:117
+#: models/container.py:133
 msgid "Containers"
 msgstr "Conteneurs"
 
-#: models/hero.py:104 plugins/hero.py:17
-msgid "Hero"
-msgstr ""
+#: models/feature.py:25
+msgid "title"
+msgstr "Titre"
 
-#: models/hero.py:105
+#: models/feature.py:35
+msgid "value"
+msgstr "valeur"
+
+#: models/feature.py:39
+msgid "Valid CSS classname"
+msgstr "Nom de classe CSS valide"
+
+#: models/feature.py:46
+msgid "scope"
+msgstr "périmètre"
+
+#: models/feature.py:50
+msgid "The feature scope."
+msgstr "Le périmètre de la fonctionnalité."
+
+#: models/feature.py:57
+msgid "Allowed for plugins"
+msgstr "Autorisé dans les plugins"
+
+#: models/feature.py:70
+msgid "Layout feature"
+msgstr "Fonctionnalités d'apparence"
+
+#: models/feature.py:71
+msgid "Layout Features"
+msgstr "Fonctionnalités d'apparence"
+
+#: models/hero.py:118
 msgid "Heros"
 msgstr ""
 
-#: models/slider.py:105 plugins/slider.py:21
-msgid "Slider"
-msgstr ""
-
-#: models/slider.py:106
+#: models/slider.py:111
 msgid "Sliders"
 msgstr ""
 
-#: models/slider.py:173
+#: models/slider.py:175
 msgid "link name"
 msgstr "Label du lien"
 
-#: models/slider.py:182
+#: models/slider.py:184
 msgid "link url"
 msgstr "URL du lien"
 
-#: models/slider.py:191
+#: models/slider.py:193
 msgid "open new window"
 msgstr "Nouvelle fenêtre ?"
 
-#: models/slider.py:193
+#: models/slider.py:195
 msgid "If checked the link will be open in a new window"
 msgstr "Si coché, le lien sera ouvert dans une nouvelle fenêtre"
 
-#: models/slider.py:221
+#: models/slider.py:211
 msgid "Slide item"
 msgstr "Élément d'un slider"
 
-#: models/slider.py:222
+#: models/slider.py:212
 msgid "Slide items"
 msgstr "Éléments de sliders"
 
-#: plugins/album.py:22 plugins/card.py:16 plugins/container.py:16
-#: plugins/hero.py:16 plugins/slider.py:20
+#: plugins/album.py:19 plugins/card.py:13 plugins/container.py:13
+#: plugins/hero.py:13 plugins/slider.py:17
 msgid "Blocks"
 msgstr "Blocs"
 
-#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:20
+#: plugins/album.py:52 plugins/card.py:51 plugins/container.py:48
+#: plugins/hero.py:46 plugins/slider.py:45
+msgid "Features"
+msgstr "Fonctionnalités d'apparence"
+
+#: templates/admin/cmsplugin_blocks/feature/import.html:8
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/admin/cmsplugin_blocks/feature/import.html:24
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:22
 msgid "Delete?"
 msgstr "Supprimer?"
 
-#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:34
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:36
 msgid "Change"
 msgstr "Changer"
 
-#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:36
+#: templates/cmsplugin_blocks/admin/albumitem_edit_tabular.html:38
 msgid "View on site"
 msgstr "Voir sur le site"
 
-#: templates/cmsplugin_blocks/slider/test.html:18
+#: templates/cmsplugin_blocks/slider/test.html:19
 msgid "Read more"
 msgstr "Lire la suite"
 
@@ -184,3 +282,22 @@ msgstr ""
 #, python-format
 msgid "'%(value)s' is not a valid CSS class name"
 msgstr "'%(value)s' n'est pas une classe CSS valide"
+
+#: views/feature.py:75
+msgid "Import features"
+msgstr "Importer des fonctionnalités"
+
+#: views/feature.py:105
+#, python-brace-format
+msgid "{count} items have been created"
+msgstr "{count} éléments ont été créés"
+
+#: views/feature.py:106
+#, python-brace-format
+msgid "{count} items have been ignored from scopes ({scopes})"
+msgstr "{count} éléments ont été ignorés par l'exclusion des périmètres ({scopes})"
+
+#: views/feature.py:107
+#, python-brace-format
+msgid "{count} items were duplicated titles"
+msgstr "{count} élément étaient des titres dupliqués"

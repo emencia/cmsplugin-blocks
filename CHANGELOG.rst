@@ -13,6 +13,7 @@ Version 1.3.2 - Unreleased
 * Removed setting ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS`` in profit of django-smart-media
   setting ``SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS``. You can safely remove the first one
   from your settings;
+* Update PO catalogs for new translation strings;
 * Internal allowed plugin names in Features have been renamed and a data migration is
   in charge to automatically update your data. However this won't work for your
   previously exported dumps, you will need to rename these names your in your dumps

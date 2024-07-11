@@ -3,6 +3,7 @@ import json
 from django.conf import settings
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from ..models import Feature
 from ..choices_helpers import get_feature_plugin_choices
@@ -36,14 +37,14 @@ class FeatureImportForm(forms.Form):
         required=False,
         choices=Feature.SCOPE_CHOICES,
         widget=forms.CheckboxSelectMultiple,
-        help_text=(
+        help_text=_(
             "Selected scopes will be ignored from loaded JSON items and won't be "
             "created as Feature objects."
         ),
     )
     json_file = forms.FileField(
         required=True,
-        help_text="A valid feature JSON file.",
+        help_text=_("A valid feature JSON file."),
     )
 
     class Meta:
@@ -64,12 +65,12 @@ class FeatureImportForm(forms.Form):
         try:
             payload = json.load(data.open())
         except json.JSONDecodeError as e:
-            raise ValidationError("File is not valid JSON: {}".format(str(e)))
+            raise ValidationError(_("File is not valid JSON: {}").format(str(e)))
         else:
             # Root type must be a JSON dictionnary
             if not isinstance(payload, dict):
                 raise ValidationError(
-                    "JSON should be a dictionnary not a: {}".format(
+                    _("JSON should be a dictionnary not a: {}").format(
                         type(payload).__name__
                     )
                 )
@@ -77,14 +78,12 @@ class FeatureImportForm(forms.Form):
             # Item 'items' is required
             if "items" not in payload:
                 raise ValidationError(
-                    "JSON is missing 'items' item for the feature data"
+                    _("JSON is missing 'items' item for the feature data")
                 )
 
             # Item 'items' must be a list
             if not isinstance(payload["items"], list):
-                raise ValidationError(
-                    "Item 'items' must be a list"
-                )
+                raise ValidationError(_("Item 'items' must be a list"))
 
             # Check for some errors from items
             error_lines = []
@@ -116,7 +115,7 @@ class FeatureImportForm(forms.Form):
             # Raise error in case of any missing or empty items
             if error_lines:
                 raise ValidationError(
-                    "Some item are invalid: {}".format(", ".join(error_lines))
+                    _("Some item are invalid: {}").format(", ".join(error_lines))
                 )
 
         return payload
