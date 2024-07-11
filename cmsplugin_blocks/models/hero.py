@@ -73,7 +73,7 @@ class Hero(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("size features"),
         related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        limit_choices_to={"scope": "size", "plugins__contains": "HeroMain"},
+        limit_choices_to={"scope": "size", "plugins__contains": "Hero"},
     )
     """
     Optional related size features.
@@ -84,7 +84,7 @@ class Hero(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("color features"),
         related_name="%(app_label)s_%(class)s_color_related",
         blank=True,
-        limit_choices_to={"scope": "color", "plugins__contains": "HeroMain"},
+        limit_choices_to={"scope": "color", "plugins__contains": "Hero"},
     )
     """
     Optional related color features.
@@ -95,7 +95,7 @@ class Hero(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("extra features"),
         related_name="%(app_label)s_%(class)s_extra_related",
         blank=True,
-        limit_choices_to={"scope": "extra", "plugins__contains": "HeroMain"},
+        limit_choices_to={"scope": "extra", "plugins__contains": "Hero"},
     )
     """
     Optional related extra features.

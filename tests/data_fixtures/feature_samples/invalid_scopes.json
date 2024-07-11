@@ -7,7 +7,7 @@
             "value": "nope",
             "scope": "nope",
             "plugins": [
-                "CardMain"
+                "Card"
             ]
         },
         {
@@ -15,7 +15,7 @@
             "value": "zip",
             "scope": "size",
             "plugins": [
-                "CardMain"
+                "Card"
             ]
         }
     ]

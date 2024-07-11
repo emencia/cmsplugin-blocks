@@ -9,10 +9,12 @@ class CommaSeparatedStringsField(models.CharField):
     "MultipleChoiceField".
 
     This enable to store a list of items without to goes through a M2M relation for
-    nothing.
+    nothing. This means than from model interface, you will edit this field as a list
+    and its return value will be a list. But from queryset it is still be a string, so
+    you will probably use lookup like "contains" to filter for an item.
 
-    Words are separated with a comma so comma in a word is forbidden, you may need
-    to define a validator to avoid it from choice values.
+    Words are separated with a comma, so comma in a word is forbidden and you should
+    define a validator to avoid it from choice values.
 
     This field is compatible with widgets:
 
@@ -59,8 +61,8 @@ class CommaSeparatedStringsField(models.CharField):
         Define the right formfield to use.
 
         .. NOTE::
-            This is ignored from ModelAdmin, you will need to enforce it in your admin
-            form.
+            This is ignored from ModelAdmin, you will need to enforce it yourself in
+            an admin form.
         """
         defaults = {"form_class": MultipleChoiceField}
         defaults.update(kwargs)

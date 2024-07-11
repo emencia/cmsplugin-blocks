@@ -1,5 +1,5 @@
 {% load smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
     <div class="card{% if features %} {{ features }}{% endif %}">
         {% if instance.image %}
             {% media_thumb instance.image "250x200" as thumb %}

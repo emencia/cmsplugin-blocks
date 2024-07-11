@@ -1,5 +1,5 @@
 {% load cms_tags smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
         <div class="container mb-4{% if features %} {{ features }}{% endif %}">
             {% if instance.title %}
                 <h2 class="container__title border-bottom border-3 text-center mb-3">{{ instance.title }}</h2>

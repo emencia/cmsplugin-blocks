@@ -88,7 +88,7 @@ class Container(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("size features"),
         related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        limit_choices_to={"scope": "size", "plugins__contains": "ContainerMain"},
+        limit_choices_to={"scope": "size", "plugins__contains": "Container"},
     )
     """
     Optional related size features.
@@ -99,7 +99,7 @@ class Container(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("color features"),
         related_name="%(app_label)s_%(class)s_color_related",
         blank=True,
-        limit_choices_to={"scope": "color", "plugins__contains": "ContainerMain"},
+        limit_choices_to={"scope": "color", "plugins__contains": "Container"},
     )
     """
     Optional related color features.
@@ -110,7 +110,7 @@ class Container(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         verbose_name=_("extra features"),
         related_name="%(app_label)s_%(class)s_extra_related",
         blank=True,
-        limit_choices_to={"scope": "extra", "plugins__contains": "ContainerMain"},
+        limit_choices_to={"scope": "extra", "plugins__contains": "Container"},
     )
     """
     Optional related extra features.

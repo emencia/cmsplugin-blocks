@@ -55,7 +55,7 @@ class Slider(FeatureMixinModel, CMSPlugin):
         verbose_name=_("size features"),
         related_name="%(app_label)s_%(class)s_size_related",
         blank=True,
-        limit_choices_to={"scope": "size", "plugins__contains": "SliderMain"},
+        limit_choices_to={"scope": "size", "plugins__contains": "Slider"},
     )
     """
     Optional related size features.
@@ -66,7 +66,7 @@ class Slider(FeatureMixinModel, CMSPlugin):
         verbose_name=_("color features"),
         related_name="%(app_label)s_%(class)s_color_related",
         blank=True,
-        limit_choices_to={"scope": "color", "plugins__contains": "SliderMain"},
+        limit_choices_to={"scope": "color", "plugins__contains": "Slider"},
     )
     """
     Optional related color features.
@@ -77,7 +77,7 @@ class Slider(FeatureMixinModel, CMSPlugin):
         verbose_name=_("extra features"),
         related_name="%(app_label)s_%(class)s_extra_related",
         blank=True,
-        limit_choices_to={"scope": "extra", "plugins__contains": "SliderMain"},
+        limit_choices_to={"scope": "extra", "plugins__contains": "Slider"},
     )
     """
     Optional related extra features.

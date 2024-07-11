@@ -1,5 +1,5 @@
 {% load smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
         {% if instance.link_url %}
             <a href="{{ instance.link_url }}"
             class="card{% if features %} {{ features }}{% endif %}"

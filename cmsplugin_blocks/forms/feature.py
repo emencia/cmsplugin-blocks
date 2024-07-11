@@ -137,7 +137,7 @@ class FeatureImportForm(forms.Form):
         ignored = []
 
         # Fetch existing items
-        existing = Feature.objects.all().get_payload()
+        existing = Feature.objects.all().query_full_payload()
         existing_titles = {}
         for k, v in Feature.SCOPE_CHOICES:
             existing_titles[k] = [

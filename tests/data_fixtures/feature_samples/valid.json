@@ -7,11 +7,11 @@
             "value": "shadow",
             "scope": "extra",
             "plugins": [
-                "AlbumMain",
-                "CardMain",
-                "ContainerMain",
-                "HeroMain",
-                "SliderMain"
+                "Album",
+                "Card",
+                "Container",
+                "Hero",
+                "Slider"
             ]
         },
         {
@@ -19,8 +19,8 @@
             "value": "col-lg-2",
             "scope": "size",
             "plugins": [
-                "CardMain",
-                "HeroMain"
+                "Card",
+                "Hero"
             ]
         },
         {
@@ -28,8 +28,8 @@
             "value": "col-lg-4",
             "scope": "size",
             "plugins": [
-                "CardMain",
-                "HeroMain"
+                "Card",
+                "Hero"
             ]
         },
         {
@@ -37,7 +37,7 @@
             "value": "bg-success",
             "scope": "color",
             "plugins": [
-                "ContainerMain"
+                "Container"
             ]
         },
         {
@@ -45,7 +45,7 @@
             "value": "extra-success",
             "scope": "extra",
             "plugins": [
-                "ContainerMain"
+                "Container"
             ]
         },
         {
@@ -53,10 +53,10 @@
             "value": "bg-warning",
             "scope": "color",
             "plugins": [
-                "AlbumMain",
-                "CardMain",
-                "HeroMain",
-                "SliderMain"
+                "Album",
+                "Card",
+                "Hero",
+                "Slider"
             ]
         },
         {
@@ -64,7 +64,7 @@
             "value": "cell-99",
             "scope": "size",
             "plugins": [
-                "SliderMain"
+                "Slider"
             ]
         }
     ]

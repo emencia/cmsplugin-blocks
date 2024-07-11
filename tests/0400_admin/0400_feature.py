@@ -35,7 +35,7 @@ def test_export_content(db, admin_client, settings):
     Exporting view should work without any error when there is some features.
     """
     FeatureFactory(title="Foo", scope="size", plugins=["Card"])
-    FeatureFactory(title="Bar", scope="size", plugins=["AlbumMain,Card"])
+    FeatureFactory(title="Bar", scope="size", plugins=["Album,Card"])
     FeatureFactory(title="Ping", scope="color", plugins=["Hero"])
     FeatureFactory(title="Pong", scope="extra", plugins=["Hero"])
 
@@ -66,7 +66,7 @@ def test_export_content(db, admin_client, settings):
             "value": "bar",
             "scope": "size",
             "plugins": [
-                "AlbumMain",
+                "Album",
                 "Card"
             ]
         },

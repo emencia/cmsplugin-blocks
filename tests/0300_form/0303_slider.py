@@ -34,7 +34,7 @@ def test_slider_success(db, client, settings):
     """
     Form should be valid with factory datas.
     """
-    feature = FeatureFactory(scope="size", plugins=["SliderMain"])
+    feature = FeatureFactory(scope="size", plugins=["Slider"])
     slider = SliderFactory(fill_size_features=[feature])
 
     data = build_post_data_from_object(

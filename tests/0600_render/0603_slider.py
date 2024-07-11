@@ -1,7 +1,7 @@
 import logging
 
 from cmsplugin_blocks.cms_plugins import SliderPlugin
-from cmsplugin_blocks.factories import SliderFactory, SlideItemFactory
+from cmsplugin_blocks.factories import SliderFactory, SlideItemFactory, FeatureFactory
 from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -134,3 +134,48 @@ class SliderRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         assert len(item_titles) == 2
         assert item_titles[0].text.strip() == item_first.title
         assert item_titles[1].text.strip() == item_second.title
+
+    def test_feature_classes(self):
+        """
+        When slider has features, their classes should be in .slider 'class'
+        attribute without duplicates.
+        """
+        feature_foo = FeatureFactory(
+            value="foo",
+            scope="size",
+            plugins=["Container", "Slider"],
+        )
+        feature_bar = FeatureFactory(
+            value="bar",
+            scope="color",
+            plugins=["Slider"]
+        )
+        feature_foobis = FeatureFactory(
+            value="foo",
+            scope="extra",
+            plugins=["Container", "Slider"],
+        )
+
+        slider = SliderFactory(
+            fill_size_features=[feature_foo],
+            fill_color_features=[feature_bar],
+            fill_extra_features=[feature_foobis],
+        )
+
+        placeholder, model_instance, context, html = self.create_basic_render(
+            SliderPlugin,
+            template=slider.template,
+            title=slider.title,
+            copy_relations_from=slider,
+        )
+
+        dom = html_pyquery(html)
+        features_classnames = [
+            item
+            for item in dom.attr("class").split()
+            if item != "slider"
+        ]
+        assert features_classnames == [
+            "bar",
+            "foo",
+        ]

@@ -9,6 +9,40 @@ Version 1.3.2 - Unreleased
 * Updated documentation to a new theme;
 * Added logo from SVG Repo;
 * Improved Makefile;
+* Internal allowed plugin names in Features have been renamed and a data migration is
+  in charge to automatically update your data. However this won't work for your
+  previously exported dumps, you will need to rename these names your in your dumps
+  with the following changes:
+
+  * ``AlbumMain`` becomes ``Album``;
+  * ``CardMain`` becomes ``Card``;
+  * ``ContainerMain`` becomes ``Container``;
+  * ``HeroMain`` becomes ``Hero``;
+  * ``SliderMain`` becomes ``Slider``;
+
+  Also remember than since v1.3.1 the names ``AlbumItem`` and ``SliderItem`` are no
+  longer valid.
+
+* Refactored feature getters:
+
+    * The old method ``get_features()`` has been renamed to a property
+      ``flat_features`` with the same behavior (a simple string with ordered
+      classnames without any duplicate classname);
+    * A new property ``scoped_features`` has been introduced, it return a dict indexed
+      on scopes: ::
+
+        >>> foo = Card(...)
+        >>> foo.save()
+        >>> foo.scoped_features
+        {
+            "size": ["bar", "foo"],
+            "color": [],
+            "extra": ["foo", "ping"],
+        }
+
+    * Getters now enforce scope and plugins filtering so you should never have
+      "orphan feature" (like when you change the scope of a feature to ``extra`` but it
+      was already used in ``Card.size_features``);
 
 
 Version 1.3.1 - 2024/09/08

@@ -1,7 +1,7 @@
 import logging
 
 from cmsplugin_blocks.cms_plugins import AlbumPlugin
-from cmsplugin_blocks.factories import AlbumFactory, AlbumItemFactory
+from cmsplugin_blocks.factories import AlbumFactory, AlbumItemFactory, FeatureFactory
 from cmsplugin_blocks.utils.cms_tests import CMSPluginTestCase
 from cmsplugin_blocks.utils.tests import html_pyquery
 
@@ -123,3 +123,48 @@ class AlbumRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         assert len(item_titles) == 2
         assert item_titles[0].text.strip() == item_first.title
         assert item_titles[1].text.strip() == item_second.title
+
+    def test_feature_classes(self):
+        """
+        When album has features, their classes should be in .album 'class'
+        attribute without duplicates.
+        """
+        feature_foo = FeatureFactory(
+            value="foo",
+            scope="size",
+            plugins=["Container", "Album"],
+        )
+        feature_bar = FeatureFactory(
+            value="bar",
+            scope="color",
+            plugins=["Album"]
+        )
+        feature_foobis = FeatureFactory(
+            value="foo",
+            scope="extra",
+            plugins=["Container", "Album"],
+        )
+
+        album = AlbumFactory(
+            fill_size_features=[feature_foo],
+            fill_color_features=[feature_bar],
+            fill_extra_features=[feature_foobis],
+        )
+
+        placeholder, model_instance, context, html = self.create_basic_render(
+            AlbumPlugin,
+            template=album.template,
+            title=album.title,
+            copy_relations_from=album,
+        )
+
+        dom = html_pyquery(html)
+        features_classnames = [
+            item
+            for item in dom.attr("class").split()
+            if item != "album"
+        ]
+        assert features_classnames == [
+            "bar",
+            "foo",
+        ]

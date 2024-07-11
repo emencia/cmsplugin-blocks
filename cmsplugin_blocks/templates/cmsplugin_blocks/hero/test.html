@@ -1,5 +1,5 @@
 {% load smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
         <div class="hero{% if features %} {{ features }}{% endif %}">
             <div class="hero__wrapper"
                 {% if instance.image %}{% media_thumb instance.image "1200x400" as thumb %} style="background-image: url({{ thumb.url }})"{% endif %}>

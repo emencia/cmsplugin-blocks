@@ -110,17 +110,17 @@ class ContainerRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         feature_foo = FeatureFactory(
             value="foo",
             scope="size",
-            plugins=["CardMain", "AlbumMain"],
+            plugins=["Container", "Album"],
         )
         feature_bar = FeatureFactory(
             value="bar",
             scope="color",
-            plugins=["CardMain"]
+            plugins=["Container"]
         )
         feature_foobis = FeatureFactory(
             value="foo",
             scope="extra",
-            plugins=["CardMain", "AlbumMain"],
+            plugins=["Container", "Album"],
         )
 
         container = ContainerFactory(

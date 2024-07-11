@@ -1,5 +1,5 @@
 {% load i18n smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
         <div class="slider{% if features %} {{ features }}{% endif %}">
             <p class="slider__title">{{ instance.title }}</p>
 

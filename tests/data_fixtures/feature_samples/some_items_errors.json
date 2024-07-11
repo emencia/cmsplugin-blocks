@@ -7,16 +7,16 @@
             "value": "bg-danger",
             "scope": "color",
             "plugins": [
-                "AlbumMain",
-                "CardMain"
+                "Album",
+                "Card"
             ]
         },
         {
             "title": "WARNING",
             "scope": "color",
             "plugins": [
-                "AlbumMain",
-                "CardMain"
+                "Album",
+                "Card"
             ]
         },
         {
@@ -24,8 +24,8 @@
             "value": "",
             "scope": "color",
             "plugins": [
-                "AlbumMain",
-                "CardMain"
+                "Album",
+                "Card"
             ]
         },
         {

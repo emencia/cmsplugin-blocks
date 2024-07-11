@@ -27,8 +27,8 @@ class FeatureExportAdminView(View):
                     "value": "bg-danger",
                     "scope": "color",
                     "plugins": [
-                        "AlbumMain",
-                        "CardMain"
+                        "Album",
+                        "Card"
                     ]
                 }
             ]
@@ -57,7 +57,7 @@ class FeatureExportAdminView(View):
             {
                 "version":  __version__,
                 "date": datetime.datetime.now().isoformat(timespec="seconds"),
-                "items": self.get_queryset().get_payload(),
+                "items": list(self.get_queryset().query_full_payload()),
             },
             json_dumps_params={"indent": 4},
         )

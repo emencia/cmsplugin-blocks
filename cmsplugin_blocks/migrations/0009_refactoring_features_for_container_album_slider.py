@@ -34,51 +34,51 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='album',
             name='color_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'AlbumMain', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Album', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
         ),
         migrations.AddField(
             model_name='album',
             name='extra_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'AlbumMain', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Album', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
         ),
         migrations.AddField(
             model_name='album',
             name='size_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'AlbumMain', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Album', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
         ),
         migrations.AddField(
             model_name='container',
             name='color_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'ContainerMain', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Container', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
         ),
         migrations.AddField(
             model_name='container',
             name='extra_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'ContainerMain', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Container', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
         ),
         migrations.AddField(
             model_name='container',
             name='size_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'ContainerMain', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Container', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
         ),
         migrations.AddField(
             model_name='slider',
             name='color_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'SliderMain', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Slider', 'scope': 'color'}, related_name='%(app_label)s_%(class)s_color_related', to='cmsplugin_blocks.feature', verbose_name='color features'),
         ),
         migrations.AddField(
             model_name='slider',
             name='extra_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'SliderMain', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Slider', 'scope': 'extra'}, related_name='%(app_label)s_%(class)s_extra_related', to='cmsplugin_blocks.feature', verbose_name='extra features'),
         ),
         migrations.AddField(
             model_name='slider',
             name='size_features',
-            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'SliderMain', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
+            field=models.ManyToManyField(blank=True, limit_choices_to={'plugins__contains': 'Slider', 'scope': 'size'}, related_name='%(app_label)s_%(class)s_size_related', to='cmsplugin_blocks.feature', verbose_name='size features'),
         ),
         migrations.AlterField(
             model_name='feature',
             name='plugins',
-            field=cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=[('AlbumMain', 'Album'), ('CardMain', 'Card'), ('HeroMain', 'Hero'), ('ContainerMain', 'Container'), ('SliderMain', 'Slider')], default='', max_length=50, verbose_name='Allowed for plugins'),
+            field=cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=[('Album', 'Album'), ('Card', 'Card'), ('Hero', 'Hero'), ('Container', 'Container'), ('Slider', 'Slider')], default='', max_length=50, verbose_name='Allowed for plugins'),
         ),
     ]

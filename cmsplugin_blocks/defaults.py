@@ -10,18 +10,25 @@ BLOCKS_ENABLED_PLUGINS = [
 ]
 """
 Enabled plugins to register. Unregistered plugin models are still created but
-not available anymore in DjangoCMS.
+not available anymore in DjangoCMS. This should be safe to edit to enable or disable
+plugins even with existing data, however existing plugin in pages will still be present.
 """
 
 BLOCKS_KNOWED_FEATURES_PLUGINS = [
-    "AlbumMain",
-    "CardMain",
-    "HeroMain",
-    "ContainerMain",
-    "SliderMain",
+    "Album",
+    "Card",
+    "Hero",
+    "Container",
+    "Slider",
 ]
 """
 List of knowed plugin names where to enable features.
+
+Developers should be aware when naming keys since we use a basic ``contains``
+lookup expression on comma separated string, key names must be unique and can not be
+matched with a part of another key. Like ``Slider`` could match ``Slider`` or
+``SliderItem``, so in this case we would prefer to use names likes ``Slider`` and
+``SlideItem``.
 
 .. Warning::
     You should not change this setting since they are used internally. Developpers
@@ -33,19 +40,14 @@ List of knowed plugin names where to enable features.
 """
 
 BLOCKS_FEATURE_PLUGINS = [
-    ("AlbumMain", _("Album")),
-    ("CardMain", _("Card")),
-    ("HeroMain", _("Hero")),
-    ("ContainerMain", _("Container")),
-    ("SliderMain", _("Slider")),
+    ("Album", _("Album")),
+    ("Card", _("Card")),
+    ("Hero", _("Hero")),
+    ("Container", _("Container")),
+    ("Slider", _("Slider")),
 ]
 """
 Available plugins to allow on Features.
-
-Developers should be aware when naming keys here, since we use a basic ``contains``
-lookup expression on comma separated string, key names must be unique and can not be
-matched with a part of another key. Like ``Slider`` could match ``SliderMain`` or
-``SliderItem``.
 """
 
 BLOCKS_ALBUM_TEMPLATES = [
@@ -122,8 +124,7 @@ Use an empty string if you don't want any character at the end of truncation.
 
 BLOCKS_MASSUPLOAD_FILESIZE_LIMIT = 42991616
 """
-Maximum file size allowed for mass upload feature.
-Maximum file size (in bytes) allowed for ZIP archive for mass upload.
+Maximum file size (in bytes) allowed for ZIP archive from mass upload feature.
 
 This is a limit at Django level so files are still stored until post validation.
 

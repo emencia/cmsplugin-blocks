@@ -1,5 +1,5 @@
 {% load smart_image %}{% spaceless %}
-    {% with features=instance.get_features %}
+    {% with features=instance.flat_features %}
         <div class="album{% if features %} {{ features }}{% endif %}">
             <p class="album__title">{{ instance.title }}</p>
 

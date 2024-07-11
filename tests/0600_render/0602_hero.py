@@ -52,17 +52,17 @@ class HeroRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         feature_foo = FeatureFactory(
             value="foo",
             scope="size",
-            plugins=["HeroMain", "AlbumMain"],
+            plugins=["Hero", "Album"],
         )
         feature_bar = FeatureFactory(
             value="bar",
             scope="color",
-            plugins=["HeroMain"]
+            plugins=["Hero"]
         )
         feature_foobis = FeatureFactory(
             value="foo",
             scope="extra",
-            plugins=["HeroMain", "AlbumMain"],
+            plugins=["Hero", "Album"],
         )
 
         hero = HeroFactory(

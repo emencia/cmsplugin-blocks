@@ -5,7 +5,7 @@ from ..choices_helpers import get_card_template_default
 from ..utils.factories import create_image_file
 from ..models import Card
 
-from .feature import FeatureFactory
+from .feature import fill_scope_features
 
 
 class CardFactory(factory.django.DjangoModelFactory):
@@ -52,20 +52,14 @@ class CardFactory(factory.django.DjangoModelFactory):
                 object. If a list assume it's a list of Author objects to add.
                 Else if empty don't do anything.
         """
-        # Do nothing for build strategy
-        if not create or not extracted:
-            return []
-
-        # Create a new random feature
-        if extracted is True:
-            features = [FeatureFactory(scope="size", plugins=["CardMain"])]
-        # Take given feature objects
-        else:
-            features = extracted
-
-        # Add features
-        for feature in features:
-            self.size_features.add(feature)
+        return fill_scope_features(
+            self,
+            "size",
+            ["Card"],
+            create,
+            extracted,
+            **kwargs
+        )
 
     @factory.post_generation
     def fill_color_features(self, create, extracted, **kwargs):
@@ -78,20 +72,14 @@ class CardFactory(factory.django.DjangoModelFactory):
                 object. If a list assume it's a list of Author objects to add.
                 Else if empty don't do anything.
         """
-        # Do nothing for build strategy
-        if not create or not extracted:
-            return []
-
-        # Create a new random feature
-        if extracted is True:
-            features = [FeatureFactory(scope="color", plugins=["CardMain"])]
-        # Take given feature objects
-        else:
-            features = extracted
-
-        # Add features
-        for feature in features:
-            self.color_features.add(feature)
+        return fill_scope_features(
+            self,
+            "color",
+            ["Card"],
+            create,
+            extracted,
+            **kwargs
+        )
 
     @factory.post_generation
     def fill_extra_features(self, create, extracted, **kwargs):
@@ -104,17 +92,11 @@ class CardFactory(factory.django.DjangoModelFactory):
                 object. If a list assume it's a list of Author objects to add.
                 Else if empty don't do anything.
         """
-        # Do nothing for build strategy
-        if not create or not extracted:
-            return []
-
-        # Create a new random feature
-        if extracted is True:
-            features = [FeatureFactory(scope="extra", plugins=["CardMain"])]
-        # Take given feature objects
-        else:
-            features = extracted
-
-        # Add features
-        for feature in features:
-            self.extra_features.add(feature)
+        return fill_scope_features(
+            self,
+            "extra",
+            ["Card"],
+            create,
+            extracted,
+            **kwargs
+        )

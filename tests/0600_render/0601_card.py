@@ -103,17 +103,17 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         feature_foo = FeatureFactory(
             value="foo",
             scope="size",
-            plugins=["CardMain", "AlbumMain"],
+            plugins=["Card"],
         )
         feature_bar = FeatureFactory(
             value="bar",
             scope="color",
-            plugins=["CardMain"]
+            plugins=["Card"]
         )
         feature_foobis = FeatureFactory(
             value="foo",
             scope="extra",
-            plugins=["CardMain", "AlbumMain"],
+            plugins=["Card", "Album"],
         )
 
         card = CardFactory(
