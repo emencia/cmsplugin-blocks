@@ -9,6 +9,7 @@ Version 1.3.2 - Unreleased
 * Updated documentation to a new theme;
 * Added logo from SVG Repo;
 * Improved Makefile;
+* Removed remaining usage of ``os.path`` module in profit of ``pathlib``;
 * Internal allowed plugin names in Features have been renamed and a data migration is
   in charge to automatically update your data. However this won't work for your
   previously exported dumps, you will need to rename these names your in your dumps

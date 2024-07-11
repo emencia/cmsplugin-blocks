@@ -1,4 +1,3 @@
-import os
 import zipfile
 
 import pytest
@@ -94,18 +93,14 @@ def test_store_images_from_zip_success(caplog, tests_settings, filename,
     store it into AlbumItem items which should be linked to given Album
     instance.
     """
-    filepath = os.path.join(
-        tests_settings.fixtures_path,
-        "zip_samples",
-        filename
-    )
+    filepath = tests_settings.fixtures_path / "zip_samples" / filename
 
     # Open file as a ZIP and attach it to dummy container instance
     container = DummyContainer()
     validate_zip(filepath, obj=container)
 
     assert isinstance(container.uploaded_zip, zipfile.ZipFile)
-    assert filepath == container.uploaded_zip.filename
+    assert str(filepath) == container.uploaded_zip.filename
 
     # Make a dummy album
     album = DummyAlbum(title=filename)

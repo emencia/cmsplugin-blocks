@@ -1,5 +1,4 @@
 import io
-import os
 
 import pytest
 
@@ -119,11 +118,7 @@ def test_mass_upload_success(db, client, tests_settings, settings):
     """
     album = AlbumFactory()
 
-    filepath = os.path.join(
-        tests_settings.fixtures_path,
-        "zip_samples",
-        "basic.zip"
-    )
+    filepath = tests_settings.fixtures_path / "zip_samples/basic.zip"
 
     with io.open(filepath, "rb") as fp:
         _archive = SimpleUploadedFile(
@@ -179,11 +174,7 @@ def test_mass_upload_fail(db, client, tests_settings, settings):
     """
     album = AlbumFactory()
 
-    filepath = os.path.join(
-        tests_settings.fixtures_path,
-        "zip_samples",
-        "truncated.zip"
-    )
+    filepath = tests_settings.fixtures_path / "zip_samples/truncated.zip"
 
     with io.open(filepath, "rb") as fp:
         _archive = SimpleUploadedFile(

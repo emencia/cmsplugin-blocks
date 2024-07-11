@@ -1,5 +1,5 @@
 import io
-import os
+from pathlib import Path
 
 from PIL import Image
 
@@ -17,14 +17,14 @@ def test_create_image_file_basic():
 
     image = create_image_file()
 
-    destination = os.path.join("pil", image.name)
+    destination = Path("pil") / image.name
 
     assert image.name == "blue.png"
 
     storage.save(destination, image)
     saved = storage.path(destination)
 
-    assert os.path.exists(saved) is True
+    assert Path(saved).exists() is True
 
     try:
         with Image.open(saved) as im:
@@ -53,14 +53,14 @@ def test_create_image_file_args():
         format_name="PNG"
     )
 
-    destination = os.path.join("pil", image.name)
+    destination = Path("pil") / image.name
 
     assert image.name == "foo.red"
 
     storage.save(destination, image)
     saved = storage.path(destination)
 
-    assert os.path.exists(saved) is True
+    assert Path(saved).exists() is True
 
     try:
         with Image.open(saved) as im:
@@ -86,14 +86,14 @@ def test_create_image_file_jpg():
         format_name="JPEG"
     )
 
-    destination = os.path.join("pil", image.name)
+    destination = Path("pil") / image.name
 
     assert image.name == "blue.jpg"
 
     storage.save(destination, image)
     saved = storage.path(destination)
 
-    assert os.path.exists(saved) is True
+    assert Path(saved).exists() is True
 
     try:
         with Image.open(saved) as im:
@@ -113,14 +113,14 @@ def test_create_image_file_gif():
         format_name="GIF"
     )
 
-    destination = os.path.join("pil", image.name)
+    destination = Path("pil") / image.name
 
     assert image.name == "blue.gif"
 
     storage.save(destination, image)
     saved = storage.path(destination)
 
-    assert os.path.exists(saved) is True
+    assert Path(saved).exists() is True
 
     try:
         with Image.open(saved) as im:
@@ -142,14 +142,14 @@ def test_create_image_file_svg():
         size=(150, 80),
     )
 
-    destination = os.path.join("pil", image.name)
+    destination = Path("pil") / image.name
 
     assert image.name == "green.svg"
 
     storage.save(destination, image)
     saved = storage.path(destination)
 
-    assert os.path.exists(saved) is True
+    assert Path(saved).exists() is True
 
     with io.open(saved) as fp:
         content = fp.read()
