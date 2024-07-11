@@ -2,8 +2,8 @@
 Some various utilities to ease making tests around Django and HTML responses.
 
 """
-import os
 import hashlib
+from pathlib import Path
 
 from django.contrib.sites.models import Site
 from django.template.response import TemplateResponse
@@ -335,11 +335,11 @@ def get_test_source(storage, *args, **kwargs):
     Returns:
         django.core.files.File: File object with the right final file path.
     """
-    destination_dir = kwargs.pop("destination_dir", "pil")
+    destination_dir = Path(kwargs.pop("destination_dir", "pil"))
 
     image = create_image_file(*args, **kwargs)
 
-    destination = os.path.join(destination_dir, image.name)
+    destination = destination_dir / image.name
     source_filepath = storage.save(destination, image)
 
     # Trick to update name to final destination since File object is not

@@ -10,10 +10,10 @@ file to create items. Archive file is limited to the value from setting
 ``BLOCKS_MASSUPLOAD_FILESIZE_LIMIT``.
 
 The archive file may contains one or many image files with enabled format from
-setting ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``. Each image will create a new Album
-item where the name will be filled with the full relative image file path. Images
-in archive can be structured in multiple subdirectory. Created Album item from
-an archive don't have any order.
+django-smart-media setting ``SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS``. Each image will
+create a new Album item where the name will be filled with the full relative image file
+path. Images in archive can be structured in multiple subdirectory. Created Album item
+from an archive don't have any order.
 """
 from django.conf import settings
 from django.db import models
@@ -158,8 +158,7 @@ class AlbumItem(SmartFormatMixin, models.Model):
         upload_to="blocks/albumitem/%y/%m",
     )
     """
-    Required image file, limited to enabled image formats from settings
-    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    Required image file.
     """
 
     image_alt = models.CharField(

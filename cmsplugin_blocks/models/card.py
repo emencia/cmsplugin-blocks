@@ -56,8 +56,7 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
         upload_to="blocks/card/%y/%m",
     )
     """
-    Optional image file, limited to enabled image formats from settings
-    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    Optional image file.
     """
 
     image_alt = models.CharField(

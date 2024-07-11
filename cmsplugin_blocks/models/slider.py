@@ -140,8 +140,7 @@ class SlideItem(SmartFormatMixin, models.Model):
         upload_to="blocks/slideritem/%y/%m",
     )
     """
-    Required image file, limited to enabled image formats from settings
-    ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS``.
+    Required image file.
     """
 
     image_alt = models.CharField(

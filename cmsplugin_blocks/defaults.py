@@ -85,24 +85,6 @@ BLOCKS_SLIDER_TEMPLATES = [
 Available template choices to render a Slider object and its items.
 """
 
-BLOCKS_ALLOWED_IMAGE_EXTENSIONS = [
-    "jpg",
-    "jpeg",
-    "svg",
-    "gif",
-    "png",
-]
-"""
-Allowed image file extensions for images. This is used in plugin form with
-image field for validation and also for allowed formats in ``media_thumb``
-template tag (smart format).
-
-Note that image field validation is naively based on file extension, not on
-the real image format so this could be tricked.
-
-You should accord this list with setting ``SMART_FORMAT_AVAILABLE_FORMATS``.
-"""
-
 BLOCKS_MODEL_TRUNCATION_LENGTH = 4
 """
 Word length limit for model string representation truncation.

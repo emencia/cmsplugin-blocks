@@ -10,6 +10,9 @@ Version 1.3.2 - Unreleased
 * Added logo from SVG Repo;
 * Improved Makefile;
 * Removed remaining usage of ``os.path`` module in profit of ``pathlib``;
+* Removed setting ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS`` in profit of django-smart-media
+  setting ``SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS``. You can safely remove the first one
+  from your settings;
 * Internal allowed plugin names in Features have been renamed and a data migration is
   in charge to automatically update your data. However this won't work for your
   previously exported dumps, you will need to rename these names your in your dumps
@@ -28,7 +31,13 @@ Version 1.3.2 - Unreleased
 
     * The old method ``get_features()`` has been renamed to a property
       ``flat_features`` with the same behavior (a simple string with ordered
-      classnames without any duplicate classname);
+      classnames without any duplicate classname): ::
+
+        >>> foo = Card(...)
+        >>> foo.save()
+        >>> foo.flat_features
+        "bar foo ping"
+
     * A new property ``scoped_features`` has been introduced, it return a dict indexed
       on scopes: ::
 

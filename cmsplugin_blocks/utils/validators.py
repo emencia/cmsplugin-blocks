@@ -18,7 +18,7 @@ def is_valid_image_filename(filename):
     """
     ext = filename.split(".")[-1]
 
-    if ext.lower() in settings.BLOCKS_ALLOWED_IMAGE_EXTENSIONS:
+    if ext.lower() in settings.SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS:
         return True
 
     return False
