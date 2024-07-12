@@ -15,6 +15,8 @@ Version 1.3.2 - Unreleased
   setting ``SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS``. You can safely remove the first one
   from your settings;
 * Moved documentation Django settings into sandbox;
+* Fixed warnings about ``django.core.files.storage.get_storage_class()`` for
+  Django>=5.0;
 * Update PO catalogs for new translation strings;
 * Internal allowed plugin names in Features have been renamed and a data migration is
   in charge to automatically update your data. However this won't work for your

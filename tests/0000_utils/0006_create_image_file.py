@@ -3,7 +3,18 @@ from pathlib import Path
 
 from PIL import Image
 
-from django.core.files.storage import get_storage_class
+try:
+    # Attempt to check for Django>=5.0 behavior
+    from django.core.files.storage import storages  # noqa: F401,F403
+except ImportError:
+    # Fallback to Django<=4.2 behavior
+    from django.core.files.storage import get_storage_class
+    DEFAULT_STORAGE = get_storage_class()()
+else:
+    # Result for Django>=5.0
+    from django.conf import settings
+    from django.utils.module_loading import import_string
+    DEFAULT_STORAGE = import_string(settings.DEFAULT_FILE_STORAGE)()
 
 from cmsplugin_blocks.utils.factories import create_image_file
 
@@ -13,16 +24,14 @@ def test_create_image_file_basic():
     Basic usage without arguments should succeed with a created file as
     expected from default argument values.
     """
-    storage = get_storage_class()()
-
     image = create_image_file()
 
     destination = Path("pil") / image.name
 
     assert image.name == "blue.png"
 
-    storage.save(destination, image)
-    saved = storage.path(destination)
+    DEFAULT_STORAGE.save(destination, image)
+    saved = DEFAULT_STORAGE.path(destination)
 
     assert Path(saved).exists() is True
 
@@ -44,8 +53,6 @@ def test_create_image_file_args():
     """
     Should succeed with a created file as expected from given arguments.
     """
-    storage = get_storage_class()()
-
     image = create_image_file(
         filename="foo.red",
         size=(200, 200),
@@ -57,8 +64,8 @@ def test_create_image_file_args():
 
     assert image.name == "foo.red"
 
-    storage.save(destination, image)
-    saved = storage.path(destination)
+    DEFAULT_STORAGE.save(destination, image)
+    saved = DEFAULT_STORAGE.path(destination)
 
     assert Path(saved).exists() is True
 
@@ -80,8 +87,6 @@ def test_create_image_file_jpg():
     """
     Created image should be in the required format from argument.
     """
-    storage = get_storage_class()()
-
     image = create_image_file(
         format_name="JPEG"
     )
@@ -90,8 +95,8 @@ def test_create_image_file_jpg():
 
     assert image.name == "blue.jpg"
 
-    storage.save(destination, image)
-    saved = storage.path(destination)
+    DEFAULT_STORAGE.save(destination, image)
+    saved = DEFAULT_STORAGE.path(destination)
 
     assert Path(saved).exists() is True
 
@@ -107,8 +112,6 @@ def test_create_image_file_gif():
     """
     Created image should be in the required format from argument.
     """
-    storage = get_storage_class()()
-
     image = create_image_file(
         format_name="GIF"
     )
@@ -117,8 +120,8 @@ def test_create_image_file_gif():
 
     assert image.name == "blue.gif"
 
-    storage.save(destination, image)
-    saved = storage.path(destination)
+    DEFAULT_STORAGE.save(destination, image)
+    saved = DEFAULT_STORAGE.path(destination)
 
     assert Path(saved).exists() is True
 
@@ -134,8 +137,6 @@ def test_create_image_file_svg():
     """
     SVG format should create a dummy SVG file.
     """
-    storage = get_storage_class()()
-
     image = create_image_file(
         format_name="SVG",
         color="green",
@@ -146,8 +147,8 @@ def test_create_image_file_svg():
 
     assert image.name == "green.svg"
 
-    storage.save(destination, image)
-    saved = storage.path(destination)
+    DEFAULT_STORAGE.save(destination, image)
+    saved = DEFAULT_STORAGE.path(destination)
 
     assert Path(saved).exists() is True
 
