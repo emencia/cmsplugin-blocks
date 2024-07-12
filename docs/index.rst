@@ -2,17 +2,19 @@
 .. include:: ../README.rst
 
 
-User’s Guide
-************
+Contents
+********
 
 .. toctree::
    :maxdepth: 2
 
    install.rst
-   plugins/index.rst
+   settings.rst
+   overview.rst
+   references/index.rst
 
 
-Developer’s Guide
+About the project
 *****************
 
 .. toctree::

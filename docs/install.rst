@@ -35,7 +35,7 @@ Add it to your installed Django apps in settings : ::
     * If your project use ``easy_thumbnails``, you will have to put Sorl and SmartMedia
       before it, see `SmartMedia configuration documentation <https://django-smart-media.readthedocs.io/en/latest/install.html#configuration>`_.
 
-Then import the default settings: ::
+Then import the default :ref:`settings_intro`: ::
 
     from smart_media.settings import *
     from cmsplugin_blocks.defaults import *
@@ -43,35 +43,4 @@ Then import the default settings: ::
 You may not import these defaults but you will have to define them all in your project
 settings.
 
-.. Note::
-
-    Instead, if your project use
-    `django-configuration <https://django-configurations.readthedocs.io/en/stable/>`_,
-    your settings class can inherits from
-    ``from cmsplugin_blocks.contrib.django_configuration import CmsBlocksDefaultSettings``
-    and the settings class from SmartMedia see
-    `SmartMedia configuration documentation <https://django-smart-media.readthedocs.io/en/latest/install.html#configuration>`_.
-
 Finally you will have to apply database migrations.
-
-
-Settings
-********
-
-These are the default settings you can override in your project settings.
-
-.. automodule:: cmsplugin_blocks.defaults
-   :members:
-
-About CKEditor settings
-***********************
-
-``djangocms-text-ckeditor`` get configurations from
-``CKEDITOR_SETTINGS["toolbar_HTMLField"]`` when used from external plugin but
-use ``CKEDITOR_SETTINGS["toolbar_CMS"]`` for internal plugin like its basic
-TextPlugin.
-
-You will have to copy ``toolbar_CMS`` config to ``toolbar_HTMLField`` if
-you want to share the same configuration for every plugins: ::
-
-    CKEDITOR_SETTINGS["toolbar_HTMLField"] = CKEDITOR_SETTINGS["toolbar_CMS"]

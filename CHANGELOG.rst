@@ -8,11 +8,13 @@ Version 1.3.2 - Unreleased
 
 * Updated documentation to a new theme;
 * Added logo from SVG Repo;
+* Restructured and improved documentation;
 * Improved Makefile;
 * Removed remaining usage of ``os.path`` module in profit of ``pathlib``;
 * Removed setting ``BLOCKS_ALLOWED_IMAGE_EXTENSIONS`` in profit of django-smart-media
   setting ``SMARTIMAGE_ALLOWED_IMAGE_EXTENSIONS``. You can safely remove the first one
   from your settings;
+* Moved documentation Django settings into sandbox;
 * Update PO catalogs for new translation strings;
 * Internal allowed plugin names in Features have been renamed and a data migration is
   in charge to automatically update your data. However this won't work for your
@@ -28,19 +30,19 @@ Version 1.3.2 - Unreleased
   Also remember than since v1.3.1 the names ``AlbumItem`` and ``SliderItem`` are no
   longer valid.
 
-* Refactored feature getters:
+* **Refactored feature getters:**
 
-    * The old method ``get_features()`` has been renamed to a property
-      ``flat_features`` with the same behavior (a simple string with ordered
-      classnames without any duplicate classname): ::
+  * The old method ``get_features()`` has been renamed to a property
+    ``flat_features`` with the same behavior (a simple string with ordered
+    classnames without any duplicate classname): ::
 
         >>> foo = Card(...)
         >>> foo.save()
         >>> foo.flat_features
         "bar foo ping"
 
-    * A new property ``scoped_features`` has been introduced, it return a dict indexed
-      on scopes: ::
+  * A new property ``scoped_features`` has been introduced, it return a dict indexed
+    on scopes: ::
 
         >>> foo = Card(...)
         >>> foo.save()
@@ -51,9 +53,9 @@ Version 1.3.2 - Unreleased
             "extra": ["foo", "ping"],
         }
 
-    * Getters now enforce scope and plugins filtering so you should never have
-      "orphan feature" (like when you change the scope of a feature to ``extra`` but it
-      was already used in ``Card.size_features``);
+  * Getters now enforce scope and plugins filtering so you should never have
+    "orphan feature" (like when you change the scope of a feature to ``extra`` but it
+    was already used in ``Card.size_features``) returned from getters;
 
 
 Version 1.3.1 - 2024/09/08

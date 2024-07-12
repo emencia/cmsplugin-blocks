@@ -17,7 +17,7 @@ import sys
 
 # Settings file required by Django
 sys.path.append(os.path.join(os.path.dirname(__file__), "."))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sandbox.settings.documentation")
 
 
 # Setup Django

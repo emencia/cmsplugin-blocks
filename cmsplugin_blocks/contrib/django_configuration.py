@@ -1,3 +1,24 @@
+"""
+`django-configuration <https://django-configurations.readthedocs.io/>`_ class that you
+can use in your project to load application default settings.
+
+You just have to inherit from it in your settings class: ::
+
+    from configurations import Configuration
+    from cmsplugin_blocks.contrib.django_configuration import CmsBlocksDefaultSettings
+
+    class Dev(CmsBlocksDefaultSettings, Configuration):
+        DEBUG = True
+
+        BLOCKS_ENABLED_PLUGINS = [
+            "CardPlugin",
+            "ContainerPlugin",
+        ]
+
+This will override only the setting ``BLOCKS_ENABLED_PLUGINS``, all other
+application settings will have the default values from
+``cmsplugin_blocks.defaults``.
+"""
 from ..defaults import (
     BLOCKS_ENABLED_PLUGINS,
     BLOCKS_KNOWED_FEATURES_PLUGINS,
@@ -16,26 +37,7 @@ from ..defaults import (
 class CmsBlocksDefaultSettings:
     """
     Default application settings class to use with a "django-configuration" class.
-
-    Example:
-
-        You just have to inherit from it in your settings class: ::
-
-            from configurations import Configuration
-            from cmsplugin_blocks.contrib.django_configuration import CmsBlocksDefaultSettings
-
-            class Dev(CmsBlocksDefaultSettings, Configuration):
-                DEBUG = True
-
-                BLOCKS_ENABLED_PLUGINS = [
-                    "CardPlugin",
-                    "ContainerPlugin",
-                ]
-
-        This will override only the setting ``BLOCKS_ENABLED_PLUGINS``, all other
-        application settings will have the default values from
-        ``cmsplugin_blocks.defaults``.
-    """  # noqa: E501
+    """
 
     BLOCKS_ENABLED_PLUGINS = BLOCKS_ENABLED_PLUGINS
 

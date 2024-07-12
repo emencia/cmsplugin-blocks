@@ -10,43 +10,22 @@ Emencia DjangoCMS blocks
 
 A set of DjangoCMS plugins for structured contents in CMS pages.
 
-The goal is to make rich page contents with less involved HTML than directly using
-CKeditor. There is a plugin to implement common layout components and each one has its
-own fields (title, image, content, link, etc..), they will be used in templates to
-the build component parts.
-
-All plugin have a template field and possible CSS feature classes to select, so you can
-make multiple component layout variants. You will define these available templates and
-CSS feature classes from your settings.
-
-Plugins only supply plugin backend parts, there is no shipped frontend part like CSS or
-Javascript in this package.
-
-
 Features
 ********
 
 * Many plugins to implement some common layout components;
-
-  * Album;
-  * Card;
-  * Container;
-  * Hero;
-  * Slider;
-
 * Album can be filled from a ZIP with images;
-* Included image thumbnailing;
-* SVG soft support in image fields;
-* Full test coverage;
+* Included usage of `django-smart-media`_ for thumbnailing with SVG soft support;
 * Included class for default settings with `django-configuration`_ (this is optional);
+* Full test coverage;
 
 
-Dependancies
+Dependencies
 ************
 
 * Python>=3.8;
 * Django>=3.2;
-* `DjangoCMS`_>=3.11.0;
+* `DjangoCMS`_>=3.11.0,<4.0;
 * `djangocms-text-ckeditor`_>=5.0.1;
 * `django-smart-media`_>=0.3.0;
 
