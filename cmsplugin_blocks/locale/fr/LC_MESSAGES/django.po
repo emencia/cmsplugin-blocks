@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 20:11+0000\n"
+"POT-Creation-Date: 2024-08-07 10:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin/album.py:17 models/album.py:153 models/card.py:51
-#: models/container.py:55 models/hero.py:40 models/slider.py:135
-msgid "Image"
-msgstr ""
+#: admin/accordion.py:17 defaults.py:50 models/accordion.py:112
+#: plugins/accordion.py:18
+msgid "Accordion"
+msgstr "Accordéon"
 
-#: admin/slider.py:17
-msgid "Slide"
-msgstr "Slider"
-
-#: admin/slider.py:32 models/card.py:73 models/container.py:77
-#: models/hero.py:62 models/slider.py:157 plugins/album.py:38
+#: admin/accordion.py:32 admin/slider.py:32 models/accordion.py:159
+#: models/card.py:73 models/container.py:77 models/hero.py:62
+#: models/slider.py:157 plugins/accordion.py:36 plugins/album.py:38
 #: plugins/card.py:31 plugins/container.py:32 plugins/hero.py:31
 #: plugins/slider.py:36
 msgid "Content"
 msgstr "Contenu"
 
-#: admin/slider.py:43 plugins/album.py:43 plugins/card.py:38
-#: plugins/container.py:39 plugins/hero.py:37
+#: admin/accordion.py:39 admin/slider.py:43 plugins/album.py:43
+#: plugins/card.py:38 plugins/container.py:39 plugins/hero.py:37
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
-#: defaults.py:43 models/album.py:119 plugins/album.py:20
+#: admin/album.py:17 models/accordion.py:137 models/album.py:153
+#: models/card.py:51 models/container.py:55 models/hero.py:40
+#: models/slider.py:135
+msgid "Image"
+msgstr "Image"
+
+#: admin/slider.py:17
+msgid "Slide"
+msgstr "Slider"
+
+#: defaults.py:45 models/album.py:119 plugins/album.py:20
 msgid "Album"
 msgstr ""
 
-#: defaults.py:44 models/card.py:133 plugins/card.py:14
+#: defaults.py:46 models/card.py:133 plugins/card.py:14
 msgid "Card"
 msgstr ""
 
-#: defaults.py:45 models/hero.py:117 plugins/hero.py:14
+#: defaults.py:47 models/hero.py:117 plugins/hero.py:14
 msgid "Hero"
 msgstr ""
 
-#: defaults.py:46 models/container.py:132 plugins/container.py:14
+#: defaults.py:48 models/container.py:132 plugins/container.py:14
 msgid "Container"
 msgstr "Conteneur"
 
-#: defaults.py:47 models/slider.py:110 plugins/slider.py:18
+#: defaults.py:49 models/slider.py:110 plugins/slider.py:18
 msgid "Slider"
 msgstr ""
 
@@ -99,47 +106,65 @@ msgstr "L'élément 'items' doit être du type 'list'"
 msgid "Some item are invalid: {}"
 msgstr "Quelques éléments sont invalides: {}"
 
-#: models/album.py:40 models/album.py:134 models/card.py:28
-#: models/container.py:32 models/slider.py:31 models/slider.py:125
+#: models/accordion.py:33 models/accordion.py:127 models/album.py:40
+#: models/album.py:134 models/card.py:28 models/container.py:32
+#: models/slider.py:31 models/slider.py:125
 msgid "Title"
 msgstr "Titre"
 
-#: models/album.py:50 models/card.py:38 models/container.py:42
-#: models/hero.py:27 models/slider.py:41
+#: models/accordion.py:43 models/album.py:50 models/card.py:38
+#: models/container.py:42 models/hero.py:27 models/slider.py:41
 msgid "Template"
 msgstr "Gabarits"
+
+#: models/accordion.py:48 models/card.py:43 models/container.py:47
+#: models/hero.py:32 models/slider.py:46
+msgid "Used template for content look."
+msgstr "Gabarit HTML spécifique pour la mise en forme."
+
+#: models/accordion.py:57 models/album.py:64 models/card.py:101
+#: models/container.py:87 models/hero.py:72 models/slider.py:55
+msgid "size features"
+msgstr "fonctionnalités de taille"
+
+#: models/accordion.py:68 models/album.py:75 models/card.py:112
+#: models/container.py:98 models/hero.py:83 models/slider.py:66
+msgid "color features"
+msgstr "fonctionnalités de couleur"
+
+#: models/accordion.py:79 models/album.py:86 models/card.py:123
+#: models/container.py:109 models/hero.py:94 models/slider.py:77
+msgid "extra features"
+msgstr "fonctionnalités diverses"
+
+#: models/accordion.py:113
+msgid "Accordions"
+msgstr "Accordéons"
+
+#: models/accordion.py:149 models/album.py:165 models/card.py:63
+#: models/container.py:67 models/hero.py:52 models/slider.py:147
+msgid "Alternative image text"
+msgstr "Texte alternatif d'image"
+
+#: models/accordion.py:168 models/album.py:144 models/slider.py:166
+msgid "Order"
+msgstr "Ordre"
+
+#: models/accordion.py:186
+msgid "Accordion item"
+msgstr "Élément d'accordéon"
+
+#: models/accordion.py:187
+msgid "Accordion items"
+msgstr "Éléments d'accordéon"
 
 #: models/album.py:55
 msgid "Used template for content formatting."
 msgstr "Gabarit HTML spécifique pour la mise en forme."
 
-#: models/album.py:64 models/card.py:101 models/container.py:87
-#: models/hero.py:72 models/slider.py:55
-msgid "size features"
-msgstr "fonctionnalités de taille"
-
-#: models/album.py:75 models/card.py:112 models/container.py:98
-#: models/hero.py:83 models/slider.py:66
-msgid "color features"
-msgstr "fonctionnalités de couleur"
-
-#: models/album.py:86 models/card.py:123 models/container.py:109
-#: models/hero.py:94 models/slider.py:77
-msgid "extra features"
-msgstr "fonctionnalités diverses"
-
 #: models/album.py:120
 msgid "Albums"
 msgstr ""
-
-#: models/album.py:144 models/slider.py:166
-msgid "Order"
-msgstr "Ordre"
-
-#: models/album.py:165 models/card.py:63 models/container.py:67
-#: models/hero.py:52 models/slider.py:147
-msgid "Alternative image text"
-msgstr "Texte alternatif d'image"
 
 #: models/album.py:184
 msgid "Album item"
@@ -148,11 +173,6 @@ msgstr "Élément d'album"
 #: models/album.py:185
 msgid "Album items"
 msgstr "Éléments de l'album"
-
-#: models/card.py:43 models/container.py:47 models/hero.py:32
-#: models/slider.py:46
-msgid "Used template for content look."
-msgstr "Gabarit HTML spécifique pour la mise en forme."
 
 #: models/card.py:82
 msgid "Link url"
@@ -238,13 +258,13 @@ msgstr "Élément d'un slider"
 msgid "Slide items"
 msgstr "Éléments de sliders"
 
-#: plugins/album.py:19 plugins/card.py:13 plugins/container.py:13
-#: plugins/hero.py:13 plugins/slider.py:17
+#: plugins/accordion.py:17 plugins/album.py:19 plugins/card.py:13
+#: plugins/container.py:13 plugins/hero.py:13 plugins/slider.py:17
 msgid "Blocks"
 msgstr "Blocs"
 
-#: plugins/album.py:52 plugins/card.py:51 plugins/container.py:48
-#: plugins/hero.py:46 plugins/slider.py:45
+#: plugins/accordion.py:45 plugins/album.py:52 plugins/card.py:51
+#: plugins/container.py:48 plugins/hero.py:46 plugins/slider.py:45
 msgid "Features"
 msgstr "Fonctionnalités d'apparence"
 
@@ -295,7 +315,8 @@ msgstr "{count} éléments ont été créés"
 #: views/feature.py:106
 #, python-brace-format
 msgid "{count} items have been ignored from scopes ({scopes})"
-msgstr "{count} éléments ont été ignorés par l'exclusion des périmètres ({scopes})"
+msgstr ""
+"{count} éléments ont été ignorés par l'exclusion des périmètres ({scopes})"
 
 #: views/feature.py:107
 #, python-brace-format

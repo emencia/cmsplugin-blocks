@@ -14,3 +14,4 @@ References
    slider.rst
    feature.rst
    contrib.rst
+   accordion.rst

@@ -3,13 +3,13 @@ django-cms==3.11.6
 django-smart-media==0.3.1
 djangocms-text-ckeditor==5.1.5
 factory-boy==3.3.0
-flake8==7.1.0
+flake8==7.1.1
 furo==2023.7.26
 livereload==2.7.0
 pyquery==2.0.0
-pytest==8.2.2
+pytest==8.3.2
 pytest-django==4.8.0
-Sphinx==7.3.7
+Sphinx==7.4.7
 sphinx-copybutton==0.5.2
-tox==4.16.0
+tox==4.17.0
 twine==5.1.1
