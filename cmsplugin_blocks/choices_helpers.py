@@ -56,3 +56,11 @@ def get_feature_plugin_choices():
 
 def get_feature_plugin_default():
     return settings.BLOCKS_FEATURE_PLUGINS[0][0]
+
+
+def get_accordion_template_choices():
+    return settings.BLOCKS_ACCORDION_TEMPLATES
+
+
+def get_accordion_template_default():
+    return settings.BLOCKS_ACCORDION_TEMPLATES[0][0]

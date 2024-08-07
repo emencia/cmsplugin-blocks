@@ -18,6 +18,8 @@ DISKETTE_DEFINITIONS = [
                 "cmsplugin_blocks.Slider",
                 "cmsplugin_blocks.SlideItem",
                 "cmsplugin_blocks.Feature",
+                "cmsplugin_blocks.Accordion",
+                "cmsplugin_blocks.AccordionItem",
             ]
         }
     ],

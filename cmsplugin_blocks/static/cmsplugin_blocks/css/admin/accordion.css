@@ -1,0 +1,95 @@
+#accordion_form .form-row {
+  box-sizing: border-box;
+}
+
+#accordion_form .form-row *,
+#accordion_form .form-row ::before,
+#accordion_form .form-row ::after {
+  box-sizing: inherit;
+}
+
+#accordion_form #accordion_item-group .inline-related {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+#accordion_form #accordion_item-group .inline-related h3 {
+  background: #e0e0e0;
+}
+
+#accordion_form fieldset h2 {
+  text-transform: uppercase;
+}
+
+#accordion_form fieldset .form-row td {
+  padding: 0.9375rem 0.625rem !important;
+  vertical-align: middle !important;
+}
+
+#accordion_form fieldset .form-row.field-image, #accordion_form fieldset .form-row.field-link_name {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#accordion_form fieldset .form-row.field-image > div:not(.fieldBox), #accordion_form fieldset .form-row.field-link_name > div:not(.fieldBox) {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+#accordion_form fieldset .form-row.field-image .fieldBox, #accordion_form fieldset .form-row.field-link_name .fieldBox {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  max-width: 100%;
+  width: auto;
+  margin: 0;
+  float: none;
+  border: 0;
+}
+
+@media (max-width: 639px) {
+  #accordion_form fieldset .form-row.field-image .fieldBox, #accordion_form fieldset .form-row.field-link_name .fieldBox {
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  #accordion_form fieldset .form-row.field-image .fieldBox, #accordion_form fieldset .form-row.field-link_name .fieldBox {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 50%;
+    max-width: 50%;
+    padding: 0 0.2rem;
+  }
+  #accordion_form fieldset .form-row.field-image .fieldBox:first-child, #accordion_form fieldset .form-row.field-link_name .fieldBox:first-child {
+    padding-left: 0;
+  }
+  #accordion_form fieldset .form-row.field-image .fieldBox:last-child, #accordion_form fieldset .form-row.field-link_name .fieldBox:last-child {
+    padding-right: 0;
+  }
+  #accordion_form fieldset .form-row.field-image .fieldBox .vTextField,
+#accordion_form fieldset .form-row.field-image .fieldBox select, #accordion_form fieldset .form-row.field-link_name .fieldBox .vTextField,
+#accordion_form fieldset .form-row.field-link_name .fieldBox select {
+    max-width: 99% !important;
+  }
+}
+
+#accordion_form fieldset .form-row.field-image .fieldBox .help, #accordion_form fieldset .form-row.field-link_name .fieldBox .help {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#accordion_form fieldset .field-title input {
+  width: 100% !important;
+}
+
+#accordion_form fieldset .add-row a {
+  text-transform: uppercase;
+}
+
+#accordion_form fieldset .inline-deletelink {
+  width: auto;
+  height: auto;
+  float: none;
+}

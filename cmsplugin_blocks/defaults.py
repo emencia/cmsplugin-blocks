@@ -7,6 +7,7 @@ BLOCKS_ENABLED_PLUGINS = [
     "ContainerPlugin",
     "HeroPlugin",
     "SliderPlugin",
+    "AccordionPlugin",
 ]
 """
 Enabled plugins to register. Unregistered plugin models are still created but
@@ -20,6 +21,7 @@ BLOCKS_KNOWED_FEATURES_PLUGINS = [
     "Hero",
     "Container",
     "Slider",
+    "Accordion"
 ]
 """
 List of knowed plugin names where to enable features.
@@ -45,6 +47,7 @@ BLOCKS_FEATURE_PLUGINS = [
     ("Hero", _("Hero")),
     ("Container", _("Container")),
     ("Slider", _("Slider")),
+    ("Accordion", _("Accordion")),
 ]
 """
 Available plugins to allow on Features.
@@ -83,6 +86,13 @@ BLOCKS_SLIDER_TEMPLATES = [
 ]
 """
 Available template choices to render a Slider object and its items.
+"""
+
+BLOCKS_ACCORDION_TEMPLATES = [
+    ("cmsplugin_blocks/accordion/default.html", "Default"),
+]
+"""
+Available template choices to render a Accordion object and its items.
 """
 
 BLOCKS_MODEL_TRUNCATION_LENGTH = 4
