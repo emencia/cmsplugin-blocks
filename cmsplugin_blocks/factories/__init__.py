@@ -1,3 +1,4 @@
+from .accordion import AccordionFactory, AccordionItemFactory
 from .album import AlbumFactory, AlbumItemFactory
 from .card import CardFactory
 from .container import ContainerFactory
@@ -17,4 +18,6 @@ __all__ = [
     "SliderFactory",
     "SlideItemFactory",
     "UserFactory",
+    "AccordionFactory",
+    "AccordionItemFactory"
 ]

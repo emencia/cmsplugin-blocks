@@ -60,6 +60,16 @@ BLOCKS_SLIDERITEM_FEATURES = [
     ("bar", "Bar"),
 ]
 
+BLOCKS_ACCORDION_FEATURES = [
+    ("foo", "Foo"),
+    ("bar", "Bar"),
+]
+
+BLOCKS_ACCORDIONITEM_FEATURES = [
+    ("foo", "Foo"),
+    ("bar", "Bar"),
+]
+
 # Add required template for test at the top at the list (so they are the
 # default ones picked up by tests)
 BLOCKS_ALBUM_TEMPLATES = [
@@ -81,3 +91,7 @@ BLOCKS_HERO_TEMPLATES = [
 BLOCKS_SLIDER_TEMPLATES = [
     ("cmsplugin_blocks/slider/test.html", "Test"),
 ] + BLOCKS_SLIDER_TEMPLATES  # noqa: F405
+
+BLOCKS_ACCORDION_TEMPLATES = [
+    ("cmsplugin_blocks/accordion/test.html", "Test"),
+] + BLOCKS_ACCORDION_TEMPLATES  # noqa: F405

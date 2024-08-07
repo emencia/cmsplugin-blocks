@@ -1,0 +1,53 @@
+{% load i18n smart_image %}{% spaceless %}
+    {% with features=instance.flat_features %}
+        <div class="slider mb-4">
+            <h2 class="slider__title border-bottom border-3 text-center mb-3">{{ instance.title }}</h2>
+
+            <div id="slider-{{ instance.title }}"
+                class="carousel carousel-dark mb-4 slide{% if features %} {{ features }}{% endif %}"
+                data-bs-ride="carousel">
+                <div class="carousel-indicators bg-light p-2" style="--bs-bg-opacity: .7;">
+                    {% for item in slides %}
+                        <button type="button"
+                                data-bs-target="#slider-{{ instance.id }}"
+                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                {% if forloop.first %} class="active" aria-current="true"{% endif %}
+                                aria-label="{{ item.title }}"></button>
+                    {% endfor %}
+                </div>
+
+                {% for item in slides %}
+                <div class="carousel-inner">
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                        {% media_thumb item.image "1200x400" as thumb %}
+                        <img src="{{ thumb.url }}" class="d-block w-100" alt="{{ item.image_alt }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="bg-light p-2" style="--bs-bg-opacity: .5;">{{ item.title }}</h5>
+                            {% if item.content %}
+                                <div class="slider__item-content">{{ item.content|safe }}</div>
+                            {% endif %}
+
+                            {% if item.link_url %}
+                                <p class="slider__item-link">
+                                    <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="_blank"{% endif %}>
+                                        {% if item.link_name %}{{ item.link_name }}{% else %}{% trans "Read more" %}{% endif %}
+                                    </a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#slider-{{ instance.id }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#slider-{{ instance.id }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    {% endwith %}
+{% endspaceless %}
