@@ -24,7 +24,7 @@ class AccordionForm(forms.ModelForm):
 
     class Media:
         css = {
-            "all": ("cmsplugin_blocks/css/admin/slider.css",),
+            "all": ("cmsplugin_blocks/css/admin/accordion.css",),
         }
 
 
