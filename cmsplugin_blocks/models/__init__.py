@@ -1,5 +1,6 @@
 from .album import Album, AlbumItem
 from .card import Card
+from .accordion import Accordion, AccordionItem
 from .container import Container
 from .feature import Feature
 from .hero import Hero
@@ -15,4 +16,6 @@ __all__ = [
     "Hero",
     "Slider",
     "SlideItem",
+    "Accordion",
+    "AccordionItem"
 ]

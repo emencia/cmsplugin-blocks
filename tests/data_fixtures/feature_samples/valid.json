@@ -11,7 +11,8 @@
                 "Card",
                 "Container",
                 "Hero",
-                "Slider"
+                "Slider",
+                "Accordion"
             ]
         },
         {

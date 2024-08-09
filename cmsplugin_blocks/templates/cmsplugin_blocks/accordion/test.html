@@ -1,0 +1,20 @@
+{% load i18n smart_image %}{% spaceless %}
+    {% with features=instance.flat_features %}
+        <div class="accordion{% if features %} {{ features }}{% endif %}">
+            <p class="accordion__title">{{ instance.title }}</p>
+
+            <div class="accordion__items">
+                {% for item in slides %}
+                    {% media_thumb item.image "1200x400" as thumb %}
+                    <div class="accordion__item"
+                        style="background-image: url({{ thumb.url }})">
+                        <p class="accordion__item-title">{{ item.title }}</p>
+                        {% if item.content %}
+                            <div class="accordion__item-content">{{ item.content|safe }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endwith %}
+{% endspaceless %}
