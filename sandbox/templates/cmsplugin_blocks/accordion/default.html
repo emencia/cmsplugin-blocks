@@ -1,0 +1,54 @@
+{% load i18n smart_image %}{% spaceless %}
+<div class="
+ {% for i in instance.scoped_features.size %} {% if parent_type == 'grid' %}g-{% endif %}{{i}}{% endfor%}
+ {% for i in instance.scoped_features.color %}{{i}} {% endfor%}
+ {% for i in instance.scoped_features.extra %}{{i}} {% endfor%}
+">
+{% if instance.title %}
+<div class="container__title"><h3 >{{ instance.title }}</h3></div>
+{% endif %}
+
+    {% with features=instance.flat_features %}
+    <div class="accordion" id="#{{ instance.title|slugify }}_id">
+
+        {% for item in slides %}
+        <div class="accordion-item">
+
+            <div class="accordion-header">
+                <h4 class="">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{ instance.title|slugify }}{{forloop.counter}}" aria-expanded="true" aria-controls="{{ instance.title|slugify }}{{forloop.counter}}">
+                {{ item.title }}
+                </button>
+                </h4>
+            </div>
+            <div id="{{ instance.title|slugify }}{{forloop.counter}}" class="accordion-collapse collapse show" data-bs-parent="#{{ instance.title|slugify }}_id">
+
+                    <div class="accordion-body">
+                        {% media_thumb item.image "1200x400" as thumb %}
+                        <img src="{{ thumb.url }}" class="d-block w-100" alt="{{ item.image_alt }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="bg-light p-2" style="--bs-bg-opacity: .5;">{{ item.title }}</h5>
+                            {% if item.content %}
+                                <div class="slider__item-content">{{ item.content|safe }}</div>
+                            {% endif %}
+
+                            {% if item.link_url %}
+                                <p class="slider__item-link">
+                                    <a href="{{ item.link_url }}" class="button"{% if item.link_open_blank %} target="_blank"{% endif %}>
+                                        {% if item.link_name %}{{ item.link_name }}{% else %}{% trans "Read more" %}{% endif %}
+                                    </a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+
+    
+    </div>
+    {% endwith %}
+
+</div>
+{% endspaceless %}
