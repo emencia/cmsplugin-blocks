@@ -2,12 +2,12 @@ from django.utils.translation import gettext_lazy as _
 
 
 BLOCKS_ENABLED_PLUGINS = [
+    "AccordionPlugin",
     "AlbumPlugin",
     "CardPlugin",
     "ContainerPlugin",
     "HeroPlugin",
     "SliderPlugin",
-    "AccordionPlugin",
 ]
 """
 Enabled plugins to register. Unregistered plugin models are still created but
@@ -16,12 +16,12 @@ plugins even with existing data, however existing plugin in pages will still be 
 """
 
 BLOCKS_KNOWED_FEATURES_PLUGINS = [
+    "Accordion"
     "Album",
     "Card",
-    "Hero",
     "Container",
+    "Hero",
     "Slider",
-    "Accordion"
 ]
 """
 List of knowed plugin names where to enable features.
@@ -42,15 +42,22 @@ matched with a part of another key. Like ``Slider`` could match ``Slider`` or
 """
 
 BLOCKS_FEATURE_PLUGINS = [
+    ("Accordion", _("Accordion")),
     ("Album", _("Album")),
     ("Card", _("Card")),
-    ("Hero", _("Hero")),
     ("Container", _("Container")),
+    ("Hero", _("Hero")),
     ("Slider", _("Slider")),
-    ("Accordion", _("Accordion")),
 ]
 """
 Available plugins to allow on Features.
+"""
+
+BLOCKS_ACCORDION_TEMPLATES = [
+    ("cmsplugin_blocks/accordion/default.html", "Default"),
+]
+"""
+Available template choices to render a Accordion object and its items.
 """
 
 BLOCKS_ALBUM_TEMPLATES = [
@@ -86,13 +93,6 @@ BLOCKS_SLIDER_TEMPLATES = [
 ]
 """
 Available template choices to render a Slider object and its items.
-"""
-
-BLOCKS_ACCORDION_TEMPLATES = [
-    ("cmsplugin_blocks/accordion/default.html", "Default"),
-]
-"""
-Available template choices to render a Accordion object and its items.
 """
 
 BLOCKS_MODEL_TRUNCATION_LENGTH = 4

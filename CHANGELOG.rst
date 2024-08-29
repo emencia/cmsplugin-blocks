@@ -3,7 +3,13 @@
 Changelog
 =========
 
-Version 1.3.2 - Unreleased
+Version 1.4.0 - Unreleased
+--------------------------
+
+* Added Accordion plugin;
+
+
+Version 1.3.2 - 2024/07/12
 --------------------------
 
 * Updated documentation to a new theme;
@@ -60,7 +66,7 @@ Version 1.3.2 - Unreleased
     was already used in ``Card.size_features``) returned from getters;
 
 
-Version 1.3.1 - 2024/09/08
+Version 1.3.1 - 2024/07/09
 --------------------------
 
 This finalize transition to the new Feature system.
