@@ -17,9 +17,9 @@
                     </h3>
 
                     <div id="accordion-{{ instance.id }}-{{  item.id }}-body"
-                        class="accordion-collapse collapse {% comment %}show{% endcomment %}"
+                        class="accordion-collapse collapse{% if item.opened %} show{% endif %}"
                         aria-labelledby="accordion-{{ instance.id }}-{{  item.id }}-heading"
-                        data-bs-parent="#accordion-{{ instance.id }}">
+                        {% if not instance.keep_open %}data-bs-parent="#accordion-{{ instance.id }}"{% endif %}>
                         <div class="accordion-body">
                             <div class="row">
                                 {% if item.image %}

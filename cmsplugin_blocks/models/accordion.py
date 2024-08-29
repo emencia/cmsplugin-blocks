@@ -52,6 +52,18 @@ class Accordion(FeatureMixinModel, CMSPlugin):
     ``BLOCKS_ACCORDION_TEMPLATES``. Default to the first choice item.
     """
 
+    keep_open = models.BooleanField(
+        _("Keep items opened"),
+        default=False,
+        help_text=_(
+            "When enabled, the already opened items are not closed when opening other "
+            "items. On defaut, once an item is opened all other items are closed."
+        ),
+    )
+    """
+    Checkbox to enable "keep items opened" behavior.
+    """
+
     size_features = models.ManyToManyField(
         "cmsplugin_blocks.Feature",
         verbose_name=_("size features"),
@@ -170,6 +182,18 @@ class AccordionItem(SmartFormatMixin, models.Model):
     )
     """
     Number for order position in item list.
+    """
+
+    opened = models.BooleanField(
+        _("Initially opened"),
+        default=False,
+        help_text=_(
+            "On default all accordion item are closed and need to be opened manually."
+            "This option enables this item to be initially opened."
+        ),
+    )
+    """
+    Checkbox to initially open item.
     """
 
     def __str__(self):

@@ -31,6 +31,7 @@ class AccordionPlugin(SmartAdminMixin, CMSPluginBase):
             (None, {
                 "fields": (
                     "template",
+                    "keep_open",
                 ),
             }),
             (_("Content"), {

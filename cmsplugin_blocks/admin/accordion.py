@@ -39,6 +39,7 @@ class AccordionItemAdmin(admin.StackedInline):
             (_("Options"), {
                 "fields": (
                     "order",
+                    "opened",
                     "image_alt",
                 ),
             }),

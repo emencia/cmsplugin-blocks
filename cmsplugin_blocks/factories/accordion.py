@@ -13,6 +13,7 @@ class AccordionFactory(factory.django.DjangoModelFactory):
     """
     template = get_accordion_template_default()
     title = factory.Faker("text", max_nb_chars=20)
+    keep_open = False
 
     class Meta:
         model = Accordion
@@ -88,6 +89,7 @@ class AccordionItemFactory(factory.django.DjangoModelFactory):
     content = factory.Faker("text", max_nb_chars=42)
     order = factory.Sequence(lambda n: 10 * n)
     image_alt = factory.Faker("text", max_nb_chars=10)
+    opened = False
 
     class Meta:
         model = AccordionItem

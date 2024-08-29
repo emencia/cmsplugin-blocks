@@ -16,7 +16,7 @@ plugins even with existing data, however existing plugin in pages will still be 
 """
 
 BLOCKS_KNOWED_FEATURES_PLUGINS = [
-    "Accordion"
+    "Accordion",
     "Album",
     "Card",
     "Container",

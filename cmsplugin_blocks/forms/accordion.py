@@ -12,6 +12,7 @@ class AccordionForm(forms.ModelForm):
         fields = [
             "title",
             "template",
+            "keep_open",
             "size_features",
             "color_features",
             "extra_features",
@@ -35,6 +36,7 @@ class AccordionItemForm(forms.ModelForm):
         fields = [
             "accordion",
             "title",
+            "opened",
             "order",
             "image",
             "image_alt",

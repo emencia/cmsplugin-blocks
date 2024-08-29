@@ -6,7 +6,8 @@ Changelog
 Version 1.4.0 - Unreleased
 --------------------------
 
-* Added Accordion plugin;
+* Added new plugin *Accordion*;
+* Disabled annoying Carousel autoplay in Slider template for sandbox;
 
 
 Version 1.3.2 - 2024/07/12
