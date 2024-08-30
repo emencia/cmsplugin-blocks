@@ -3,7 +3,7 @@
 Changelog
 =========
 
-Version 1.4.0 - Unreleased
+Version 1.4.0 - 2024/08/30
 --------------------------
 
 * Added new plugin *Accordion*;
