@@ -47,10 +47,10 @@ To reach the administration you may need a super user: ::
     make superuser
 
 
-Unittests
----------
+Application tests
+-----------------
 
-Unittests are made to works on `Pytest`_, a shortcut in Makefile is available
+Tests are developed with `Pytest`_, a shortcut in Makefile is available
 to start them on your current development install: ::
 
     make test
@@ -91,6 +91,52 @@ And go on ``http://localhost:8002/`` or your server machine IP with port 8002.
 
 Note that you need to build the documentation at least once before using
 ``livedocs``.
+
+
+Repository workflow
+-------------------
+
+Branch ``master`` is always the last released state. You never develop directly on it
+and only merge release once validated and released.
+
+All of your work need to start from a branch aligned on branch ``development`` which
+is where we merge validated work for on going version until released.
+
+Once release is done and merged in master, a new branch dedicated to the version need
+to be also created, like for the ``2.33.0`` branch you will create also a ``v2.33.0``
+branch. The version branches are never to be updated, they are only for version
+history.
+
+A contributor would start like this: ::
+
+    git clone REPOSITORY
+    git checkout development origin/development
+    git checkout -b my_new_feature
+    # ..Then implement your feature..
+    git commit -a -m "[NEW] Added new feature X"
+    git push origin my_new_feature
+
+At this point contributor need to open a pull request for its feature branch.
+
+Finally a project maintainer would pull the new branch and continue for releasing: ::
+
+    # Merge validated new feature branch into development
+    git checkout development
+    git merge my_new_feature
+    # ..Bump version and update Changelog
+    git commit -a -m "[NEW] (vX.x.x) Release"
+    git push origin development
+    # Finally merge new release into master
+    git checkout master
+    git merge development
+    git tag -a X.x.x COMMIT-HASH
+    git push --tags origin master
+    # Create the version branch
+    git checkout -b vX.x.x
+    git push origin vX.x.x
+
+
+Where ``X.x.x`` is dummy sample of a new version.
 
 
 Releasing

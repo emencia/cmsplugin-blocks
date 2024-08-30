@@ -7,6 +7,7 @@ References
 .. toctree::
    :maxdepth: 2
 
+   accordion.rst
    album.rst
    card.rst
    container.rst
@@ -14,4 +15,3 @@ References
    slider.rst
    feature.rst
    contrib.rst
-   accordion.rst

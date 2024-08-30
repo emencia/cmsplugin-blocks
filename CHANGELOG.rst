@@ -8,6 +8,10 @@ Version 1.4.0 - Unreleased
 
 * Added new plugin *Accordion*;
 * Disabled annoying Carousel autoplay in Slider template for sandbox;
+* Relaxed versions for requirements ``furo`` and ``sphinx-copybutton``;
+* Restricted Django requirement version to ``<5.1``, since DjangoCMS 3 is not
+  compatible with Django>=5.1 and for now this application is not yet planned to
+  support DjangoCMS 4;
 
 
 Version 1.3.2 - 2024/07/12
