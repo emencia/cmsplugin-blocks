@@ -3,7 +3,7 @@
 Changelog
 =========
 
-Version 1.5.0 - Unreleased
+Version 1.5.0 - 2024/09/03
 --------------------------
 
 Removed SmartMedia purge signals from every model since it is not compatible with
