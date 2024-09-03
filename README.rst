@@ -13,10 +13,18 @@ A set of DjangoCMS plugins for structured contents in CMS pages.
 Features
 ********
 
-* Many plugins to implement some common layout components;
+* Multiple plugins to implement some common layout components:
+
+  * Accordion;
+  * Album;
+  * Card;
+  * Container;
+  * Hero;
+  * Slider;
+
 * Album can be filled from a ZIP with images;
 * Included usage of `django-smart-media`_ for thumbnailing with SVG soft support;
-* Included class for default settings with `django-configuration`_ (this is optional);
+* Included class for default settings with `django-configuration`_ (optional);
 * Full test coverage;
 
 
@@ -24,7 +32,7 @@ Dependencies
 ************
 
 * Python>=3.8;
-* Django>=3.2;
+* Django>=3.2,<5.1;
 * `DjangoCMS`_>=3.11.0,<4.0;
 * `djangocms-text-ckeditor`_>=5.0.1;
 * `django-smart-media`_>=0.3.0;

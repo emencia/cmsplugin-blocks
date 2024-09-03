@@ -1,4 +1,4 @@
-# Frozen requirement versions from '1.4.0' installation
+# Frozen requirement versions from '1.5.0' installation
 Django==5.0.8
 django-cms==3.11.6
 django-smart-media==0.3.1

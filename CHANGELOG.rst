@@ -3,6 +3,14 @@
 Changelog
 =========
 
+Version 1.5.0 - Unreleased
+--------------------------
+
+Removed SmartMedia purge signals from every model since it is not compatible with
+DjangoCMS plugin system and caused erratic issues of lost media files. **You will
+have to manage purge yourself if neeeded**.
+
+
 Version 1.4.0 - 2024/08/30
 --------------------------
 

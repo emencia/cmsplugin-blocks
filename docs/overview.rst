@@ -1,3 +1,5 @@
+.. _django-smart-media: https://github.com/sveetch/django-smart-media
+
 .. _overview_intro:
 
 ========
@@ -23,9 +25,8 @@ you will probably have to edit them all to fit to your layout.
 Images
 ******
 
-All image field are using django-smart-media library to add some minor features like
-upload file preview, soft SVG support, thumbnail and automatic purge of stale file when
-image field is changed.
+All image field are using `django-smart-media`_ library to add some minor features like
+upload file preview, soft SVG support and thumbnail (using Sorl thumbnail engine).
 
 
 Frontend
@@ -42,22 +43,22 @@ Bootstrap 5 for demonstration purpose.
 Features
 ********
 
-Basically a feature is CSS class name to add onto a plugin.
+Basically a feature is CSS class name to add on a plugin.
 
 All plugin have layout features on three different scopes: size, color and extra. The
 first is dedicated to CSS class names for size definitions (commonly for grid cells).
 The second is for colors (like font color, background color, border color, etc..). And
 the third is for everything else that does not fit the first ones.
 
-Also a feature defines the plugins allowed to use the feature. A feature not allowed
-for the Card plugin won't be available to select in the card features.
+Also a feature defines the plugins allowed to use the feature. Like a feature that is
+not  allowed for the Card plugin won't be available to select in the card features.
 
 .. Warning::
-    There is currently nothing to check about feature usage when you are changing its
+    Currently there is no automatic check about feature usage when you are changing its
     scope or allowed plugins. This means you can remove the Card plugin from allowed
     plugins but the Card plugins that were already using before will still have it.
 
-    However, feature getter properties filter out features that are out of scope or
+    However, feature property getter filters out features that are out of scope or
     allowed plugins.
 
     Until you save again those plugins using filtered out features, their stale feature
