@@ -38,11 +38,17 @@ class AccordionRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         accordion_items = dom.find(".accordion__item")
         assert len(accordion_items) == 0
 
-    def test_single_full_item(self):
+    def test_single_full_item_default(self):
+        self._test_single_full_item({})
+
+    def test_single_full_item_with_title(self):
+        self._test_single_full_item({"title": "this is an @ccordion title"})
+
+    def _test_single_full_item(self, accordion_params):
         """
         Full single item should build all HTML parts
         """
-        accordion = AccordionFactory.create()
+        accordion = AccordionFactory.create(**accordion_params)
         item = AccordionItemFactory.create(accordion=accordion)
 
         placeholder, model_instance, context, html = self.create_basic_render(
@@ -55,9 +61,10 @@ class AccordionRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         dom = html_pyquery(html)
 
         # Check title
-        accordion_title = dom.find(".accordion__title")
-        assert len(accordion_title) == 1
-        assert accordion_title[0].text.strip() == accordion.title
+        if accordion.title:
+            accordion_title = dom.find(".accordion__title")
+            assert len(accordion_title) == 1
+            assert accordion_title[0].text.strip() == accordion.title
 
         # Item image and title
         accordion_item = dom.find(".accordion__item")[0]

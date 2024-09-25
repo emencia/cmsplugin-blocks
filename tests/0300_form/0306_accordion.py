@@ -13,9 +13,8 @@ def test_accordion_empty(db, client, settings):
     form = AccordionForm({})
 
     assert form.is_valid() is False
-    assert "title" in form.errors
     assert "template" in form.errors
-    assert len(form.errors) == 2
+    assert len(form.errors) == 1
 
 
 def test_item_empty(db, client, settings):

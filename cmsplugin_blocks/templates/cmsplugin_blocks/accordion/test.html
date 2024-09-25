@@ -1,7 +1,7 @@
 {% load i18n smart_image %}{% spaceless %}
     {% with features=instance.flat_features %}
         <div class="accordion{% if features %} {{ features }}{% endif %}">
-            <p class="accordion__title">{{ instance.title }}</p>
+            {% if instance.title %}<p class="accordion__title">{{ instance.title }}</p>{% endif %}
 
             <div class="accordion__items{% if instance.keep_open %} accordion__items--keepopen{% endif %}">
                 {% for item in slides %}

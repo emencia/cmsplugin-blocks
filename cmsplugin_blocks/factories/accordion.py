@@ -12,7 +12,6 @@ class AccordionFactory(factory.django.DjangoModelFactory):
     Factory to create instance of a Accordion.
     """
     template = get_accordion_template_default()
-    title = factory.Faker("text", max_nb_chars=20)
     keep_open = False
 
     class Meta:

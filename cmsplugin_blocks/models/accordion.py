@@ -29,7 +29,7 @@ class Accordion(FeatureMixinModel, CMSPlugin):
     """
     title = models.CharField(
         _("Title"),
-        blank=False,
+        blank=True,
         max_length=150,
         default="",
     )
@@ -96,7 +96,7 @@ class Accordion(FeatureMixinModel, CMSPlugin):
     """
 
     def __str__(self):
-        return Truncator(strip_tags(self.title)).words(
+        return Truncator(strip_tags(self.title or str(self.pk))).words(
             settings.BLOCKS_MODEL_TRUNCATION_LENGTH,
             truncate=settings.BLOCKS_MODEL_TRUNCATION_CHR
         )

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:50+0000\n"
+"POT-Creation-Date: 2024-09-25 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/cmsplugin_blocks/accordion/default.html:33
-#: templates/cmsplugin_blocks/slider/default.html:33
+#: templates/cmsplugin_blocks/slider/default.html:32
 msgid "Read more"
 msgstr "En savoir plus"
 
