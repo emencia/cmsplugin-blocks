@@ -1,15 +1,21 @@
-# Frozen requirement versions from '1.5.0' installation
-Django==5.0.8
+# Frozen requirement versions for 'cmsplugin-blocks==1.5.1' installation
+django==5.0.8
 django-cms==3.11.6
-django-smart-media==0.3.1
 djangocms-text-ckeditor==5.1.5
-flake8==7.1.1
-furo==2024.8.6
-livereload==2.7.0
-pyquery==2.0.0
+django-smart-media==0.3.1
+# From extra requirements 'dev'
 pytest==8.3.2
 pytest-django==4.8.0
-Sphinx==8.0.2
-sphinx-copybutton==0.5.2
+factory-boy==3.3.1
+pyquery==2.0.0
+# From extra requirements 'quality'
+flake8==7.1.1
 tox==4.18.0
+# From extra requirements 'doc'
+sphinx==8.0.2
+furo==2024.8.6
+sphinx-copybutton==0.5.2
+# From extra requirements 'doc-live'
+livereload==2.7.0
+# From extra requirements 'release'
 twine==5.1.1
