@@ -18,6 +18,7 @@ Version 1.5.1 - 2024/09/30
 * Updated script to freeze local dependencies;
 * Finally removed Django version restriction and added support for Django 5.1 since
   DjangoCMS won't officially support it but it still basically works;
+* Added minimal requirement versions to help Pip resolving;
 
 
 Version 1.5.0 - 2024/09/03
