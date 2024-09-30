@@ -16,6 +16,8 @@ Version 1.5.1 - 2024/09/30
   will have to remove these created migrations from your package installation and clean
   your migration history.
 * Updated script to freeze local dependencies;
+* Finally removed Django version restriction and added support for Django 5.1 since
+  DjangoCMS won't officially support it but it still basically works;
 
 
 Version 1.5.0 - 2024/09/03

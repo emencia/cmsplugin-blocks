@@ -32,7 +32,7 @@ Dependencies
 ************
 
 * Python>=3.8;
-* Django>=3.2,<5.1;
+* Django>=3.2,<5.2;
 * `DjangoCMS`_>=3.11.0,<4.0;
 * `djangocms-text-ckeditor`_>=5.0.1;
 * `django-smart-media`_>=0.3.0;
