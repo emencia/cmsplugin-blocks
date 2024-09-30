@@ -3,6 +3,20 @@
 Changelog
 =========
 
+Version 1.5.1 - 2024/09/30
+--------------------------
+
+Fixed migrations 0008, 0009, 0011 and 0012 that were still using harcoded choices. This
+was an issue for projects that were changing value of settings
+``BLOCKS_ACCORDION_TEMPLATES`` and ``BLOCKS_FEATURE_PLUGINS``, Django would detect
+pending useless migrations from this package.
+
+This is safe to upgrade except if you blindly followed the Django warning and created
+then applied these pending automatic migrations, which you should never do. If so, you
+will have to remove these created migrations from your package installation and clean
+your migration history.
+
+
 Version 1.5.0 - 2024/09/03
 --------------------------
 

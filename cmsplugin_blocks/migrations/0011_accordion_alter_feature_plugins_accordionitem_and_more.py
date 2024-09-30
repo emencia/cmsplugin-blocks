@@ -2,6 +2,11 @@
 
 import cmsplugin_blocks.modelfields
 import cmsplugin_blocks.models.mixins
+from cmsplugin_blocks.choices_helpers import (
+    get_accordion_template_choices,
+    get_accordion_template_default,
+    get_feature_plugin_choices,
+)
 from django.db import migrations, models
 import django.db.models.deletion
 import smart_media.mixins
@@ -21,7 +26,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('cmsplugin_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, related_name='%(app_label)s_%(class)s', serialize=False, to='cms.cmsplugin')),
                 ('title', models.CharField(default='', max_length=150, verbose_name='Title')),
-                ('template', models.CharField(choices=[('cmsplugin_blocks/accordion/default.html', 'Default')], default='cmsplugin_blocks/accordion/default.html', help_text='Used template for content look.', max_length=150, verbose_name='Template')),
+                ('template', models.CharField(choices=get_accordion_template_choices(), default=get_accordion_template_default(), help_text='Used template for content look.', max_length=150, verbose_name='Template')),
             ],
             options={
                 'verbose_name': 'Accordion',
@@ -32,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='feature',
             name='plugins',
-            field=cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=[('Album', 'Album'), ('Card', 'Card'), ('Hero', 'Hero'), ('Container', 'Container'), ('Slider', 'Slider'), ('Accordion', 'Accordion')], default='', max_length=50, verbose_name='Allowed for plugins'),
+            field=cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=get_feature_plugin_choices(), default='', max_length=50, verbose_name='Allowed for plugins'),
         ),
         migrations.CreateModel(
             name='AccordionItem',

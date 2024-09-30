@@ -96,20 +96,21 @@ Note that you need to build the documentation at least once before using
 Repository workflow
 -------------------
 
-Branch ``master`` is always the last released state. You never develop directly on it
-and only merge release once validated and released.
+Branch ``master`` is always in the last version release state. You never develop
+directly on it and only merge release once validated and released.
 
-New development always starts from ``development``.
+A new development (feature, fix, etc..) always starts from ``development``.
 
-Each release has its own history branch.
+Each release has its own history branch like ``v1.2.3``.
 
-It is important that ``master`` and ``development`` stay corrected aligned.
+It is important that ``master`` and ``development`` stay correctly aligned.
 
 
 Resume for a contributor
 ........................
 
-#. Start working from a new branch started from last version of branch ``development``;
+#. Start working from a new branch started from the last version of branch
+   ``development``;
 #. Commit and push your work to your branch;
 #. Make a pull request for your branch with target on branch ``development``;
 #. You are done.

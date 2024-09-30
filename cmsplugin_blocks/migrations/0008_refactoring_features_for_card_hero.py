@@ -2,6 +2,7 @@
 
 import cmsplugin_blocks.modelfields
 import cmsplugin_blocks.utils.validators
+from cmsplugin_blocks.choices_helpers import get_feature_plugin_choices
 from django.db import migrations, models
 
 
@@ -19,7 +20,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(default='', max_length=50, verbose_name='title')),
                 ('value', models.CharField(default='', help_text='Valid CSS classname', max_length=100, validators=[cmsplugin_blocks.utils.validators.validate_css_classname], verbose_name='value')),
                 ('scope', models.CharField(choices=[('size', 'Size'), ('color', 'Color'), ('extra', 'Extra')], default='size', help_text='The feature scope.', max_length=50, verbose_name='scope')),
-                ('plugins', cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=[('Album', 'Album'), ('AlbumItem', 'Album item'), ('Card', 'Card'), ('Hero', 'Hero'), ('Container', 'Container'), ('Slider', 'Slider'), ('SliderItem', 'Slider item')], default='', max_length=50, verbose_name='Allowed for plugins')),
+                ('plugins', cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=get_feature_plugin_choices(), default='', max_length=50, verbose_name='Allowed for plugins')),
             ],
             options={
                 'verbose_name': 'Layout feature',
