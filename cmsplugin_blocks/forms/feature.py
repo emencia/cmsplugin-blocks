@@ -35,6 +35,7 @@ class FeatureImportForm(forms.Form):
     Admin form to choose Feature import options.
     """
     scopes = forms.MultipleChoiceField(
+        label=_("Scopes to ignore"),
         required=False,
         choices=Feature.SCOPE_CHOICES,
         widget=forms.CheckboxSelectMultiple,

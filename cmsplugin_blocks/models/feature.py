@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from ..choices_helpers import get_feature_plugin_choices
+from ..choices_helpers import get_feature_plugin_choices, get_value_help_text
 from ..modelfields import CommaSeparatedStringsField
 from ..utils.validators import validate_css_classname
 from ..managers import FeatureManager
@@ -36,7 +36,7 @@ class Feature(models.Model):
         max_length=100,
         default="",
         validators=[validate_css_classname],
-        help_text=_("Valid CSS classname"),
+        help_text=get_value_help_text,
     )
     """
     Number for order position in item list.

@@ -6,11 +6,19 @@ Changelog
 Version 1.5.2 - Unreleased
 --------------------------
 
-* Introduced a new setting ``BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES``. When true it
-  allows whitespace in Feature value so when it is
-  true it can contains multiple CSS classnames like ``cell col-md-12 red``. On default
-  this settings is false so whitespace in value is considered invalid;
-* Uniqueness is now enforced on scopes values from property ``scoped_features``;
+* Introduced a new setting ``BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES``:
+
+  * When true it allows whitespace in Feature value so it can contains multiple CSS
+    classnames divided by a whitespace like ``cell col-md-12 red``;
+  * When false the whitespaces in Feature value are considered invalid;
+  * On default this settings is false so whitespaces in value are considered invalid;
+  * Uniqueness is now enforced on scopes values from property ``scoped_features``;
+  * Importation correctly validate this behavior so you won't be able to import
+    Features including whitespaces if the setting does not allow it;
+  * Exportation does not care about this behavior and will indifferently dump Feature
+    values whether they include whitespace or not;
+
+* Fixed Accordion template in sandbox;
 
 
 Version 1.5.1 - 2024/09/30

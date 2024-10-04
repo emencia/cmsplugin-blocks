@@ -1,42 +1,42 @@
 {% load i18n smart_image %}{% spaceless %}
-<div class="accordion-container mb-4{% if features %} {{ features }}{% endif %}">
-    {% if instance.title %}
-        <h2 class="border-bottom border-3 text-center mb-3">{{ instance.title }}</h2>
-    {% endif %}
-
     {% with features=instance.flat_features %}
-        <div class="accordion" id="accordion-{{ instance.id }}">
-            {% for item in slides %}
-                <div class="accordion-item">
-                    <h3 class="accordion-header" id="accordion-{{ instance.id }}-{{  item.id }}-heading">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#accordion-{{ instance.id }}-{{  item.id }}-body" aria-expanded="true"
-                                aria-controls="accordion-{{ instance.id }}-{{  item.id }}-body">
-                            {{ item.title }}
-                        </button>
-                    </h3>
+        <div class="accordion-container mb-4{% if features %} {{ features }}{% endif %}">
+            {% if instance.title %}
+                <h2 class="border-bottom border-3 text-center mb-3">{{ instance.title }}</h2>
+            {% endif %}
 
-                    <div id="accordion-{{ instance.id }}-{{  item.id }}-body"
-                        class="accordion-collapse collapse{% if item.opened %} show{% endif %}"
-                        aria-labelledby="accordion-{{ instance.id }}-{{  item.id }}-heading"
-                        {% if not instance.keep_open %}data-bs-parent="#accordion-{{ instance.id }}"{% endif %}>
-                        <div class="accordion-body">
-                            <div class="row">
-                                {% if item.image %}
-                                <div class="col-3">
-                                    {% media_thumb item.image "200x200" as thumb %}
-                                    <img src="{{ thumb.url }}" class="img-thumbnail" alt="{{ item.image_alt }}">
+                <div class="accordion" id="accordion-{{ instance.id }}">
+                    {% for item in slides %}
+                        <div class="accordion-item">
+                            <h3 class="accordion-header" id="accordion-{{ instance.id }}-{{  item.id }}-heading">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#accordion-{{ instance.id }}-{{  item.id }}-body" aria-expanded="true"
+                                        aria-controls="accordion-{{ instance.id }}-{{  item.id }}-body">
+                                    {{ item.title }}
+                                </button>
+                            </h3>
+
+                            <div id="accordion-{{ instance.id }}-{{  item.id }}-body"
+                                class="accordion-collapse collapse{% if item.opened %} show{% endif %}"
+                                aria-labelledby="accordion-{{ instance.id }}-{{  item.id }}-heading"
+                                {% if not instance.keep_open %}data-bs-parent="#accordion-{{ instance.id }}"{% endif %}>
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        {% if item.image %}
+                                        <div class="col-3">
+                                            {% media_thumb item.image "200x200" as thumb %}
+                                            <img src="{{ thumb.url }}" class="img-thumbnail" alt="{{ item.image_alt }}">
+                                        </div>
+                                        {% endif %}
+                                        {% if item.content %}
+                                            <div class="col">{{ item.content|safe }}</div>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                {% endif %}
-                                {% if item.content %}
-                                    <div class="col">{{ item.content|safe }}</div>
-                                {% endif %}
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
         </div>
     {% endwith %}
-</div>
 {% endspaceless %}

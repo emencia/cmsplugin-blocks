@@ -2,7 +2,9 @@
 
 import cmsplugin_blocks.modelfields
 import cmsplugin_blocks.utils.validators
-from cmsplugin_blocks.choices_helpers import get_feature_plugin_choices
+from cmsplugin_blocks.choices_helpers import (
+    get_feature_plugin_choices, get_value_help_text
+)
 from django.db import migrations, models
 
 
@@ -18,7 +20,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='', max_length=50, verbose_name='title')),
-                ('value', models.CharField(default='', help_text='Valid CSS classname', max_length=100, validators=[cmsplugin_blocks.utils.validators.validate_css_classname], verbose_name='value')),
+                ('value', models.CharField(default='', help_text=get_value_help_text, max_length=100, validators=[cmsplugin_blocks.utils.validators.validate_css_classname], verbose_name='value')),
                 ('scope', models.CharField(choices=[('size', 'Size'), ('color', 'Color'), ('extra', 'Extra')], default='size', help_text='The feature scope.', max_length=50, verbose_name='scope')),
                 ('plugins', cmsplugin_blocks.modelfields.CommaSeparatedStringsField(blank=True, choices=get_feature_plugin_choices(), default='', max_length=50, verbose_name='Allowed for plugins')),
             ],
