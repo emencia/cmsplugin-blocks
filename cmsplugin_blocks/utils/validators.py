@@ -118,19 +118,26 @@ def validate_css_classname(value):
         bool: True if valid.
 
     """
+    # TODO: Switch to an another message when whitespace are allowed ?
     msg = _("'%(value)s' is not a valid CSS class name")
 
     if not value:
         raise ValidationError(msg, params={"value": value})
 
-    for i, item in enumerate(value):
-        if i == 0 and item.isdigit():
-            raise ValidationError(msg, params={"value": value})
+    if settings.BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES is True:
+        classnames = value.split(" ")
+    else:
+        classnames = [value]
 
-        if item.isalnum() or item in ["-", "_"]:
-            continue
+    for name in classnames:
+        for i, item in enumerate(name):
+            if i == 0 and item.isdigit():
+                raise ValidationError(msg, params={"value": name})
 
-        raise ValidationError(msg, params={"value": value})
+            if item.isalnum() or item in ["-", "_"]:
+                continue
+
+            raise ValidationError(msg, params={"value": name})
 
     return True
 

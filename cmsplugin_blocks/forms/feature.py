@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ..models import Feature
 from ..choices_helpers import get_feature_plugin_choices
+from ..utils.validators import validate_css_classname
 
 
 class FeatureForm(forms.ModelForm):
@@ -98,7 +99,7 @@ class FeatureImportForm(forms.Form):
                 # Check we have a knowed scope
                 elif feature["scope"] not in [k for k, v in Feature.SCOPE_CHOICES]:
                     error_lines.append(str(i))
-                # Check we have only knowed plugin names
+                # Check we have only well known plugin names
                 elif len([
                     item
                     for item in feature["plugins"]
@@ -108,9 +109,16 @@ class FeatureImportForm(forms.Form):
                 # Check for duplicate title per scope
                 elif feature["title"] in existing_titles[feature["scope"]]:
                     error_lines.append(str(i))
-                # Everything is ok, store title as an existing one for its scope
+                # Almost everything seems ok, finally use value validator before
+                # storing item
                 else:
-                    existing_titles[feature["scope"]].append(feature["title"])
+                    try:
+                        validate_css_classname(feature["value"])
+                    except ValidationError:
+                        error_lines.append(str(i))
+                    # Everything is ok, store title as an existing one for its scope
+                    else:
+                        existing_titles[feature["scope"]].append(feature["title"])
 
             # Raise error in case of any missing or empty items
             if error_lines:

@@ -71,9 +71,7 @@ def test_import_dump_validation_errors(db, settings, tests_settings, dump, expec
     assert is_valid is False
 
     errors = flatten_form_errors(form)
-    assert errors == {
-        "json_file": expected,
-    }
+    assert errors == {"json_file": expected}
 
 
 def test_import_dump_save(db, tests_settings):
@@ -145,3 +143,39 @@ def test_import_dump_scoped_save(db, tests_settings):
     assert len(results["created"]) == 2
     assert results["disallowed_scopes"] == ["size", "color"]
     assert len(results["ignored"]) == 5
+
+
+def test_import_dump_value_whitespaces(db, settings, tests_settings):
+    """
+    TODO
+    Importation should properly manage whitespace validation in Feature 'value' field
+    depending from setting 'BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES'.
+    """
+    settings.LANGUAGE_CODE = "en"
+
+    filepath = tests_settings.fixtures_path / "feature_samples" / "whitespaces.json"
+    dump = SimpleUploadedFile(
+        "dump.json",
+        filepath.read_bytes(),
+        content_type="application/json"
+    )
+
+    # When whitespace are not allowed, the dump will fail on errors
+    settings.BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = False
+    form = FeatureImportForm({}, {"json_file": dump})
+    is_valid = form.is_valid()
+    assert is_valid is False
+    errors = flatten_form_errors(form)
+    assert errors == {"json_file": ["Some item are invalid: 1"]}
+
+    # When whitespace is allowed, the dump will succeed
+    settings.BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = True
+    form = FeatureImportForm({}, {"json_file": dump})
+    is_valid = form.is_valid()
+    assert is_valid is True
+    results = form.save(commit=False)
+    assert len(results["created"]) == 2
+    assert len(results["duplicates"]) == 0
+    assert results["disallowed_scopes"] == []
+    assert len(results["ignored"]) == 0
+    assert Feature.objects.count() == 0

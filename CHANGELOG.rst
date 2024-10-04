@@ -3,6 +3,16 @@
 Changelog
 =========
 
+Version 1.5.2 - Unreleased
+--------------------------
+
+* Introduced a new setting ``BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES``. When true it
+  allows whitespace in Feature value so when it is
+  true it can contains multiple CSS classnames like ``cell col-md-12 red``. On default
+  this settings is false so whitespace in value is considered invalid;
+* Uniqueness is now enforced on scopes values from property ``scoped_features``;
+
+
 Version 1.5.1 - 2024/09/30
 --------------------------
 

@@ -33,11 +33,11 @@ matched with a part of another key. Like ``Slider`` could match ``Slider`` or
 ``SlideItem``.
 
 .. Warning::
-    You should not change this setting since they are used internally. Developpers
+    You should not change this setting since they are used internally. Developers
     that would want to implement features on their own plugins may add them here but
     carefully.
 
-    If you just want to removed some allowed cmsplugin-blocks plugins from features,
+    If you just want to disable some available cmsplugin-blocks plugins from features,
     see ``BLOCKS_FEATURE_PLUGINS``.
 """
 
@@ -51,6 +51,11 @@ BLOCKS_FEATURE_PLUGINS = [
 ]
 """
 Available plugins to allow on Features.
+"""
+
+BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = False
+"""
+TODO:
 """
 
 BLOCKS_ACCORDION_TEMPLATES = [

@@ -1,3 +1,5 @@
+import itertools
+
 from django.utils.functional import cached_property
 
 from .feature import Feature
@@ -124,7 +126,7 @@ class FeatureMixinModel:
         Returns:
             dict: Dictionnary where each key is a scope and associated value is a list
             of string for feature value. Scope without any item is still present but
-            as an empty list.
+            as an empty list. This enforces classnames uniqueness on each scope value.
 
             Example: ::
                 >>> some_object_with_features.scoped_features()
@@ -136,11 +138,16 @@ class FeatureMixinModel:
                 }
         """
         # Join results from queryset unions
-        parts = list(self.query_features)
-
-        # Index values on their scope
+        values = list(self.query_features)
+        # We search for related values for each scope choices
+        # We user itertools.chains to merge list since our comprehensive list produces
+        # list because of 'split()'.
         return {
-            k: sorted([feature["value"] for feature in parts if k == feature["scope"]])
+            k: sorted(set(itertools.chain.from_iterable([
+                feature["value"].split()
+                for feature in values
+                if k == feature["scope"]
+            ])))
             for k, v in Feature.SCOPE_CHOICES
         }
 
@@ -149,7 +156,7 @@ class FeatureMixinModel:
         Merge features items into a single string with a whitespace divider.
 
         Returns:
-            string: Feature items divided by a whitespace. This enforce classnames
+            string: Feature items divided by a whitespace. This enforces classnames
             uniqueness.
 
             Example: ::

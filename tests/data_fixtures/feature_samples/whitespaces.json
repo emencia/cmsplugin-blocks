@@ -1,0 +1,28 @@
+{
+    "version": "1.3.0",
+    "date": "2024-07-05T15:04:21",
+    "items": [
+        {
+            "title": "Responsive tiny cell",
+            "value": "col-12 col-md-6 col-lg-3",
+            "scope": "extra",
+            "plugins": [
+                "Album",
+                "Card",
+                "Container",
+                "Hero",
+                "Slider",
+                "Accordion"
+            ]
+        },
+        {
+            "title": "Full cell",
+            "value": "col-12",
+            "scope": "size",
+            "plugins": [
+                "Card",
+                "Hero"
+            ]
+        }
+    ]
+}

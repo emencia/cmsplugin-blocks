@@ -34,6 +34,17 @@ def test_validate_css_classname_fail(name):
         validate_css_classname(name)
 
 
+def test_validate_css_classname_whitespaces(settings):
+    """
+    A valid CSS class name should be correctly validated.
+    """
+    with pytest.raises(ValidationError):
+        validate_css_classname("foo bar")
+
+    settings.BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = True
+    assert validate_css_classname("foo bar") is True
+
+
 def test_validate_css_classnames_success():
     """
     Every valid CSS class name should be correctly validated.
