@@ -37,19 +37,34 @@ def test_import_empty(db):
     ),
     (
         "some_items_errors.json",
-        ["Some item are invalid: 2, 3, 4"],
+        [
+            "Some dump items are invalid:",
+            "#2 is missing one or more required items",
+            "#3 is missing one or more required items",
+            "#4 is missing one or more required items"
+        ],
     ),
     (
         "not_unique.json",
-        ["Some item are invalid: 2"],
+        [
+            "Some dump items are invalid:",
+            "#2 define a title that already exists"
+        ],
     ),
     (
         "invalid_scopes.json",
-        ["Some item are invalid: 1"],
+        [
+            "Some dump items are invalid:",
+            "#1 define a scope choice that is not enabled"
+        ],
     ),
     (
         "invalid_plugins.json",
-        ["Some item are invalid: 2, 3"],
+        [
+            "Some dump items are invalid:",
+            "#2 define a plugin name that is not enabled",
+            "#3 define a plugin name that is not enabled"
+        ],
     ),
 ])
 def test_import_dump_validation_errors(db, settings, tests_settings, dump, expected):
@@ -71,6 +86,9 @@ def test_import_dump_validation_errors(db, settings, tests_settings, dump, expec
     assert is_valid is False
 
     errors = flatten_form_errors(form)
+    print()
+    print(errors)
+    print()
     assert errors == {"json_file": expected}
 
 
@@ -147,7 +165,6 @@ def test_import_dump_scoped_save(db, tests_settings):
 
 def test_import_dump_value_whitespaces(db, settings, tests_settings):
     """
-    TODO
     Importation should properly manage whitespace validation in Feature 'value' field
     depending from setting 'BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES'.
     """
@@ -166,7 +183,10 @@ def test_import_dump_value_whitespaces(db, settings, tests_settings):
     is_valid = form.is_valid()
     assert is_valid is False
     errors = flatten_form_errors(form)
-    assert errors == {"json_file": ["Some item are invalid: 1"]}
+    assert errors == {"json_file": [
+        "Some dump items are invalid:",
+        "#1 has invalid CSS classname(s)"
+    ]}
 
     # When whitespace is allowed, the dump will succeed
     settings.BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = True
