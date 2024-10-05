@@ -21,6 +21,7 @@ Version 1.5.2 - Unreleased
 * Fixed Accordion template in sandbox;
 * Added more explicit error messages for invalid items in Feature import form;
 * Made some minor improvements on Feature admin;
+* Updated PO and MO files for last Feature changes;
 
 
 Version 1.5.1 - 2024/09/30

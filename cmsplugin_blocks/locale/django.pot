@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:50+0000\n"
+"POT-Creation-Date: 2024-10-05 01:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin/accordion.py:17 defaults.py:50 models/accordion.py:112
+#: admin/accordion.py:17 defaults.py:45 models/accordion.py:122
 #: plugins/accordion.py:18
 msgid "Accordion"
 msgstr ""
 
-#: admin/accordion.py:32 admin/slider.py:32 models/accordion.py:159
-#: models/card.py:73 models/container.py:77 models/hero.py:62
-#: models/slider.py:157 plugins/accordion.py:36 plugins/album.py:38
+#: admin/accordion.py:32 admin/slider.py:32 models/accordion.py:168
+#: models/card.py:71 models/container.py:75 models/hero.py:60
+#: models/slider.py:155 plugins/accordion.py:37 plugins/album.py:38
 #: plugins/card.py:31 plugins/container.py:32 plugins/hero.py:31
 #: plugins/slider.py:36
 msgid "Content"
@@ -35,33 +35,45 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: admin/album.py:17 models/accordion.py:137 models/album.py:153
-#: models/card.py:51 models/container.py:55 models/hero.py:40
-#: models/slider.py:135
+#: admin/album.py:17 models/accordion.py:147 models/album.py:151
+#: models/card.py:49 models/container.py:53 models/hero.py:38
+#: models/slider.py:133
 msgid "Image"
+msgstr ""
+
+#: admin/feature.py:31
+msgid "Allowed plugins"
 msgstr ""
 
 #: admin/slider.py:17
 msgid "Slide"
 msgstr ""
 
-#: defaults.py:45 models/album.py:119 plugins/album.py:20
+#: choices_helpers.py:65
+msgid "A list of valid CSS classnames divided with a whitespace."
+msgstr ""
+
+#: choices_helpers.py:67
+msgid "A valid CSS classname."
+msgstr ""
+
+#: defaults.py:46 models/album.py:117 plugins/album.py:20
 msgid "Album"
 msgstr ""
 
-#: defaults.py:46 models/card.py:133 plugins/card.py:14
+#: defaults.py:47 models/card.py:131 plugins/card.py:14
 msgid "Card"
 msgstr ""
 
-#: defaults.py:47 models/hero.py:117 plugins/hero.py:14
-msgid "Hero"
-msgstr ""
-
-#: defaults.py:48 models/container.py:132 plugins/container.py:14
+#: defaults.py:48 models/container.py:130 plugins/container.py:14
 msgid "Container"
 msgstr ""
 
-#: defaults.py:49 models/slider.py:110 plugins/slider.py:18
+#: defaults.py:49 models/hero.py:115 plugins/hero.py:14
+msgid "Hero"
+msgstr ""
+
+#: defaults.py:50 models/slider.py:108 plugins/slider.py:18
 msgid "Slider"
 msgstr ""
 
@@ -73,121 +85,165 @@ msgstr ""
 msgid "Select a '*.zip' file of images to upload as new items."
 msgstr ""
 
-#: forms/feature.py:41
+#: forms/feature.py:38
+msgid "Scopes to ignore"
+msgstr ""
+
+#: forms/feature.py:43
 msgid ""
 "Selected scopes will be ignored from loaded JSON items and won't be created "
 "as Feature objects."
 msgstr ""
 
-#: forms/feature.py:47
+#: forms/feature.py:49
 msgid "A valid feature JSON file."
 msgstr ""
 
-#: forms/feature.py:68
+#: forms/feature.py:70
 msgid "File is not valid JSON: {}"
 msgstr ""
 
-#: forms/feature.py:73
+#: forms/feature.py:75
 msgid "JSON should be a dictionnary not a: {}"
 msgstr ""
 
-#: forms/feature.py:81
+#: forms/feature.py:83
 msgid "JSON is missing 'items' item for the feature data"
 msgstr ""
 
-#: forms/feature.py:86
+#: forms/feature.py:88
 msgid "Item 'items' must be a list"
 msgstr ""
 
-#: forms/feature.py:118
-msgid "Some item are invalid: {}"
+#: forms/feature.py:99
+msgid "#{} is missing one or more required items"
 msgstr ""
 
-#: models/accordion.py:33 models/accordion.py:127 models/album.py:40
-#: models/album.py:134 models/card.py:28 models/container.py:32
-#: models/slider.py:31 models/slider.py:125
+#: forms/feature.py:102
+msgid "#{} define a scope choice that is not enabled"
+msgstr ""
+
+#: forms/feature.py:109
+msgid "#{} define a plugin name that is not enabled"
+msgstr ""
+
+#: forms/feature.py:112
+msgid "#{} define a title that already exists"
+msgstr ""
+
+#: forms/feature.py:119
+msgid "#{} has invalid CSS classname(s)"
+msgstr ""
+
+#: forms/feature.py:127
+msgid "Some dump items are invalid:"
+msgstr ""
+
+#: models/accordion.py:31 models/accordion.py:137 models/album.py:38
+#: models/album.py:132 models/card.py:26 models/container.py:30
+#: models/slider.py:29 models/slider.py:123
 msgid "Title"
 msgstr ""
 
-#: models/accordion.py:43 models/album.py:50 models/card.py:38
-#: models/container.py:42 models/hero.py:27 models/slider.py:41
+#: models/accordion.py:41 models/album.py:48 models/card.py:36
+#: models/container.py:40 models/hero.py:25 models/slider.py:39
 msgid "Template"
 msgstr ""
 
-#: models/accordion.py:48 models/card.py:43 models/container.py:47
-#: models/hero.py:32 models/slider.py:46
+#: models/accordion.py:46 models/card.py:41 models/container.py:45
+#: models/hero.py:30 models/slider.py:44
 msgid "Used template for content look."
 msgstr ""
 
-#: models/accordion.py:57 models/album.py:64 models/card.py:101
-#: models/container.py:87 models/hero.py:72 models/slider.py:55
+#: models/accordion.py:54
+msgid "Keep items opened"
+msgstr ""
+
+#: models/accordion.py:57
+msgid ""
+"When enabled, the already opened items are not closed when opening other "
+"items. On defaut, once an item is opened all other items are closed."
+msgstr ""
+
+#: models/accordion.py:67 models/album.py:62 models/card.py:99
+#: models/container.py:85 models/hero.py:70 models/slider.py:53
 msgid "size features"
 msgstr ""
 
-#: models/accordion.py:68 models/album.py:75 models/card.py:112
-#: models/container.py:98 models/hero.py:83 models/slider.py:66
+#: models/accordion.py:78 models/album.py:73 models/card.py:110
+#: models/container.py:96 models/hero.py:81 models/slider.py:64
 msgid "color features"
 msgstr ""
 
-#: models/accordion.py:79 models/album.py:86 models/card.py:123
-#: models/container.py:109 models/hero.py:94 models/slider.py:77
+#: models/accordion.py:89 models/album.py:84 models/card.py:121
+#: models/container.py:107 models/hero.py:92 models/slider.py:75
 msgid "extra features"
 msgstr ""
 
-#: models/accordion.py:113
+#: models/accordion.py:123
 msgid "Accordions"
 msgstr ""
 
-#: models/accordion.py:149 models/album.py:165 models/card.py:63
-#: models/container.py:67 models/hero.py:52 models/slider.py:147
+#: models/accordion.py:158 models/album.py:163 models/card.py:61
+#: models/container.py:65 models/hero.py:50 models/slider.py:145
 msgid "Alternative image text"
 msgstr ""
 
-#: models/accordion.py:168 models/album.py:144 models/slider.py:166
+#: models/accordion.py:177 models/album.py:142 models/slider.py:164
 msgid "Order"
 msgstr ""
 
 #: models/accordion.py:186
+msgid "Initially opened"
+msgstr ""
+
+#: models/accordion.py:189
+msgid ""
+"On default all accordion item are closed and need to be opened manually.This "
+"option enables this item to be initially opened."
+msgstr ""
+
+#: models/accordion.py:207
 msgid "Accordion item"
 msgstr ""
 
-#: models/accordion.py:187
+#: models/accordion.py:208
 msgid "Accordion items"
 msgstr ""
 
-#: models/album.py:55
+#: models/album.py:53
 msgid "Used template for content formatting."
 msgstr ""
 
-#: models/album.py:120
+#: models/album.py:118
 msgid "Albums"
 msgstr ""
 
-#: models/album.py:184
+#: models/album.py:182
 msgid "Album item"
 msgstr ""
 
-#: models/album.py:185
+#: models/album.py:183
 msgid "Album items"
 msgstr ""
 
-#: models/card.py:82
+#: models/card.py:80
 msgid "Link url"
 msgstr ""
 
-#: models/card.py:91
+#: models/card.py:89
 msgid "Open in new window"
 msgstr ""
 
-#: models/card.py:93
+#: models/card.py:91
 msgid "If checked the link will be opened in a new window"
 msgstr ""
 
-#: models/card.py:134
+#: models/card.py:132
 msgid "Cards"
 msgstr ""
 
-#: models/container.py:133
+#: models/container.py:131
 msgid "Containers"
 msgstr ""
 
@@ -197,10 +253,6 @@ msgstr ""
 
 #: models/feature.py:35
 msgid "value"
-msgstr ""
-
-#: models/feature.py:39
-msgid "Valid CSS classname"
 msgstr ""
 
 #: models/feature.py:46
@@ -223,35 +275,35 @@ msgstr ""
 msgid "Layout Features"
 msgstr ""
 
-#: models/hero.py:118
+#: models/hero.py:116
 msgid "Heros"
 msgstr ""
 
-#: models/slider.py:111
+#: models/slider.py:109
 msgid "Sliders"
 msgstr ""
 
-#: models/slider.py:175
+#: models/slider.py:173
 msgid "link name"
 msgstr ""
 
-#: models/slider.py:184
+#: models/slider.py:182
 msgid "link url"
 msgstr ""
 
-#: models/slider.py:193
+#: models/slider.py:191
 msgid "open new window"
 msgstr ""
 
-#: models/slider.py:195
+#: models/slider.py:193
 msgid "If checked the link will be open in a new window"
 msgstr ""
 
-#: models/slider.py:211
+#: models/slider.py:209
 msgid "Slide item"
 msgstr ""
 
-#: models/slider.py:212
+#: models/slider.py:210
 msgid "Slide items"
 msgstr ""
 
@@ -260,7 +312,7 @@ msgstr ""
 msgid "Blocks"
 msgstr ""
 
-#: plugins/accordion.py:45 plugins/album.py:52 plugins/card.py:51
+#: plugins/accordion.py:46 plugins/album.py:52 plugins/card.py:51
 #: plugins/container.py:48 plugins/hero.py:46 plugins/slider.py:45
 msgid "Features"
 msgstr ""
@@ -293,7 +345,7 @@ msgstr ""
 msgid "Please keep filesize under {}. Current filesize {}"
 msgstr ""
 
-#: utils/validators.py:121
+#: utils/validators.py:122
 #, python-format
 msgid "'%(value)s' is not a valid CSS class name"
 msgstr ""
