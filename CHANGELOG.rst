@@ -3,7 +3,7 @@
 Changelog
 =========
 
-Version 1.5.2 - Unreleased
+Version 1.5.2 - 2024/10/05
 --------------------------
 
 * Introduced a new setting ``BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES``:
