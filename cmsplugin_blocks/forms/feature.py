@@ -96,27 +96,27 @@ class FeatureImportForm(forms.Form):
                     not feature.get("title", "") or not feature.get("value", "") or
                     not feature.get("scope", "") or not feature.get("plugins", "")
                 ):
-                    error_lines.append(str(i))
+                    error_lines.append(_("#{} is missing one or more required items").format(i))
                 # Check we have a knowed scope
                 elif feature["scope"] not in [k for k, v in Feature.SCOPE_CHOICES]:
-                    error_lines.append(str(i))
+                    error_lines.append(_("#{} define a scope choice that is not enabled").format(i))
                 # Check we have only well known plugin names
                 elif len([
                     item
                     for item in feature["plugins"]
                     if item not in settings.BLOCKS_KNOWED_FEATURES_PLUGINS
                 ]) > 0:
-                    error_lines.append(str(i))
+                    error_lines.append(_("#{} define a plugin name that is not enabled").format(i))
                 # Check for duplicate title per scope
                 elif feature["title"] in existing_titles[feature["scope"]]:
-                    error_lines.append(str(i))
+                    error_lines.append(_("#{} define a title that already exists").format(i))
                 # Almost everything seems ok, finally use value validator before
                 # storing item
                 else:
                     try:
                         validate_css_classname(feature["value"])
                     except ValidationError:
-                        error_lines.append(str(i))
+                        error_lines.append(_("#{} has invalid CSS classname(s)").format(i))
                     # Everything is ok, store title as an existing one for its scope
                     else:
                         existing_titles[feature["scope"]].append(feature["title"])
@@ -124,7 +124,7 @@ class FeatureImportForm(forms.Form):
             # Raise error in case of any missing or empty items
             if error_lines:
                 raise ValidationError(
-                    _("Some item are invalid: {}").format(", ".join(error_lines))
+                    [_("Some dump items are invalid:")] + error_lines
                 )
 
         return payload

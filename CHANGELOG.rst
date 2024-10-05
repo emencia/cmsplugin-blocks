@@ -19,6 +19,8 @@ Version 1.5.2 - Unreleased
     values whether they include whitespace or not;
 
 * Fixed Accordion template in sandbox;
+* Added more explicit error messages for invalid items in Feature import form;
+* Made some minor improvements on Feature admin;
 
 
 Version 1.5.1 - 2024/09/30
