@@ -22,6 +22,7 @@ Version 1.5.2 - Unreleased
 * Added more explicit error messages for invalid items in Feature import form;
 * Made some minor improvements on Feature admin;
 * Updated PO and MO files for last Feature changes;
+* Enabled "todo" extension module in documentation;
 
 
 Version 1.5.1 - 2024/09/30

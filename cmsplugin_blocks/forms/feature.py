@@ -59,7 +59,8 @@ class FeatureImportForm(forms.Form):
         """
         Open file to validate it as JSON and return its content.
 
-        NOTE: This could have been done more robustly with Python library "schema".
+        .. Todo::
+            This could have been done more robustly with Python library "schema".
         """
         data = self.cleaned_data["json_file"]
 
@@ -87,41 +88,52 @@ class FeatureImportForm(forms.Form):
             if not isinstance(payload["items"], list):
                 raise ValidationError(_("Item 'items' must be a list"))
 
+            # Build registry of existing titles
+            existing_titles = {k: [] for k, v in Feature.SCOPE_CHOICES}
+
             # Check for some errors from items
             error_lines = []
-            existing_titles = {k: [] for k, v in Feature.SCOPE_CHOICES}
             for i, feature in enumerate(payload["items"], start=1):
                 # Get missing field or empty values from loaded items
                 if (
                     not feature.get("title", "") or not feature.get("value", "") or
                     not feature.get("scope", "") or not feature.get("plugins", "")
                 ):
-                    error_lines.append(_("#{} is missing one or more required items").format(i))
+                    msg = _("#{} is missing one or more required items")
+                    error_lines.append(msg.format(i))
+
                 # Check we have a knowed scope
                 elif feature["scope"] not in [k for k, v in Feature.SCOPE_CHOICES]:
-                    error_lines.append(_("#{} define a scope choice that is not enabled").format(i))
+                    msg = _("#{} define a scope choice that is not enabled")
+                    error_lines.append(msg.format(i))
+
                 # Check we have only well known plugin names
                 elif len([
                     item
                     for item in feature["plugins"]
                     if item not in settings.BLOCKS_KNOWED_FEATURES_PLUGINS
                 ]) > 0:
-                    error_lines.append(_("#{} define a plugin name that is not enabled").format(i))
+                    msg = _("#{} define a plugin name that is not enabled")
+                    error_lines.append(msg.format(i))
+
                 # Check for duplicate title per scope
                 elif feature["title"] in existing_titles[feature["scope"]]:
-                    error_lines.append(_("#{} define a title that already exists").format(i))
+                    msg = _("#{} define a title that already exists")
+                    error_lines.append(msg.format(i))
+
                 # Almost everything seems ok, finally use value validator before
                 # storing item
                 else:
                     try:
                         validate_css_classname(feature["value"])
                     except ValidationError:
-                        error_lines.append(_("#{} has invalid CSS classname(s)").format(i))
+                        msg = _("#{} has invalid CSS classname(s)")
+                        error_lines.append(msg.format(i))
                     # Everything is ok, store title as an existing one for its scope
                     else:
                         existing_titles[feature["scope"]].append(feature["title"])
 
-            # Raise error in case of any missing or empty items
+            # Raise error in case of any error messages
             if error_lines:
                 raise ValidationError(
                     [_("Some dump items are invalid:")] + error_lines

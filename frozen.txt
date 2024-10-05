@@ -1,4 +1,4 @@
-# Frozen requirement versions for 'cmsplugin-blocks==1.5.2rc1' installation
+# Frozen requirement versions for 'cmsplugin-blocks==1.5.2rc2' installation
 django==5.0.9
 django-cms==3.11.8
 djangocms-text-ckeditor==5.1.6
