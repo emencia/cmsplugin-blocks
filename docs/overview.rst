@@ -45,6 +45,10 @@ Features
 
 Basically a feature is CSS class name to add on a plugin.
 
+.. Hint::
+    You can allow to define multiple class names on each feature with the setting
+    ``BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES`` see :ref:`settings_intro`.
+
 All plugin have layout features on three different scopes: size, color and extra. The
 first is dedicated to CSS class names for size definitions (commonly for grid cells).
 The second is for colors (like font color, background color, border color, etc..). And

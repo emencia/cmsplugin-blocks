@@ -55,7 +55,16 @@ Available plugins to allow on Features.
 
 BLOCKS_FEATURE_ALLOW_MULTIPLE_CLASSES = False
 """
-TODO:
+Options for Feature field ``value`` to allows to input multiple CSS classnames divided
+by a whitespace like: ::
+
+    col col-md-6 col-lg-4
+
+On default, it is false and you are only allowed to a input single CSS class name on
+each Feature field ``value``.
+
+Be aware that you won't be able to import a JSON dump of features from a project which
+does not use the same value of this setting.
 """
 
 BLOCKS_ACCORDION_TEMPLATES = [
