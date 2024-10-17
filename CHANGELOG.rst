@@ -3,7 +3,7 @@
 Changelog
 =========
 
-Version 1.5.2 - Unreleased
+Version 1.5.3 - 2024/10/17
 --------------------------
 
 * Added new optional field ``link_name`` to Card model;
