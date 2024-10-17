@@ -3,6 +3,12 @@
 Changelog
 =========
 
+Version 1.5.2 - Unreleased
+--------------------------
+
+* Added new optional field ``link_name`` to Card model;
+
+
 Version 1.5.2 - 2024/10/05
 --------------------------
 

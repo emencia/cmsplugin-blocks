@@ -3,7 +3,8 @@
         {% if instance.link_url %}
             <a href="{{ instance.link_url }}"
             class="card{% if features %} {{ features }}{% endif %}"
-            {% if instance.link_open_blank %} target="_blank"{% endif %}>
+            {% if instance.link_open_blank %} target="_blank"{% endif %}
+            {% if instance.link_name %} title="{{ instance.link_name }}"{% endif %}>
         {% else %}
             <div class="card{% if features %} {{ features }}{% endif %}">
         {% endif %}

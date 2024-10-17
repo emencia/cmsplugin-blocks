@@ -161,12 +161,15 @@ class CardRenderTestCase(FixturesTestCaseMixin, CMSPluginTestCase):
         placeholder, model_instance, context, html = self.create_basic_render(
             CardPlugin,
             template=card.template,
+            link_name=card.link_name,
             link_url=card.link_url,
             link_open_blank=True,
         )
         dom = html_pyquery(html)
         assert html.strip().startswith("<a") is True
         assert html.strip().endswith("</a>") is True
+
         wrapper = dom.eq(0)
         assert wrapper.attr("href") == card.link_url
         assert wrapper.attr("target") == "_blank"
+        assert wrapper.attr("title") == card.link_name

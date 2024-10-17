@@ -38,6 +38,7 @@ class CardPlugin(SmartAdminMixin, CMSPluginBase):
             (_("Options"), {
                 "fields": (
                     (
+                        "link_name",
                         "link_url",
                         "link_open_blank",
                     ),

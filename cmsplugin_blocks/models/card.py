@@ -1,5 +1,5 @@
 """
-A card component with a title, image, features and content.
+A card component with a title, an image, a link, features and content.
 """
 from django.conf import settings
 from django.db import models
@@ -74,6 +74,15 @@ class Card(SmartFormatMixin, FeatureMixinModel, CMSPlugin):
     )
     """
     Optional long text, it will be editable through CKeditor on plugin form.
+    """
+
+    link_name = models.CharField(
+        _("link name"),
+        blank=True,
+        max_length=45,
+    )
+    """
+    Optional string for link name.
     """
 
     link_url = models.CharField(
