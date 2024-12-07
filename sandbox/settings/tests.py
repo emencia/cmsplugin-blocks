@@ -95,3 +95,10 @@ BLOCKS_HERO_TEMPLATES = [
 BLOCKS_SLIDER_TEMPLATES = [
     ("cmsplugin_blocks/slider/test.html", "Test"),
 ] + BLOCKS_SLIDER_TEMPLATES  # noqa: F405
+
+
+# Import local settings if any
+try:
+    from .local_tests import *  # noqa: F401,F403
+except ImportError:
+    pass

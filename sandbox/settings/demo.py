@@ -18,6 +18,6 @@ DATABASES = {
 
 # Import local settings if any
 try:
-    from .local import *  # noqa: F401,F403
+    from .local_demo import *  # noqa: F401,F403
 except ImportError:
     pass

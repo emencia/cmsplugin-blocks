@@ -3,6 +3,12 @@
 Changelog
 =========
 
+Development
+-----------
+
+* Trying to add DjangoCMS 4 compatibility without losing DjangoCMS 3.
+
+
 Version 1.5.3 - 2024/10/17
 --------------------------
 

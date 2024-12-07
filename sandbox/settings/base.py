@@ -32,6 +32,10 @@ MANAGERS = ADMINS
 
 DATABASES = {}
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
@@ -154,6 +158,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 """
 DjangoCMS configuration
 """
+CMS_CONFIRM_VERSION4 = True
 
 # Admin style need to be put before Django admin
 INSTALLED_APPS[0:0] = [
