@@ -4,6 +4,11 @@ Base Django settings for sandbox
 
 from pathlib import Path
 
+# Determine if we are working with DjangoCMS 4
+from packaging.version import Version
+from cms import __version__
+IS_DJANGO_CMS4 = Version(__version__) >= Version("4")
+
 
 SECRET_KEY = "***TOPSECRET***"
 
@@ -158,7 +163,8 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 """
 DjangoCMS configuration
 """
-CMS_CONFIRM_VERSION4 = True
+# Required since DjangoCMS 4.0
+CMS_CONFIRM_VERSION4 = IS_DJANGO_CMS4
 
 # Admin style need to be put before Django admin
 INSTALLED_APPS[0:0] = [

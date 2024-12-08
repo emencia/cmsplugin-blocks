@@ -6,7 +6,12 @@ Changelog
 Development
 -----------
 
-* Trying to add DjangoCMS 4 compatibility without losing DjangoCMS 3.
+.. Todo::
+    Remove any psyscopg2 reference before commiting.
+
+* Dropped support for Python 3.8;
+* Dropped support for Django 3.2;
+* Added support DjangoCMS>=4.0;
 
 
 Version 1.5.3 - 2024/10/17

@@ -3,21 +3,8 @@ from pathlib import Path
 
 from PIL import Image
 
-try:
-    # Attempt to check for Django>=5.0 behavior
-    from django.core.files.storage import storages  # noqa: F401,F403
-except ImportError:
-    # Fallback to Django<=4.2 behavior
-    from django.core.files.storage import get_storage_class
-    DEFAULT_STORAGE = get_storage_class()()
-else:
-    # Result for Django>=5.0
-    from django.conf import settings
-    from django.utils.module_loading import import_string
-    DEFAULT_STORAGE = import_string(settings.DEFAULT_FILE_STORAGE)()
-
+from cmsplugin_blocks.compat.default_storage import DEFAULT_STORAGE
 from cmsplugin_blocks.utils.factories import create_image_file
-
 
 def test_create_image_file_basic():
     """
