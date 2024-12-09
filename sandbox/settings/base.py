@@ -210,10 +210,10 @@ We safely try to use the one from 'djangocms_text' if available else
 any apps since we fallback to the builtin Django Textarea widget.
 """
 try:
-    import djangocms_text
+    import djangocms_text  # noqa: F401,F403
 except ImportError:
     try:
-        import djangocms_text_ckeditor
+        import djangocms_text_ckeditor  # noqa: F401,F403
     except ImportError:
         pass
     else:

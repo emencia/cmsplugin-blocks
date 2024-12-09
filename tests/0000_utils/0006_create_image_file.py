@@ -6,6 +6,7 @@ from PIL import Image
 from cmsplugin_blocks.compat.default_storage import DEFAULT_STORAGE
 from cmsplugin_blocks.utils.factories import create_image_file
 
+
 def test_create_image_file_basic():
     """
     Basic usage without arguments should succeed with a created file as

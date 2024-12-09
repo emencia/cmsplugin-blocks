@@ -10,6 +10,7 @@ Contents
 
    install.rst
    settings.rst
+   editors.rst
    overview.rst
    references/index.rst
 

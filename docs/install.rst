@@ -20,6 +20,10 @@ Configuration
     `DjangoCMS <https://docs.django-cms.org/en/latest/>`_, this document won't treat
     about it.
 
+    Especially this package don't have requirement for the rich editor but commonly a
+    CMS project is already installing and configure it. However see our support resume
+    in :ref:`editors_intro`.
+
 Add it to your installed Django apps in settings : ::
 
     INSTALLED_APPS = (
