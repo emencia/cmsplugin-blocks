@@ -1,6 +1,7 @@
 .. _DjangoCMS: https://www.django-cms.org/
 .. _sorl-thumbnail: https://github.com/mariocesar/sorl-thumbnail
-.. _djangocms-text-ckeditor: https://github.com/divio/djangocms-text-ckeditor
+.. _djangocms-text: https://github.com/django-cms/djangocms-text
+.. _djangocms-text-ckeditor: https://github.com/django-cms/djangocms-text-ckeditor
 .. _django-smart-media: https://github.com/sveetch/django-smart-media
 .. _django-configuration: https://django-configurations.readthedocs.io/en/stable/
 
@@ -34,8 +35,9 @@ Dependencies
 * Python>=3.8;
 * Django>=3.2,<5.2;
 * `DjangoCMS`_>=3.11.0,<4.0;
-* `djangocms-text-ckeditor`_>=5.0.1;
 * `django-smart-media`_>=0.3.0;
+* Optional `djangocms-text-ckeditor`_>=5.0.1;
+* Optional `djangocms-text`_>=0.3.3;
 
 
 Links

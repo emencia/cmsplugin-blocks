@@ -186,6 +186,10 @@ install-backend:
 	@echo ""
 	@printf "$(FORMATBLUE)$(FORMATBOLD)---> Installing backend requirements <---$(FORMATRESET)\n"
 	@echo ""
+	# Temporary: My SQLite verson is incompatible with DjangoCMS>=4 for now
+	#$(PIP_BIN) install psycopg2
+	# Temporary: My PostgreSQL is incompatible with Django>=5.1 for now
+	#$(PIP_BIN) install 'django>=5.0,<5.1'
 	$(PIP_BIN) install -e .[dev,quality,doc,doc-live,release]
 .PHONY: install
 

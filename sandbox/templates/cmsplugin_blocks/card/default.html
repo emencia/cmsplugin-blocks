@@ -12,7 +12,7 @@
             {% endif %}
 
             {% if instance.content %}
-                <p class="card-text">{{ instance.content|striptags|truncatechars:100 }}</p>
+                <p class="card-text">{{ instance.content|safe }}</p>
             {% endif %}
 
             {% if instance.link_url %}

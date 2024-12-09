@@ -41,7 +41,6 @@ class AbstractCmsAPI:
         Returns:
             string: The URL.
         """
-        print("🎨 get_plugin_add_url:", admin_reverse(self._CMS_PLUGIN_ADD_URL_PATTERN))
         return admin_reverse(self._CMS_PLUGIN_ADD_URL_PATTERN)
 
     def request_plugin_add(self, client, plugin, placeholder, position=1):

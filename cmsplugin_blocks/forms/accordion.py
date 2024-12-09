@@ -1,7 +1,6 @@
 from django import forms
 
-from djangocms_text_ckeditor.widgets import TextEditorWidget
-
+from ..compat.editor_widget import TextEditorWidget
 from ..models.accordion import Accordion, AccordionItem
 
 

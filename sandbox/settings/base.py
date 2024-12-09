@@ -177,7 +177,6 @@ INSTALLED_APPS.extend([
     "treebeard",
     "menus",
     "sekizai",
-    "djangocms_text_ckeditor",
 ])
 
 MIDDLEWARE.extend([
@@ -203,6 +202,31 @@ CMS_TEMPLATES = [
     ("pages/default.html", "Default"),
 ]
 
+"""
+Text editor configuration
+
+We safely try to use the one from 'djangocms_text' if available else
+'djangocms_text_ckeditor' and finally if none of these are available we don't install
+any apps since we fallback to the builtin Django Textarea widget.
+"""
+try:
+    import djangocms_text
+except ImportError:
+    try:
+        import djangocms_text_ckeditor
+    except ImportError:
+        pass
+    else:
+        INSTALLED_APPS.extend([
+            "djangocms_text_ckeditor",
+        ])
+else:
+    INSTALLED_APPS.extend([
+        "djangocms_text",
+        "djangocms_text.contrib.text_ckeditor4",
+    ])
+
+    TEXT_EDITOR = "djangocms_text.contrib.text_ckeditor4.ckeditor4"
 
 """
 Django smart media configuration using its defaults

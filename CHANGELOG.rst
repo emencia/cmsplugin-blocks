@@ -6,12 +6,14 @@ Changelog
 Development
 -----------
 
-.. Todo::
-    Remove any psyscopg2 reference before commiting.
-
 * Dropped support for Python 3.8;
 * Dropped support for Django 3.2;
-* Added support DjangoCMS>=4.0;
+* Added support DjangoCMS>=4.1 (DjangoCMS 4.0 has never been released);
+* Package does not install ``djangocms-text-ckeditor`` anymore but still supports it
+  for now;
+* Added support for ``djangocms-text`` that is the futur of CMS text editor;
+* Make rich editor optional, if none is installed then the plugin still works but use
+  the builtin Textarea widget;
 
 
 Version 1.5.3 - 2024/10/17
