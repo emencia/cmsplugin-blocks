@@ -5,7 +5,7 @@ FRONTEND_DIR=frontend
 SANDBOX_DIR=sandbox
 STATICFILES_DIR=$(SANDBOX_DIR)/static-sources
 
-DJANGO_MANAGE_PATH=$(SANDBOX_DIR)/manage.py
+DJANGO_MANAGE_PATH=manage.py
 
 PYTHON_BIN=$(VENV_PATH)/bin/python
 PIP_BIN=$(VENV_PATH)/bin/pip
@@ -186,11 +186,7 @@ install-backend:
 	@echo ""
 	@printf "$(FORMATBLUE)$(FORMATBOLD)---> Installing backend requirements <---$(FORMATRESET)\n"
 	@echo ""
-	# Temporary: My SQLite verson is incompatible with DjangoCMS>=4 for now
-	#$(PIP_BIN) install psycopg2
-	# Temporary: My PostgreSQL is incompatible with Django>=5.1 for now
-	#$(PIP_BIN) install 'django>=5.0,<5.1'
-	$(PIP_BIN) install -e .[dev,quality,doc,doc-live,release]
+	$(PIP_BIN) install -e .[dev,quality,doc,doc-live,release,sandbox]
 .PHONY: install
 
 install-frontend:

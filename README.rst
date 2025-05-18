@@ -32,9 +32,9 @@ Features
 Dependencies
 ************
 
-* Python>=3.8;
-* Django>=3.2,<5.2;
-* `DjangoCMS`_>=3.11.0,<4.0;
+* Python>=3.9;
+* Django>=4.0;
+* `DjangoCMS`_>=3.11.0;
 * `django-smart-media`_>=0.3.0;
 * Optional `djangocms-text-ckeditor`_>=5.0.1;
 * Optional `djangocms-text`_>=0.3.3;
