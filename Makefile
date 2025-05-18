@@ -194,6 +194,7 @@ install-frontend:
 	@printf "$(FORMATBLUE)$(FORMATBOLD)---> Installing frontend requirements <---$(FORMATRESET)\n"
 	@echo ""
 	cd $(FRONTEND_DIR) && npm install
+	@mkdir -p $(STATICFILES_DIR)/fonts
 	${MAKE} icon-font
 .PHONY: install-frontend
 

@@ -12,8 +12,15 @@ Version 1.7.0 - 2025/05/18
   setuptools versions that changed how *editable* install works (the sandbox was
   missing from PYTHONPATH). This have no impact on package itself, it is just for
   development;
-* Added support for **Django 5.2**;
+* Added support for Django 5.2;
 * Added new extra requirement ``sandbox`` which includes 'djangocms-text';
+* Updated sandbox frontend:
+
+  * Upgraded frontend to Bootstrap 5.3.6 and upgraded other frontend requirements to
+    fit with it;
+  * Removed deprecated 'node-sass' in profit of 'sass-embedded';
+  * Minimal Node.js version upgraded to 18.14.0 (currently test up to 22.15.1);
+  * Minimal NPM version upgraded to 10.0.0 (currently test up to 10.9.2);
 
 
 Version 1.6.0 - 2024/12/09
