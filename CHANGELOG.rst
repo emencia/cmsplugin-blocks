@@ -3,10 +3,13 @@
 Changelog
 =========
 
-Development
------------
+Version 1.7.1 - 2026/01/22
+--------------------------
 
-Todo
+* Fixed editor compatibility layer that was incorrectly trying to use 'djangocms_text'
+  widget even when it was not installed;
+* Upgraded some sandbox frontend requirements to some security issues (only used to
+  build sandbox frontend, there is no consequences with the application itself);
 
 
 Version 1.7.0 - 2025/05/18
