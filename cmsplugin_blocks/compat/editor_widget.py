@@ -16,6 +16,6 @@ except ImportError:
     except ImportError:
         from django.forms import Textarea as TextEditorWidget  # noqa: F401,F403
     else:
-        from djangocms_text.widgets import TextEditorWidget  # noqa: F401,F403
+        from djangocms_text_ckeditor.widgets import TextEditorWidget  # noqa: F401,F403
 else:
     from djangocms_text.widgets import TextEditorWidget  # noqa: F401,F403
