@@ -3,6 +3,22 @@
 Changelog
 =========
 
+Development
+-----------
+
+* Dropped support for Python<3.10;
+* Dropped support for Django<4.2;
+* Dropped support for djangocms<4.1.0;
+* Dropped support for djangocms-text<0.7.0;
+* Dropped support for 'djangocms-text-ckeditor', it may still work but we don't test
+  it anymore;
+* Dropped support for django-smart-media<0.6.0;
+* Added support for Python 3.12 and Python 3.13;
+* Added support for Django 6.0;
+* Changed sandbox configuration to not use anymore 'djangocms-admin-styles', the bare
+  Django admin is enough;
+
+
 Version 1.7.1 - 2026/01/22
 --------------------------
 
