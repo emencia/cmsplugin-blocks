@@ -3,8 +3,8 @@
 Changelog
 =========
 
-Development
------------
+Version 1.8.0 - 2026/03/29
+--------------------------
 
 * Dropped support for Python<3.10;
 * Dropped support for Django<4.2;

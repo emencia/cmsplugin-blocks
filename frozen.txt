@@ -1,19 +1,19 @@
-# Frozen requirement versions for 'cmsplugin-blocks==1.7.1' installation
-django==5.2.10
-django-cms==5.0.5
-django-smart-media==0.5.0
+# Frozen requirement versions for 'cmsplugin-blocks==1.8.0' installation
+django==6.0.3
+django-cms==5.0.6
+django-smart-media==0.6.0
 # From extra requirements 'sandbox'
-djangocms-text==0.9.3
+djangocms-text==0.9.4
 # From extra requirements 'dev'
 pytest==9.0.2
-pytest-django==4.11.1
+pytest-django==4.12.0
 factory-boy==3.3.3
 pyquery==2.0.1
 # From extra requirements 'quality'
 flake8==7.3.0
-tox==4.34.1
+tox==4.51.0
 # From extra requirements 'doc'
-sphinx==8.1.3
+sphinx==9.1.0
 furo==2025.12.19
 sphinx-copybutton==0.5.2
 # From extra requirements 'doc-live'

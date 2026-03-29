@@ -168,13 +168,14 @@ CMS_CONFIRM_VERSION4 = IS_DJANGO_CMS4
 
 # Admin style need to be put before Django admin
 # INSTALLED_APPS[0:0] = [
-    # 'djangocms-admin-style' is deprecated but still a requirement from CMS v5.0.6,
-    # a future release should move it as optional. We disable it because it is not up
-    # to date with Django 6 changes on admin template and have some minor layout issues
-    # "djangocms_admin_style",
-    # This is a good alternative to 'djangocms-admin-style' (not yet included in
-    # requirements)
-    # "djangocms_simple_admin_style",
+#     # 'djangocms-admin-style' is deprecated but still a requirement from CMS v5.0.6,
+#     # a future release should move it as optional. We disable it because it is not up
+#     # to date with Django 6 changes on admin template and have some minor layout
+#     # issues
+#     # "djangocms_admin_style",
+#     # This is a good alternative to 'djangocms-admin-style' (not yet included in
+#     # requirements)
+#     "djangocms_simple_admin_style",
 # ]
 
 INSTALLED_APPS.extend([
